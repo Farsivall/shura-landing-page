@@ -14,19 +14,26 @@ const Index = () => {
       <BackgroundCards />
       <div className="relative z-10">
         <Navbar />
-      <HeroSection />
-      <CTASection />
-      <WhyNowSection />
-      <ProblemSection />
-      <WhoSection />
-      <CostSection />
-      <ToolsFailSection />
-      <IntroducingSection />
-      <StatsSection />
-      <HowItWorksSection />
-      <FeaturesSection />
-      <VisionSection />
-      <Footer />
+        {/* What is Shura? */}
+        <HeroSection />
+        <CTASection />
+        {/* Why is this decision so difficult? */}
+        <WhyNowSection />
+        <ProblemSection />
+        <CostSection />
+        {/* How does Shura reduce uncertainty? */}
+        <IntroducingSection />
+        {/* How does it work? */}
+        <HowItWorksSection />
+        {/* What will I receive? */}
+        <FeaturesSection />
+        <StatsSection />
+        {/* Who benefits? */}
+        <WhoSection />
+        {/* Why not ChatGPT / consultants / spreadsheets? */}
+        <ToolsFailSection />
+        <VisionSection />
+        <Footer />
       </div>
     </div>
   );

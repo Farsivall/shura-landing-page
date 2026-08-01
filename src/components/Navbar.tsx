@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "#problem", label: "Problem" },
-  { href: "#introducing", label: "Introducing Shura" },
+  { href: "#introducing", label: "Solution" },
+  { href: "#how-it-works", label: "Process" },
+  { href: "#features", label: "Outputs" },
   { href: "#who", label: "Who it's for" },
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#features", label: "Features" },
 ];
 
 const Navbar = () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
       <div className="flex h-12 sm:h-14 items-center justify-between rounded-2xl border border-border bg-background/70 px-3 sm:px-4 shadow-lg shadow-black/5 backdrop-blur-xl md:px-6 w-full max-w-5xl min-w-0 md:min-w-[640px]">
         <a href="#" className="flex items-center gap-2 rounded-lg outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring min-h-[44px] min-w-[44px] md:min-w-0 md:min-h-0 flex-shrink-0">
           <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl bg-primary flex items-center justify-center shadow-md">
-            <span className="text-primary-foreground font-bold text-xs sm:text-sm">A</span>
+            <span className="text-primary-foreground font-bold text-xs sm:text-sm">S</span>
           </div>
           <span className="text-base sm:text-lg font-semibold text-foreground">Shura</span>
         </a>

@@ -1,33 +1,36 @@
 import { useState } from "react";
 import { SectionLabel } from "./ProblemSections";
-import { Sparkles, GitBranch, BarChart3, MessageSquare, FileText, Users, ChevronDown } from "lucide-react";
+import { Sparkles, GitBranch, BarChart3, MessageSquare, FileText, ChevronDown, Shield } from "lucide-react";
 import chatVideo from "@/assets/chat.mp4";
 import decisionTreeVideo from "@/assets/decisiontree.mp4";
 import evalVideo from "@/assets/eval.mp4";
+
 const IntroducingSection = () => (
   <section id="introducing" className="py-16 sm:py-24 md:py-32 relative z-10">
     <div className="container min-w-0">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
-          <SectionLabel>Introducing Shura</SectionLabel>
+          <SectionLabel>The solution</SectionLabel>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
-            AI Decision Simulation
+            Reduce uncertainty before you commit
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-4">
-            Shura uses your company’s context and domain-specific knowledge to evaluate a decision through five specialist perspectives simultaneously, then synthesizes the results into structured strategic options.
+            Shura transforms complex project evidence into explainable, multidisciplinary intelligence — so energy developers can stress-test viability and understand trade-offs before capital locks in.
           </p>
         </div>
         <div className="text-center">
-          <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl mx-auto mb-4">
-            The AI recommends; you decide. Create your own branches, explore alternatives, or take the suggested path — the decision is always yours.
-          </p>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-            Shura uncovers risks, surfaces tradeoffs across departments, and shows where the specialists align — so you see the full picture and the consensus in one place.
+            Evaluates engineering, financial and commercial viability from a single evidence base. Surfaces hidden risks. Produces a recommendation you can defend: proceed, restructure, or walk away.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-xl mx-auto">
-            {["Decision summary", "Core tensions", "Three paths forward", "Ranking", "Next steps", "Decision tree"].map((item) => (
-              <div key={item} className="px-4 py-3 rounded-lg border border-border bg-card text-sm text-muted-foreground">
-                {item}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto">
+            {[
+              { title: "Proceed", desc: "Viability supports further investment" },
+              { title: "Restructure", desc: "Path exists — assumptions must change" },
+              { title: "Walk away", desc: "Risk outweighs the opportunity" },
+            ].map((item) => (
+              <div key={item.title} className="px-4 py-4 rounded-lg border border-border bg-card text-left">
+                <p className="text-sm font-semibold text-foreground mb-1">{item.title}</p>
+                <p className="text-xs text-muted-foreground">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -39,19 +42,39 @@ const IntroducingSection = () => (
 
 const HowItWorksSection = () => {
   const steps = [
-    { num: "01", title: "Create a project", desc: "Add context, documents, or a codebase.", icon: FileText },
-    { num: "02", title: "Submit a decision", desc: "Describe the strategic question.", icon: MessageSquare },
-    { num: "03", title: "Specialists evaluate", desc: "Five expert perspectives analyze the decision.", icon: Users },
-    { num: "04", title: "Explore paths forward", desc: "See recommended paths or create your own branches. You decide; Shura recommends.", icon: GitBranch },
+    {
+      num: "01",
+      title: "Bring the project",
+      desc: "Assemble the evidence that would otherwise sit across folders and advisors.",
+      icon: FileText,
+    },
+    {
+      num: "02",
+      title: "Evaluate across disciplines",
+      desc: "Engineering, finance, commercial, environmental, and legal — one shared evidence base.",
+      icon: Sparkles,
+    },
+    {
+      num: "03",
+      title: "Stress-test viability",
+      desc: "Validate assumptions. Surface trade-offs. Produce a financial model you can defend.",
+      icon: BarChart3,
+    },
+    {
+      num: "04",
+      title: "Decide with confidence",
+      desc: "Proceed, restructure, or walk away — with every recommendation tied to source evidence.",
+      icon: GitBranch,
+    },
   ];
 
   return (
     <section id="how-it-works" className="py-16 sm:py-24 md:py-32 relative z-10 border-t border-border">
       <div className="container min-w-0">
         <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-16">
-          <SectionLabel>How it works</SectionLabel>
+          <SectionLabel>Process</SectionLabel>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Four steps to clarity
+            From uncertainty to an investment decision
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
@@ -73,25 +96,57 @@ const FeaturesSection = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const features = [
-    { icon: MessageSquare, title: "Chat with specialists", desc: "Have group conversations with multiple AI personas simultaneously or individually and get domain specific insights.", video: chatVideo },
-    { icon: Sparkles, title: "Decision evaluation", desc: "Submit a decision and get structured recommendations from five perspectives. You choose the path or branch your own.", video: evalVideo },
-    { icon: GitBranch, title: "Decision tree", desc: "Visualize paths, create your own branches, and explore alternatives. The AI recommends — you choose.", video: decisionTreeVideo },
-    { icon: BarChart3, title: "Persona scoring", desc: "See how each specialist evaluates the decision with detailed scoring.", video: null },
-    { icon: FileText, title: "Your context + domain knowledge", desc: "Upload your company’s documents or connect a repo. Shura uses this with legal, financial, technical, and tax expertise for analysis.", video: null },
-    { icon: Users, title: "Multi-persona analysis", desc: "Legal, financial, technical, business, and tax perspectives in one place.", video: null },
+    {
+      icon: Sparkles,
+      title: "Multidisciplinary evaluation",
+      desc: "Evaluates engineering, financial and commercial viability from a single evidence base — not five disconnected opinions.",
+      video: evalVideo,
+    },
+    {
+      icon: BarChart3,
+      title: "Defendable financial model",
+      desc: "Produces a validated financial model you can take to investors — numbers from authoritative sources, not invented returns.",
+      video: decisionTreeVideo,
+    },
+    {
+      icon: MessageSquare,
+      title: "Explainable intelligence",
+      desc: "Interrogate the recommendation. Understand trade-offs. Trace every claim back to project evidence.",
+      video: chatVideo,
+    },
+    {
+      icon: Shield,
+      title: "Full provenance",
+      desc: "Every recommendation is fully traceable to source evidence.",
+      video: null,
+    },
+    {
+      icon: FileText,
+      title: "Investment-ready assessments",
+      desc: "Creates assessments that explain the recommendation — for IC, lenders, and internal sponsors.",
+      video: null,
+    },
+    {
+      icon: GitBranch,
+      title: "Clear decision paths",
+      desc: "Proceed. Restructure. Walk away. Structured options, not open-ended chat.",
+      video: null,
+    },
   ];
 
   return (
     <section id="features" className="py-16 sm:py-24 md:py-32 relative z-10">
       <div className="container min-w-0">
         <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-16">
-          <SectionLabel>Features</SectionLabel>
+          <SectionLabel>Outputs</SectionLabel>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Built for strategic thinking
+            What you receive
           </h2>
+          <p className="text-muted-foreground mt-4 text-sm sm:text-base">
+            Outcomes that support the investment decision — not a pile of ungrounded text.
+          </p>
         </div>
         <div className="max-w-5xl mx-auto flex flex-col gap-5">
-          {/* First three: wide vstack */}
           <div className="flex flex-col gap-5">
             {features.slice(0, 3).map((f, i) => {
               const isExpanded = expandedIndex === i;
@@ -131,7 +186,7 @@ const FeaturesSection = () => {
                           </div>
                         ) : (
                           <div className="aspect-video rounded-lg border border-dashed border-border flex items-center justify-center bg-card/50 w-full max-w-2xl mx-auto">
-                            <p className="text-xs text-muted-foreground">Video coming soon</p>
+                            <p className="text-xs text-muted-foreground">Preview coming soon</p>
                           </div>
                         )}
                       </div>
@@ -141,7 +196,6 @@ const FeaturesSection = () => {
               );
             })}
           </div>
-          {/* Last three: hstack at bottom */}
           <div className="flex flex-col md:flex-row gap-4 mt-2">
             {features.slice(3, 6).map((f) => (
               <div

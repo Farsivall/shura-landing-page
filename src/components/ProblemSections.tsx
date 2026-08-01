@@ -13,12 +13,12 @@ const WhyNowSection = () => (
   <section className="py-16 sm:py-24 md:py-32 relative z-10">
     <div className="container min-w-0">
       <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
-        <SectionLabel>Why now</SectionLabel>
+        <SectionLabel>The decision</SectionLabel>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          Companies spend weeks debating before committing
+          A project arrives. Thousands of pages follow. Uncertainty remains.
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-          High-stakes decisions need many perspectives — technical risk, regulatory exposure, financial impact, operational trade-offs. Today that means endless meetings, scattered expertise, or expensive consultants just to evaluate whether something is worth pursuing.
+          Engineering studies. Financial workbooks. Environmental assessments. Contracts. Offtake. Before capital, consulting, financing, or IC — one question matters: is this project worth pursuing?
         </p>
       </div>
       <div className="flex justify-center mt-8 sm:mt-10 overflow-x-auto">
@@ -31,11 +31,11 @@ const WhyNowSection = () => (
 );
 
 const problemPersonas = [
-  { name: "Legal", percent: 68, color: "bg-blue-400" },
-  { name: "Financial", percent: 55, color: "bg-emerald-400" },
-  { name: "Technical", percent: 72, color: "bg-violet-400" },
-  { name: "Business", percent: 61, color: "bg-amber-400" },
-  { name: "Tax", percent: 64, color: "bg-cyan-400" },
+  { name: "Engineering", percent: 69, color: "bg-violet-400" },
+  { name: "Finance", percent: 74, color: "bg-emerald-400" },
+  { name: "Commercial", percent: 61, color: "bg-amber-400" },
+  { name: "Environmental", percent: 63, color: "bg-cyan-400" },
+  { name: "Legal", percent: 58, color: "bg-blue-400" },
 ];
 
 const ProblemSection = () => (
@@ -44,19 +44,21 @@ const ProblemSection = () => (
       <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
         <SectionLabel>The problem</SectionLabel>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          Early evaluation means meetings, scattered expertise, and expensive consulting
+          Why this decision is so difficult today
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-8 sm:mb-10">
-          Teams debate for weeks. Many hire consultants just to decide if an idea is worth exploring. Trade-offs stay hidden; expertise is fragmented across legal, financial, technical, and tax — with no structure.
+          Evidence is fragmented. Assumptions stay unvalidated. Risks hide between disciplines. Developers spend months — and six figures — just to decide whether to go further.
         </p>
       </div>
       <div className="max-w-2xl mx-auto mb-12">
         <div className="p-6 rounded-xl border border-border bg-card">
-          <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">Expertise fragmented by perspective</h3>
+          <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">
+            Perspectives that rarely meet
+          </h3>
           <div className="space-y-4">
             {problemPersonas.map((p) => (
               <div key={p.name} className="flex items-center gap-4">
-                <span className="text-sm text-muted-foreground w-20">{p.name}</span>
+                <span className="text-sm text-muted-foreground w-28 shrink-0">{p.name}</span>
                 <div className="flex-1 min-w-0">
                   <AnimatedBar percent={p.percent} barClassName={p.color} duration={1200} />
                 </div>
@@ -66,15 +68,17 @@ const ProblemSection = () => (
               </div>
             ))}
           </div>
-          <p className="text-[11px] text-muted-foreground/80 mt-3">Each perspective underused when decisions lack structure.</p>
+          <p className="text-[11px] text-muted-foreground/80 mt-3">
+            Without a shared evidence base, the investment decision stays under-informed.
+          </p>
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
         {[
-          { icon: Calendar, text: "Weeks of meetings" },
-          { icon: Layers, text: "Expertise fragmented" },
-          { icon: DollarSign, text: "Expensive early consulting" },
-          { icon: Clock, text: "Slow to commit or kill" },
+          { icon: Layers, text: "Fragmented evidence" },
+          { icon: DollarSign, text: "Unvalidated assumptions" },
+          { icon: Calendar, text: "Hidden cross-discipline risk" },
+          { icon: Clock, text: "Months before clarity" },
         ].map((item) => (
           <div key={item.text} className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border bg-card">
             <item.icon className="h-5 w-5 text-muted-foreground" />
@@ -86,7 +90,6 @@ const ProblemSection = () => (
   </section>
 );
 
-// Real statistics: meeting waste (MeetingToll/Yaware $37B), exec meeting time (Fellow), unproductive meetings (71% - Insights for Professionals), decision latency (60% - AgileIG), strategy/feasibility cost (Futurists/OGSCapital/McKinsey pricing)
 const costStats = [
   {
     icon: DollarSign,
@@ -100,7 +103,7 @@ const costStats = [
     value: 100,
     prefix: "$",
     suffix: "K+",
-    label: "Per strategy or feasibility evaluation (consulting)",
+    label: "Per feasibility or strategy engagement",
   },
   {
     icon: Calendar,
@@ -122,10 +125,10 @@ const CostSection = () => (
       <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
         <SectionLabel>The cost</SectionLabel>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          The cost of the old way to evaluate
+          Capital waits. Options expire. Advisory spend mounts.
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-8 sm:mb-12">
-          Unproductive meetings, six-figure strategy engagements just to test an idea, and decision delay that pushes projects back. Real numbers from US research.
+          Delaying the proceed / restructure / walk-away call is expensive — in meetings, retainers, and lost time.
         </p>
       </div>
 
@@ -133,7 +136,7 @@ const CostSection = () => (
         <div className="rounded-xl border border-border bg-card p-4 md:p-6 text-muted-foreground min-w-0">
           <CostScatterAnimated />
           <p className="text-center text-xs text-muted-foreground mt-2">
-            Cost of how companies evaluate before committing (sourced)
+            Cost of uncertainty before the investment decision (sourced)
           </p>
         </div>
 
@@ -142,7 +145,7 @@ const CostSection = () => (
             The loss.
           </p>
           <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-            $37B in meeting waste, $100K+ per “should we do this?” engagement, 71% of meetings adding no value, 60% of delays from slow decisions — all before a single project or consultant is fully committed.
+            $37B in meeting waste. $100K+ per early evaluation. 60% of delays from slow decisions — all before a developer knows whether the project deserves further investment.
           </p>
         </div>
       </div>
@@ -163,15 +166,16 @@ const CostSection = () => (
 );
 
 const ToolsFailSection = () => (
-  <section className="py-16 sm:py-24 md:py-32 relative z-10 border-t border-border">
+  <section id="differentiation" className="py-16 sm:py-24 md:py-32 relative z-10 border-t border-border">
     <div className="container min-w-0">
       <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-10">
-        <SectionLabel>Why current tools fail</SectionLabel>
+        <SectionLabel>Differentiation</SectionLabel>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          One answer in a thread.
-          <br />
-          <span className="text-muted-foreground">Your decision needs five perspectives, tradeoffs, and a path forward.</span>
+          Not a chatbot. Not a document tool. Not another spreadsheet.
         </h2>
+        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          Shura is the intelligence layer before investment — structured multidisciplinary evaluation with provenance. It complements consultants and advisors; it does not replace professional judgement.
+        </p>
       </div>
       <div className="rounded-xl border border-border bg-card overflow-hidden max-w-3xl mx-auto mb-12">
         <video
@@ -185,13 +189,13 @@ const ToolsFailSection = () => (
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
         {[
-          { tool: "Chatbots", issue: "Single perspective, no structure" },
-          { tool: "Documents", issue: "Static, no scenario exploration" },
-          { tool: "Consulting", issue: "Slow, expensive, not scalable" },
-          { tool: "Spreadsheets", issue: "Data-focused, not strategy-focused" },
+          { tool: "ChatGPT", issue: "A single answer — no shared project evidence, no defendable model" },
+          { tool: "Consultants", issue: "Essential later — slow and costly for the first pass" },
+          { tool: "Spreadsheets", issue: "Powerful numbers without a multidisciplinary evidence trail" },
+          { tool: "Static reports", issue: "A snapshot — not re-runnable when assumptions change" },
         ].map((item) => (
-          <div key={item.tool} className="flex items-center gap-4 p-5 rounded-xl border border-border bg-card">
-            <span className="text-sm font-medium text-foreground w-28">{item.tool}</span>
+          <div key={item.tool} className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card">
+            <span className="text-sm font-medium text-foreground w-28 shrink-0">{item.tool}</span>
             <span className="text-sm text-muted-foreground">{item.issue}</span>
           </div>
         ))}

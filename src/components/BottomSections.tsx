@@ -19,15 +19,15 @@ const ExampleSection = () => {
     <section id="example" className="py-24 md:py-32 relative z-10 border-t border-border">
       <div className="container max-w-3xl">
         <div className="text-center mb-10">
-          <SectionLabel>Example decision</SectionLabel>
+          <SectionLabel>Example</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            See Shura in action
+            See a project evaluated end to end
           </h2>
           <p className="text-muted-foreground mb-2">
-            Video walkthrough of a full decision — coming soon.
+            Walkthrough coming soon.
           </p>
           <p className="text-sm text-muted-foreground/90 max-w-xl mx-auto">
-            In Shura you make your own decisions and can branch out anytime; the AI recommends, you stay in control.
+            From project evidence to proceed / restructure / walk away — with provenance throughout.
           </p>
         </div>
         <div className="rounded-xl border border-border bg-card overflow-hidden aspect-video flex items-center justify-center border-dashed">
@@ -36,7 +36,7 @@ const ExampleSection = () => {
               <Play className="h-7 w-7 text-muted-foreground ml-1" />
             </div>
             <p className="text-sm font-medium text-foreground">Example recording</p>
-            <p className="text-xs text-muted-foreground mt-1">Placeholder for video</p>
+            <p className="text-xs text-muted-foreground mt-1">Placeholder</p>
           </div>
         </div>
       </div>
@@ -46,10 +46,30 @@ const ExampleSection = () => {
 
 const WhoSection = () => {
   const audiences = [
-    { icon: Target, title: "Founders & CEO's", desc: "Evaluating strategic moves with structured analysis.", accent: "primary" },
-    { icon: Compass, title: "Product leaders", desc: "Planning roadmaps with multi-perspective insight.", accent: "violet" },
-    { icon: TrendingUp, title: "Investors", desc: "Exploring scenarios before committing capital.", accent: "amber" },
-    { icon: Users, title: "Consultants", desc: "Analyzing complex decisions for their clients.", accent: "cyan" },
+    {
+      icon: Compass,
+      title: "Energy developers",
+      desc: "Know whether a project deserves further investment before capital and advisory spend lock in.",
+      accent: "primary",
+    },
+    {
+      icon: Target,
+      title: "Sponsors & CEOs",
+      desc: "Get a clear proceed / restructure / walk-away brief before IC.",
+      accent: "violet",
+    },
+    {
+      icon: TrendingUp,
+      title: "Investors & lenders",
+      desc: "Stress-test viability and diligence gaps before term sheets.",
+      accent: "amber",
+    },
+    {
+      icon: Users,
+      title: "Advisors",
+      desc: "Arrive with a structured first-pass evaluation — Shura complements professional judgement.",
+      accent: "cyan",
+    },
   ];
 
   const accentBorder: Record<string, string> = {
@@ -62,33 +82,27 @@ const WhoSection = () => {
   return (
     <section id="who" className="py-16 sm:py-24 md:py-32 relative z-10 border-t border-border overflow-hidden">
       <div className="container relative min-w-0">
-        {/* Background accent - soft arc */}
         <div className="absolute inset-0 pointer-events-none flex justify-center -top-24">
           <div className="w-[min(100%,600px)] h-64 rounded-full bg-primary/5 blur-3xl" />
         </div>
 
         <div className="relative max-w-4xl mx-auto">
           <div className="text-center mb-10 sm:mb-14">
-            <SectionLabel>Who it's for</SectionLabel>
+            <SectionLabel>Customers</SectionLabel>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground max-w-2xl mx-auto leading-tight">
-              For people who make high-stakes decisions
+              For those who greenlight energy capital
             </h2>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto text-sm">
-              Shura is built for anyone who needs multiple expert perspectives before committing.
+              Built for organisations that must answer: is this project worth pursuing?
             </p>
           </div>
 
-          {/* Bento-style grid: staggered and connected */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {audiences.map((a, i) => (
               <div
                 key={a.title}
-                className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 ${
-                  i === 0 ? "md:row-span-1" : ""
-                }`}
-                style={{
-                  animationDelay: `${i * 80}ms`,
-                }}
+                className="group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div className={`absolute left-0 top-0 bottom-0 w-1 ${accentBorder[a.accent]}`} />
                 <div className="p-6 pl-7 flex items-start gap-4">
@@ -103,17 +117,6 @@ const WhoSection = () => {
               </div>
             ))}
           </div>
-
-          {/* Decorative connector dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {[0, 1, 2, 3].map((i) => (
-              <span
-                key={i}
-                className="w-1.5 h-1.5 rounded-full bg-primary/40"
-                style={{ opacity: 0.4 + (i * 0.15) }}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -124,12 +127,12 @@ const VisionSection = () => (
   <section className="py-16 sm:py-24 md:py-32 relative z-10 border-t border-border">
     <div className="container min-w-0">
       <div className="max-w-2xl mx-auto text-center">
-        <SectionLabel>Vision</SectionLabel>
+        <SectionLabel>Position</SectionLabel>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          The future of decision-making
+          The intelligence layer before investment
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-          Decisions should not rely on fragmented expertise. They should be structured, transparent, and explorable. Shura recommends; you decide and branch out. We aim to become the operating system for strategic decisions.
+          Shura helps organisations understand whether a project deserves further investment. It complements consultants, lenders and technical advisors with a structured first-pass evaluation — faster, without replacing professional judgement.
         </p>
       </div>
     </div>
@@ -137,10 +140,11 @@ const VisionSection = () => (
 );
 
 const WAITLIST_POSITIONS = [
+  "Energy Developer",
   "CEO",
-  "Student Founder",
-  "Consultant",
+  "Project Sponsor",
   "Investor",
+  "Consultant",
   "Other",
 ] as const;
 
@@ -187,10 +191,10 @@ const CTASection = () => {
       <div className="container min-w-0">
         <div className="max-w-2xl mx-auto p-6 sm:p-8 md:p-12 rounded-2xl border border-primary/20 bg-primary/5">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-            Make your next decision with clarity.
+            Commit capital with more certainty.
           </h2>
           <p className="text-muted-foreground mb-6 sm:mb-8 text-center text-sm sm:text-base">
-            Get recommendations from five specialists — then make your own decision, branch out, or follow a suggested path. You decide; Shura supports.
+            Join the waitlist for decision intelligence that turns complex project evidence into an explainable proceed / restructure / walk-away call.
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-sm mx-auto">
             <div className="space-y-2">
@@ -236,11 +240,11 @@ const Footer = () => (
     <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
       <div className="flex items-center gap-2">
         <div className="h-6 w-6 rounded-md bg-primary flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-[10px]">A</span>
+          <span className="text-primary-foreground font-bold text-[10px]">S</span>
         </div>
         <span className="text-sm font-medium text-foreground">Shura</span>
       </div>
-      <span className="text-xs text-muted-foreground">AI Decision Simulation</span>
+      <span className="text-xs text-muted-foreground">Decision Intelligence for Energy Infrastructure</span>
     </div>
   </footer>
 );

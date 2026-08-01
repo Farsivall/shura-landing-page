@@ -2,74 +2,73 @@ import { useState, useEffect } from "react";
 
 const cards = [
   {
-    label: "Legal",
-    letter: "L",
-    barPercent: 78,
-    barColor: "bg-violet-500",
-    iconBg: "bg-violet-600",
-    opacity: 0.09,
-    dimensions: [
-      { name: "Regulatory Exposure", pct: "30%" },
-      { name: "Contract Lock-In", pct: "25%" },
-      { name: "Litigation Likelihood", pct: "20%" },
-    ],
-  },
-  {
-    label: "Financial",
+    label: "Finance",
     letter: "F",
     barPercent: 82,
     barColor: "bg-emerald-500",
     iconBg: "bg-emerald-600",
     opacity: 0.18,
     dimensions: [
-      { name: "Upside / Expected Value", pct: "25%" },
-      { name: "Capital Intensity", pct: "20%" },
-      { name: "Downside Severity", pct: "25%" },
+      { name: "Viability", pct: "30%" },
+      { name: "Coverage", pct: "25%" },
+      { name: "Capital intensity", pct: "25%" },
     ],
   },
   {
-    label: "Technical",
-    letter: "T",
+    label: "Engineering",
+    letter: "E",
     barPercent: 90,
-    barColor: "bg-cyan-500",
-    iconBg: "bg-cyan-600",
+    barColor: "bg-violet-500",
+    iconBg: "bg-violet-600",
     opacity: 0.12,
     dimensions: [
-      { name: "Scalability", pct: "20%" },
-      { name: "Execution Complexity", pct: "20%" },
-      { name: "Technical Debt", pct: "20%" },
+      { name: "Feasibility", pct: "25%" },
+      { name: "Execution risk", pct: "25%" },
+      { name: "Design maturity", pct: "20%" },
     ],
   },
   {
-    label: "Business Dev",
-    letter: "BD",
-    barPercent: 65,
+    label: "Commercial",
+    letter: "C",
+    barPercent: 80,
     barColor: "bg-amber-500",
     iconBg: "bg-amber-600",
+    opacity: 0.2,
+    dimensions: [
+      { name: "Offtake / demand", pct: "25%" },
+      { name: "Pricing power", pct: "20%" },
+      { name: "Counterparty risk", pct: "20%" },
+    ],
+  },
+  {
+    label: "Environmental",
+    letter: "En",
+    barPercent: 65,
+    barColor: "bg-teal-500",
+    iconBg: "bg-teal-600",
     active: true,
     opacity: 0.14,
     dimensions: [
-      { name: "Market Opportunity", pct: "25%" },
-      { name: "Competitive Position", pct: "20%" },
-      { name: "Strategic Alignment", pct: "15%" },
+      { name: "Permitting", pct: "25%" },
+      { name: "Site constraints", pct: "20%" },
+      { name: "Impact severity", pct: "20%" },
     ],
   },
   {
-    label: "Tax",
-    letter: "T",
-    barPercent: 80,
-    barColor: "bg-violet-500",
-    iconBg: "bg-violet-600",
-    opacity: 0.2,
+    label: "Legal",
+    letter: "L",
+    barPercent: 78,
+    barColor: "bg-blue-500",
+    iconBg: "bg-blue-600",
+    opacity: 0.09,
     dimensions: [
-      { name: "Tax Efficiency", pct: "25%" },
-      { name: "Structural Optimization", pct: "25%" },
-      { name: "Jurisdictional Risk", pct: "25%" },
+      { name: "Regulatory exposure", pct: "30%" },
+      { name: "Contract risk", pct: "25%" },
+      { name: "Permitting risk", pct: "20%" },
     ],
   },
 ];
 
-// Radial slots: center of page, evenly spaced outward (0° = right, 90° = down)
 const CENTER_X = 50;
 const CENTER_Y = 50;
 const RADIUS = 28;
@@ -133,12 +132,12 @@ const BackgroundCard = ({
   card: (typeof cards)[0];
 }) => {
   return (
-<div
-    className={`rounded-lg md:rounded-xl border border-border bg-card p-2 sm:p-3 md:p-4 transition-opacity duration-1000 ${
-      card.active ? "ring-1 ring-primary/30" : ""
-    }`}
-    style={{ opacity: card.opacity }}
-  >
+    <div
+      className={`rounded-lg md:rounded-xl border border-border bg-card p-2 sm:p-3 md:p-4 transition-opacity duration-1000 ${
+        card.active ? "ring-1 ring-primary/30" : ""
+      }`}
+      style={{ opacity: card.opacity }}
+    >
       <div className="flex items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-3">
         <div
           className={`h-5 w-5 sm:h-7 sm:w-7 md:h-9 md:w-9 rounded-full ${card.iconBg} flex items-center justify-center flex-shrink-0`}
@@ -155,7 +154,7 @@ const BackgroundCard = ({
             )}
           </div>
           <p className="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground hidden sm:block">
-            5 dimensions - weighted scoring
+            Decision intelligence — evidence-backed
           </p>
         </div>
       </div>
