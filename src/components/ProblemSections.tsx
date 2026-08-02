@@ -18,7 +18,7 @@ const WhyNowSection = () => (
           A project arrives. Thousands of pages follow. Uncertainty remains.
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-          Engineering studies. Financial workbooks. Environmental assessments. Contracts. Offtake. Before capital, consulting, financing, or IC — one question matters: is this project worth pursuing?
+          Engineering studies. Financial workbooks. Tax structures. Contracts. Offtake. Before capital, consulting, financing, or IC — one question matters: is this project worth pursuing?
         </p>
       </div>
       <div className="flex justify-center mt-8 sm:mt-10 overflow-x-auto">
@@ -33,8 +33,8 @@ const WhyNowSection = () => (
 const problemPersonas = [
   { name: "Engineering", percent: 69, color: "bg-violet-400" },
   { name: "Finance", percent: 74, color: "bg-emerald-400" },
-  { name: "Commercial", percent: 61, color: "bg-amber-400" },
-  { name: "Environmental", percent: 63, color: "bg-cyan-400" },
+  { name: "Business Dev", percent: 61, color: "bg-amber-400" },
+  { name: "Tax", percent: 63, color: "bg-cyan-400" },
   { name: "Legal", percent: 58, color: "bg-blue-400" },
 ];
 
@@ -50,6 +50,20 @@ const ProblemSection = () => (
           Evidence is fragmented. Assumptions stay unvalidated. Risks hide between disciplines. Developers spend months — and six figures — just to decide whether to go further.
         </p>
       </div>
+
+      {/* Core pain: no institutional memory */}
+      <div className="max-w-3xl mx-auto mb-12 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-6 sm:p-8">
+        <p className="text-[11px] font-medium text-amber-400/90 uppercase tracking-wider mb-2">
+          The hidden cost
+        </p>
+        <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3">
+          Every new project starts from zero
+        </h3>
+        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          Advisers, chats, and spreadsheets don’t remember your last five deals. Context walks out of the room. The next evaluation re-learns your risks, structures, and preferences from scratch — so decisions get no smarter over time.
+        </p>
+      </div>
+
       <div className="max-w-2xl mx-auto mb-12">
         <div className="p-6 rounded-xl border border-border bg-card">
           <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">
@@ -76,7 +90,7 @@ const ProblemSection = () => (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
         {[
           { icon: Layers, text: "Fragmented evidence" },
-          { icon: DollarSign, text: "Unvalidated assumptions" },
+          { icon: DollarSign, text: "No memory of past projects" },
           { icon: Calendar, text: "Hidden cross-discipline risk" },
           { icon: Clock, text: "Months before clarity" },
         ].map((item) => (
@@ -189,8 +203,8 @@ const ToolsFailSection = () => (
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
         {[
-          { tool: "ChatGPT", issue: "A single answer — no shared project evidence, no defendable model" },
-          { tool: "Consultants", issue: "Essential later — slow and costly for the first pass" },
+          { tool: "ChatGPT", issue: "No project memory — starts cold every conversation" },
+          { tool: "Consultants", issue: "Essential later — context rarely compounds across engagements" },
           { tool: "Spreadsheets", issue: "Powerful numbers without a multidisciplinary evidence trail" },
           { tool: "Static reports", issue: "A snapshot — not re-runnable when assumptions change" },
         ].map((item) => (

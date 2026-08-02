@@ -1,6 +1,6 @@
 const GradientBlobs = () => {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="gradient-blobs fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-500/15 blur-[120px] animate-blob" />
       <div className="absolute top-[30%] right-[-10%] w-[500px] h-[500px] rounded-full bg-violet-500/15 blur-[120px] animate-blob-delay-2" />
       <div className="absolute bottom-[-10%] left-[20%] w-[550px] h-[550px] rounded-full bg-cyan-500/10 blur-[120px] animate-blob-delay-4" />

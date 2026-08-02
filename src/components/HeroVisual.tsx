@@ -1,54 +1,44 @@
-import { Scale, TrendingUp, Code, Leaf, Briefcase } from "lucide-react";
+import { FileText, Network, GitBranch } from "lucide-react";
+import SpecialistRing from "./SpecialistRing";
 
-const personas = [
-  { icon: Code, label: "Engineering", color: "text-violet-400" },
-  { icon: TrendingUp, label: "Finance", color: "text-emerald-400" },
-  { icon: Briefcase, label: "Commercial", color: "text-amber-400" },
-  { icon: Leaf, label: "Environmental", color: "text-teal-400" },
-  { icon: Scale, label: "Legal", color: "text-blue-400" },
+const mapNodes = [
+  { label: "Evidence", hint: "Studies, workbooks, contracts", icon: FileText, tone: "mid" },
+  { label: "Connections", hint: "How findings link across the project", icon: Network, tone: "go" },
+  { label: "Decisions", hint: "Proceed, restructure, or walk away", icon: GitBranch, tone: "mid" },
 ];
-
-const paths = ["Proceed", "Restructure", "Walk away"];
 
 const HeroVisual = () => {
   return (
-    <div className="relative max-w-2xl mx-auto">
-      <div className="flex justify-center gap-3 md:gap-6 mb-8">
-        {personas.map((p) => (
-          <div key={p.label} className="flex flex-col items-center gap-2">
-            <div className="h-12 w-12 md:h-14 md:w-14 rounded-xl border border-border bg-card flex items-center justify-center">
-              <p.icon className={`h-5 w-5 md:h-6 md:w-6 ${p.color}`} />
-            </div>
-            <span className="text-[10px] md:text-xs text-muted-foreground font-medium">{p.label}</span>
-          </div>
-        ))}
-      </div>
+    <div className="relative max-w-5xl mx-auto overflow-visible">
+      <SpecialistRing />
 
-      <div className="flex justify-center mb-4">
-        <div className="w-px h-8 bg-gradient-to-b from-border to-primary/40" />
-      </div>
+      {/* Flow: panel → knowledge map */}
+      <div className="hero-funnel mt-2">
+        <div className="hero-funnel-beam" aria-hidden />
 
-      <div className="flex justify-center mb-4">
-        <div className="px-6 py-3 rounded-xl border border-primary/30 bg-primary/5 text-sm font-medium text-primary">
-          One explainable recommendation
+        <div className="hero-decision-node">
+          <span className="hero-decision-node-glow" aria-hidden />
+          Knowledge map
         </div>
-      </div>
 
-      <div className="flex justify-center mb-4">
-        <div className="w-px h-8 bg-gradient-to-b from-primary/40 to-border" />
-      </div>
+        <div className="hero-funnel-beam hero-funnel-beam-short" aria-hidden />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        {paths.map((path, i) => (
-          <div
-            key={path}
-            className={`px-4 py-3 rounded-lg border bg-card text-xs text-center ${
-              i === 0 ? "border-primary/30 text-primary" : "border-border text-muted-foreground"
-            }`}
-          >
-            {path}
-          </div>
-        ))}
+        <div className="hero-path-stage">
+          {mapNodes.map((node, i) => {
+            const Icon = node.icon;
+            return (
+              <div
+                key={node.label}
+                className={`hero-path-card hero-path-card-${node.tone}`}
+                style={{ ["--path-i" as string]: i }}
+              >
+                <Icon className="h-4 w-4 mx-auto mb-2 opacity-80" />
+                <p className="text-sm font-semibold mb-1">{node.label}</p>
+                <p className="text-[11px] text-muted-foreground leading-snug">{node.hint}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

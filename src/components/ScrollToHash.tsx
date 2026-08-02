@@ -1,0 +1,29 @@
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+
+/** Smoothly scrolls to hash targets (e.g. /#cta) after route changes. */
+const ScrollToHash = () => {
+  const { pathname, hash } = useLocation();
+  const prevPathname = useRef(pathname);
+
+  useEffect(() => {
+    const pathChanged = prevPathname.current !== pathname;
+    prevPathname.current = pathname;
+
+    if (hash) {
+      const id = hash.replace("#", "");
+      const timer = window.setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      return () => window.clearTimeout(timer);
+    }
+
+    if (pathChanged) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [pathname, hash]);
+
+  return null;
+};
+
+export default ScrollToHash;

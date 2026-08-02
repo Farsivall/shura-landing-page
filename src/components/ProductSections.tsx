@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SectionLabel } from "./ProblemSections";
-import { Sparkles, GitBranch, BarChart3, MessageSquare, FileText, ChevronDown, Shield } from "lucide-react";
+import { Sparkles, GitBranch, BarChart3, MessageSquare, FileText, ChevronDown, Shield, Brain, History, TrendingUp } from "lucide-react";
 import chatVideo from "@/assets/chat.mp4";
 import decisionTreeVideo from "@/assets/decisiontree.mp4";
 import evalVideo from "@/assets/eval.mp4";
@@ -20,7 +20,7 @@ const IntroducingSection = () => (
         </div>
         <div className="text-center">
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-            Evaluates engineering, financial and commercial viability from a single evidence base. Surfaces hidden risks. Produces a recommendation you can defend: proceed, restructure, or walk away.
+            Evaluates engineering, financial and business-development viability from a single evidence base. Surfaces hidden risks. Produces a recommendation you can defend: proceed, restructure, or walk away. And it gets sharper the more you use it — because it retains your project context.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto">
             {[
@@ -40,6 +40,60 @@ const IntroducingSection = () => (
   </section>
 );
 
+const LearningAdviserSection = () => (
+  <section id="learning" className="py-16 sm:py-24 md:py-32 relative z-10 border-t border-border">
+    <div className="container min-w-0">
+      <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
+        <SectionLabel>Compound advantage</SectionLabel>
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
+          An adviser that learns from your projects
+        </h2>
+        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+          Shura doesn’t forget. It carries forward your past context — structures you’ve used, risks you’ve seen, preferences your team has established — and gets better at helping you make the next commit decision.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
+        {[
+          {
+            icon: History,
+            title: "Knows your past context",
+            desc: "Prior projects, assumptions, and diligence patterns stay available — not locked in someone’s inbox.",
+          },
+          {
+            icon: Brain,
+            title: "Learns how you decide",
+            desc: "Surfaces what mattered last time. Flags familiar failure modes. Aligns with how your organisation evaluates risk.",
+          },
+          {
+            icon: TrendingUp,
+            title: "Gets sharper over time",
+            desc: "Each evaluation compounds. The fifth project starts ahead of where the first one began.",
+          },
+        ].map((item) => (
+          <div
+            key={item.title}
+            className="rounded-xl border border-border bg-card p-6 text-left hover:border-primary/30 transition-colors"
+          >
+            <item.icon className="h-5 w-5 text-primary mb-4" />
+            <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="max-w-2xl mx-auto rounded-2xl border border-primary/25 bg-primary/5 px-6 py-5 text-center">
+        <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">
+          Not a chatbot that resets. Not an adviser that walks away with the brief.{" "}
+          <span className="text-primary font-medium">
+            Institutional memory for investment decisions.
+          </span>
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
 const HowItWorksSection = () => {
   const steps = [
     {
@@ -51,7 +105,7 @@ const HowItWorksSection = () => {
     {
       num: "02",
       title: "Evaluate across disciplines",
-      desc: "Engineering, finance, commercial, environmental, and legal — one shared evidence base.",
+      desc: "Engineering, finance, business development, tax, and legal — one shared evidence base.",
       icon: Sparkles,
     },
     {
@@ -62,8 +116,8 @@ const HowItWorksSection = () => {
     },
     {
       num: "04",
-      title: "Decide with confidence",
-      desc: "Proceed, restructure, or walk away — with every recommendation tied to source evidence.",
+      title: "Decide — and compound",
+      desc: "Proceed, restructure, or walk away. Shura keeps the context so the next project starts smarter.",
       icon: GitBranch,
     },
   ];
@@ -99,7 +153,7 @@ const FeaturesSection = () => {
     {
       icon: Sparkles,
       title: "Multidisciplinary evaluation",
-      desc: "Evaluates engineering, financial and commercial viability from a single evidence base — not five disconnected opinions.",
+      desc: "Evaluates engineering, financial and business-development viability from a single evidence base — not five disconnected opinions.",
       video: evalVideo,
     },
     {
@@ -127,9 +181,9 @@ const FeaturesSection = () => {
       video: null,
     },
     {
-      icon: GitBranch,
-      title: "Clear decision paths",
-      desc: "Proceed. Restructure. Walk away. Structured options, not open-ended chat.",
+      icon: Brain,
+      title: "Context that compounds",
+      desc: "Learns from your projects so the next evaluation starts with your history — not a blank slate.",
       video: null,
     },
   ];
@@ -214,4 +268,4 @@ const FeaturesSection = () => {
   );
 };
 
-export { IntroducingSection, HowItWorksSection, FeaturesSection };
+export { IntroducingSection, LearningAdviserSection, HowItWorksSection, FeaturesSection };

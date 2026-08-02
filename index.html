@@ -1,18 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("shura-theme");
+          if (t === "light" || t === "dark") {
+            document.documentElement.setAttribute("data-theme", t);
+          }
+        } catch (_) {}
+      })();
+    </script>
     <title>Shura — Decision Intelligence for Energy Infrastructure</title>
+    <meta name="application-name" content="Shura" />
+    <meta name="apple-mobile-web-app-title" content="Shura" />
     <meta name="description" content="Shura helps energy developers know whether a project is worth pursuing before committing capital — evidence-backed, multidisciplinary pre-evaluation." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <meta property="og:site_name" content="Shura" />
     <meta property="og:title" content="Shura — Decision Intelligence for Energy Infrastructure" />
-    <meta property="og:description" content="Is this project worth pursuing? Evaluate engineering, financial, commercial and environmental viability before you commit capital." />
+    <meta property="og:description" content="Is this project worth pursuing? Evaluate engineering, financial, business development and tax viability before you commit capital." />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shura — Decision Intelligence for Energy Infrastructure" />
   </head>
 
   <body>

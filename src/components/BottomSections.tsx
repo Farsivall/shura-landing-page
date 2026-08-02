@@ -129,10 +129,10 @@ const VisionSection = () => (
       <div className="max-w-2xl mx-auto text-center">
         <SectionLabel>Position</SectionLabel>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          The intelligence layer before investment
+          The adviser that compounds with every project
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-          Shura helps organisations understand whether a project deserves further investment. It complements consultants, lenders and technical advisors with a structured first-pass evaluation — faster, without replacing professional judgement.
+          Shura is the intelligence layer before investment — and the memory that makes the next decision sharper. It complements consultants and lenders with a structured first-pass evaluation that retains your context, without replacing professional judgement.
         </p>
       </div>
     </div>
@@ -164,7 +164,7 @@ const CTASection = () => {
       return;
     }
     if (!supabase) {
-      toast.error("Waitlist is not configured. Please try again later.");
+      toast.error("Pilot signup is not configured. Please try again later.");
       return;
     }
     setLoading(true);
@@ -175,13 +175,13 @@ const CTASection = () => {
     setLoading(false);
     if (error) {
       if (error.code === "23505") {
-        toast.success("You're already on the waitlist.");
+        toast.success("You're already on the pilot list.");
       } else {
         toast.error(error.message || "Something went wrong. Please try again.");
       }
       return;
     }
-    toast.success("You're on the waitlist. We'll be in touch.");
+    toast.success("You're on the pilot list. We'll be in touch.");
     setEmail("");
     setPosition("");
   };
@@ -194,7 +194,7 @@ const CTASection = () => {
             Commit capital with more certainty.
           </h2>
           <p className="text-muted-foreground mb-6 sm:mb-8 text-center text-sm sm:text-base">
-            Join the waitlist for decision intelligence that turns complex project evidence into an explainable proceed / restructure / walk-away call.
+            An adviser that learns from your projects — turning complex evidence into explainable proceed / restructure / walk-away calls that get sharper over time.
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-sm mx-auto">
             <div className="space-y-2">
@@ -226,7 +226,7 @@ const CTASection = () => {
               </Select>
             </div>
             <Button type="submit" variant="hero" size="xl" disabled={loading} className="mt-2 touch-manipulation min-h-[48px] w-full sm:w-auto">
-              {loading ? "Adding…" : "Join the waitlist"} <ArrowRight className="h-4 w-4" />
+              {loading ? "Adding…" : "Sign up for the pilot"} <ArrowRight className="h-4 w-4" />
             </Button>
           </form>
         </div>
