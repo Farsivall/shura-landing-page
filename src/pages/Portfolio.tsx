@@ -314,7 +314,7 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
+    <div className="min-h-screen bg-background relative">
       <GradientBlobs />
       <Navbar />
 

@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { Scale, TrendingUp, Code, Calculator, Briefcase } from "lucide-react";
 
 const specialists = [
@@ -39,90 +38,44 @@ const specialists = [
   },
 ];
 
+/** Static specialist panel — no 3D spin (that was catching page scroll). */
 const SpecialistRing = () => {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const count = specialists.length;
-  const angleStep = 360 / count;
-
-  // Pause the 3D spin while off-screen so page scroll stays smooth.
-  useEffect(() => {
-    const el = sceneRef.current;
-    if (!el) return;
-    const ring = el.querySelector<HTMLElement>(".specialist-ring");
-    if (!ring) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        ring.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
-      },
-      { rootMargin: "80px", threshold: 0 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
-    <div
-      ref={sceneRef}
-      className="specialist-ring-scene relative mx-auto w-full max-w-4xl h-[220px] sm:h-[320px] md:h-[380px] select-none overflow-hidden"
-      aria-hidden
-    >
+    <div className="relative mx-auto w-full max-w-4xl select-none" aria-hidden>
       <div
-        className="pointer-events-none absolute left-1/2 bottom-6 -translate-x-1/2 w-[55%] h-10 rounded-[100%] bg-primary/15 blur-2xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-24 rounded-[100%] bg-primary/10 blur-3xl"
         aria-hidden
       />
-
-      {/* Inner wireframe disc */}
-      <div className="specialist-ring-disc" aria-hidden />
-
-      <div className="specialist-ring-stage absolute inset-0 flex items-center justify-center overflow-hidden">
-        <div className="specialist-ring">
-          {specialists.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.label}
-                className="specialist-ring-item"
-                style={{ ["--angle" as string]: `${i * angleStep}deg` }}
-              >
+      <div className="relative flex flex-wrap items-stretch justify-center gap-2 sm:gap-3 px-1">
+        {specialists.map((s) => {
+          const Icon = s.icon;
+          return (
+            <div
+              key={s.label}
+              className={`rounded-xl border border-border bg-card/95 p-2.5 sm:p-3.5 ring-1 ${s.ring} w-[calc(50%-0.35rem)] sm:w-[118px] md:w-[132px]`}
+            >
+              <div className="flex items-center gap-2 mb-2.5">
                 <div
-                  className={`specialist-ring-card rounded-xl border border-border bg-card/95 p-2 sm:p-3.5 ring-1 ${s.ring} w-[84px] sm:w-[118px] md:w-[132px]`}
+                  className={`h-8 w-8 sm:h-9 sm:w-9 rounded-full ${s.accent} flex items-center justify-center shrink-0`}
                 >
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <div
-                      className={`h-8 w-8 sm:h-9 sm:w-9 rounded-full ${s.accent} flex items-center justify-center shrink-0`}
-                    >
-                      <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
-                    </div>
-                    <div className="min-w-0 text-left">
-                      <p className="text-[11px] sm:text-xs font-semibold text-foreground truncate">
-                        {s.label}
-                      </p>
-                      <p className="text-[9px] text-muted-foreground hidden sm:block">
-                        Specialist
-                      </p>
-                    </div>
-                  </div>
-                  <div className="h-1 rounded-full bg-muted overflow-hidden mb-2">
-                    <div className={`h-full w-3/4 rounded-full ${s.bar}`} />
-                  </div>
-                  <p className="text-[9px] sm:text-[10px] text-muted-foreground text-left leading-snug">
-                    Evidence-backed view
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
+                </div>
+                <div className="min-w-0 text-left">
+                  <p className="text-[11px] sm:text-xs font-semibold text-foreground truncate">
+                    {s.label}
                   </p>
+                  <p className="text-[9px] text-muted-foreground hidden sm:block">Specialist</p>
                 </div>
               </div>
-            );
-          })}
-        </div>
-
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-10">
-          <div className="specialist-hub">
-            <span className="specialist-hub-pulse" aria-hidden />
-            <p className="text-[10px] sm:text-xs font-medium text-primary whitespace-nowrap relative z-10">
-              Specialist panel
-            </p>
-          </div>
-        </div>
+              <div className="h-1 rounded-full bg-muted overflow-hidden mb-2">
+                <div className={`h-full w-3/4 rounded-full ${s.bar}`} />
+              </div>
+              <p className="text-[9px] text-muted-foreground leading-snug hidden sm:block">
+                Evaluating from shared evidence
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

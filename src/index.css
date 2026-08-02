@@ -164,19 +164,12 @@
     @apply border-border;
   }
   html {
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    /* Clear the fixed navbar when jumping to anchors */
+    /* Never use scroll-behavior: smooth here — it fights trackpad/wheel and feels “caught”. */
     scroll-padding-top: 5.5rem;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   /* Anchor targets clear the fixed nav */
   section[id],
@@ -212,6 +205,11 @@
 /* ─── Hero ─── */
 .hero-3d-section {
   touch-action: pan-y;
+}
+
+.hero-depth-plane,
+.hero-orbit-ring {
+  animation: none !important;
 }
 
 .hero-depth-plane {
@@ -578,41 +576,36 @@ html.is-scrolling .bg-cards-layer {
   opacity: 0.55;
 }
 
-html.is-scrolling .liquid-glass {
-  backdrop-filter: blur(8px) saturate(1.1);
-  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+html.is-scrolling .liquid-glass,
+html.is-scrolling .liquid-glass-sm,
+html.is-scrolling .liquid-glass-pill {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-/* Scroll-triggered blur + appear (filter cleared after transition) */
+/* Section appear — opacity/transform only (filter blur was catching scroll) */
+.scroll-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 .scroll-reveal {
   opacity: 0;
-  filter: blur(12px);
-  transform: translateY(22px);
+  transform: translate3d(0, 28px, 0);
   transition:
-    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, filter, transform;
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scroll-reveal-visible {
   opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
-}
-
-.scroll-reveal-done {
-  filter: none;
-  will-change: auto;
-  transform: none;
+  transform: translate3d(0, 0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
     opacity: 1;
-    filter: none;
     transform: none;
-    will-change: auto;
     transition: none;
   }
 }
@@ -772,10 +765,11 @@ html[data-theme="light"] .specialist-hub {
   border-radius: 1rem;
   border: 1px solid hsl(0 0% 100% / 0.12);
   background:
-    linear-gradient(165deg, hsl(0 0% 100% / 0.08) 0%, hsl(0 0% 100% / 0.02) 42%, hsl(0 0% 100% / 0.04) 100%),
-    var(--glass-bg, hsl(var(--card) / 0.55));
-  backdrop-filter: blur(22px) saturate(1.35);
-  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    linear-gradient(165deg, hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.03) 42%, hsl(0 0% 100% / 0.06) 100%),
+    var(--glass-bg, hsl(var(--card) / 0.72));
+  /* Light blur — heavy backdrop-filter was hitching scroll over the nav/hero */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow:
     0 1px 0 hsl(0 0% 100% / 0.12) inset,
     0 -1px 0 hsl(0 0% 0% / 0.2) inset,
@@ -818,8 +812,8 @@ html[data-theme="light"] .specialist-hub {
 
 .liquid-glass-sm {
   border-radius: 0.75rem;
-  backdrop-filter: blur(16px) saturate(1.25);
-  -webkit-backdrop-filter: blur(16px) saturate(1.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow:
     0 1px 0 hsl(0 0% 100% / 0.1) inset,
     0 8px 28px hsl(0 0% 0% / 0.18);
@@ -829,8 +823,8 @@ html[data-theme="light"] .specialist-hub {
   border-radius: 999px;
   border: 1px solid hsl(0 0% 100% / 0.14);
   background: hsl(0 0% 100% / 0.06);
-  backdrop-filter: blur(14px) saturate(1.3);
-  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 1px 0 hsl(0 0% 100% / 0.1) inset;
 }
 

@@ -10,49 +10,46 @@ import StatsSection from "@/components/StatsSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
-      {/* Fixed layers stay outside filter transitions */}
+    <div className="min-h-screen bg-background relative">
       <GradientBlobs />
       <BackgroundCards />
       <Navbar />
       <div className="relative z-10">
         <HeroSection />
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <WhyNowSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <ProblemSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <CostSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <IntroducingSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <LearningAdviserSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <HowItWorksSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <FeaturesSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <StatsSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <WhoSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <ToolsFailSection />
         </ScrollReveal>
-        <ScrollReveal>
+        <ScrollReveal className="scroll-section">
           <VisionSection />
         </ScrollReveal>
-        <ScrollReveal>
-          <Footer />
-        </ScrollReveal>
+        <Footer />
       </div>
     </div>
   );
