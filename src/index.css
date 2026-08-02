@@ -209,57 +209,9 @@
   100% { opacity: 1; }
 }
 
-/* ─── Hero 3D stage ─── */
+/* ─── Hero ─── */
 .hero-3d-section {
-  --hero-tilt-x: 0deg;
-  --hero-tilt-y: 0deg;
-  --hero-shift-x: 0px;
-  --hero-shift-y: 0px;
-}
-
-.hero-3d-stage {
-  /* Keep vertical scrolling free of 3D pointer capture */
   touch-action: pan-y;
-}
-
-.hero-3d-world {
-  transform: none;
-}
-
-/* Desktop mouse tilt only — see HeroSection (pointer: fine) */
-@media (hover: hover) and (pointer: fine) {
-  .hero-3d-stage {
-    perspective: 1400px;
-    perspective-origin: 50% 35%;
-    transform-style: preserve-3d;
-  }
-
-  .hero-3d-world {
-    transform-style: preserve-3d;
-    transform:
-      rotateX(var(--hero-tilt-x))
-      rotateY(var(--hero-tilt-y))
-      translate3d(var(--hero-shift-x), var(--hero-shift-y), 0);
-    transition: transform 0.05s linear;
-  }
-
-  .hero-3d-stage.hero-3d-tilting .hero-3d-world {
-    will-change: transform;
-  }
-
-  .hero-copy-layer {
-    transform: translateZ(60px);
-    transform-style: preserve-3d;
-  }
-
-  .hero-visual-layer {
-    transform: translateZ(20px);
-    transform-style: preserve-3d;
-  }
-
-  .hero-cta-layer {
-    transform: translateZ(40px);
-  }
 }
 
 .hero-depth-plane {
@@ -331,11 +283,6 @@
   box-shadow: 0 10px 40px hsl(0 0% 0% / 0.25);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .hero-eyebrow {
-    transform: translateZ(80px);
-  }
-}
 
 .hero-eyebrow-dot {
   width: 0.375rem;
@@ -374,36 +321,6 @@
   box-shadow:
     0 18px 50px hsl(160 84% 39% / 0.35),
     0 2px 0 hsl(0 0% 100% / 0.1) inset;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero-title {
-    transform-style: preserve-3d;
-  }
-
-  .hero-title-line {
-    transform: translateZ(70px);
-  }
-
-  .hero-title-accent {
-    transform: translateZ(90px);
-  }
-
-  .hero-body {
-    transform: translateZ(50px);
-  }
-
-  .hero-body-sub {
-    transform: translateZ(45px);
-  }
-
-  .hero-cta-3d {
-    transform: translateZ(55px);
-  }
-
-  .hero-cta-3d:hover {
-    transform: translateZ(70px) translateY(-2px);
-  }
 }
 
 /* Decision funnel under the ring */
@@ -479,45 +396,13 @@
   transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .hero-funnel {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-  }
 
-  .hero-funnel-beam {
-    transform: translateZ(10px);
-  }
-
-  .hero-decision-node {
-    transform: rotateX(12deg) translateZ(40px);
-  }
-
-  .hero-path-stage {
-    transform-style: preserve-3d;
-    perspective: 900px;
-  }
-
-  .hero-path-card {
-    transform-style: preserve-3d;
-    transform:
-      rotateY(calc((var(--path-i) - 1) * 9deg))
-      rotateX(14deg)
-      translateZ(calc(24px - var(--path-i) * 2px));
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero-path-card:hover {
-    transform:
-      rotateY(calc((var(--path-i) - 1) * 6deg))
-      rotateX(8deg)
-      translateZ(48px)
-      translateY(-4px);
-    box-shadow:
-      0 24px 50px hsl(0 0% 0% / 0.45),
-      0 0 30px hsl(160 84% 39% / 0.12);
-  }
+.hero-path-card:hover {
+  transform: translateY(-3px);
+  border-color: hsl(var(--primary) / 0.35);
+  box-shadow:
+    0 22px 44px hsl(0 0% 0% / 0.4),
+    0 0 24px hsl(160 84% 39% / 0.1);
 }
 
 .hero-path-card-go {
@@ -557,6 +442,7 @@
   /* Decorative — never steal scroll / drag */
   pointer-events: none;
   touch-action: pan-y;
+  contain: layout paint;
 }
 
 .specialist-ring-stage {
@@ -629,8 +515,7 @@
   position: relative;
   border-radius: 999px;
   border: 1px solid hsl(160 84% 39% / 0.35);
-  background: hsl(var(--background) / 0.85);
-  backdrop-filter: blur(12px);
+  background: hsl(var(--background) / 0.92);
   padding: 0.4rem 0.9rem;
   box-shadow:
     0 10px 40px hsl(0 0% 0% / 0.35),
@@ -674,29 +559,60 @@
   .hero-decision-node-glow {
     animation: none !important;
   }
-  .hero-3d-world {
-    transform: none !important;
-  }
 }
 
-/* Scroll-triggered appear — opacity/transform only (filter makes scroll feel heavy) */
+/* While scrolling: freeze heavy decorative motion for seamless pan */
+html.is-scrolling .specialist-ring,
+html.is-scrolling .hero-orbit-ring,
+html.is-scrolling .hero-depth-plane-a,
+html.is-scrolling .hero-depth-plane-b,
+html.is-scrolling .specialist-ring-disc,
+html.is-scrolling .hero-decision-node-glow,
+html.is-scrolling .animate-blob,
+html.is-scrolling .animate-blob-delay-2,
+html.is-scrolling .animate-blob-delay-4 {
+  animation-play-state: paused !important;
+}
+
+html.is-scrolling .bg-cards-layer {
+  opacity: 0.55;
+}
+
+html.is-scrolling .liquid-glass {
+  backdrop-filter: blur(8px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+}
+
+/* Scroll-triggered blur + appear (filter cleared after transition) */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(16px);
+  filter: blur(12px);
+  transform: translateY(22px);
   transition:
-    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, filter, transform;
 }
 
 .scroll-reveal-visible {
   opacity: 1;
+  filter: blur(0);
   transform: translateY(0);
+}
+
+.scroll-reveal-done {
+  filter: none;
+  will-change: auto;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
     opacity: 1;
+    filter: none;
     transform: none;
+    will-change: auto;
     transition: none;
   }
 }

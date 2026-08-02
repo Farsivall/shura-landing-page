@@ -18,6 +18,7 @@ const ScrollReveal = ({ children, className = "", delay = 0 }: ScrollRevealProps
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
       setVisible(true);
+      el.classList.add("scroll-reveal-done");
       return;
     }
 
@@ -28,13 +29,31 @@ const ScrollReveal = ({ children, className = "", delay = 0 }: ScrollRevealProps
           observer.disconnect();
         }
       },
-      // Reveal earlier so sections don't feel "stuck" while scrolling
-      { threshold: 0.05, rootMargin: "0px 0px -4% 0px" },
+      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !visible) return;
+
+    const onEnd = (e: TransitionEvent) => {
+      if (e.target !== el) return;
+      if (e.propertyName !== "opacity" && e.propertyName !== "filter") return;
+      el.classList.add("scroll-reveal-done");
+    };
+
+    el.addEventListener("transitionend", onEnd);
+    // Fallback if transitionend is skipped
+    const fallback = window.setTimeout(() => el.classList.add("scroll-reveal-done"), 900);
+    return () => {
+      el.removeEventListener("transitionend", onEnd);
+      window.clearTimeout(fallback);
+    };
+  }, [visible]);
 
   return (
     <div

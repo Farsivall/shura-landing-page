@@ -86,7 +86,7 @@ const SpecialistRing = () => {
                 style={{ ["--angle" as string]: `${i * angleStep}deg` }}
               >
                 <div
-                  className={`specialist-ring-card rounded-xl border border-border bg-card/95 backdrop-blur-sm p-2 sm:p-3.5 ring-1 ${s.ring} w-[84px] sm:w-[118px] md:w-[132px]`}
+                  className={`specialist-ring-card rounded-xl border border-border bg-card/95 p-2 sm:p-3.5 ring-1 ${s.ring} w-[84px] sm:w-[118px] md:w-[132px]`}
                 >
                   <div className="flex items-center gap-2 mb-2.5">
                     <div

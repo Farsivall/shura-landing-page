@@ -98,22 +98,23 @@ const BackgroundCards = () => {
   const [cardToSlot, setCardToSlot] = useState(() => [0, 1, 2, 3, 4]);
 
   useEffect(() => {
-    const id = setInterval(() => {
+    const id = window.setInterval(() => {
+      if (document.documentElement.classList.contains("is-scrolling")) return;
       setCardToSlot(shuffleSlots());
     }, 3200);
-    return () => clearInterval(id);
+    return () => window.clearInterval(id);
   }, []);
 
   return (
     <div
-      className="fixed inset-0 overflow-hidden pointer-events-none z-0"
+      className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-cards-layer"
       aria-hidden
     >
       <div className="absolute inset-0 bg-background/30" />
       {cards.map((card, i) => (
         <div
           key={card.label}
-          className="absolute w-[120px] sm:w-[180px] md:w-[260px] max-w-[calc(100vw-2rem)] will-change-[left,top]"
+          className="absolute w-[120px] sm:w-[180px] md:w-[260px] max-w-[calc(100vw-2rem)]"
           style={{
             ...SLOT_STYLES[cardToSlot[i]],
             transition: "left 1.6s cubic-bezier(0.4, 0, 0.2, 1), top 1.6s cubic-bezier(0.4, 0, 0.2, 1), transform 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
