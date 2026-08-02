@@ -45,57 +45,69 @@ const specialists = [
   },
 ];
 
+type SpecialistRingProps = {
+  /** Wrap in ScrollReveal (default true for standalone use). */
+  reveal?: boolean;
+  /** Run looping progress bars. */
+  animateBars?: boolean;
+};
+
 /** Static specialist panel with looping fill bars — no 3D spin. */
-const SpecialistRing = () => {
-  return (
-    <ScrollReveal delay={120}>
-      <div className="relative mx-auto w-full max-w-4xl select-none" aria-hidden>
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-24 rounded-[100%] bg-primary/10 blur-3xl"
-          aria-hidden
-        />
-        <div className="relative flex flex-wrap items-stretch justify-center gap-2 sm:gap-3 px-1">
-          {specialists.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.label}
-                className={`rounded-xl border border-border bg-card/95 p-2.5 sm:p-3.5 ring-1 ${s.ring} w-[calc(50%-0.35rem)] sm:w-[118px] md:w-[132px]`}
-              >
-                <div className="flex items-center gap-2 mb-2.5">
-                  <div
-                    className={`h-8 w-8 sm:h-9 sm:w-9 rounded-full ${s.accent} flex items-center justify-center shrink-0`}
-                  >
-                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
-                  </div>
-                  <div className="min-w-0 text-left">
-                    <p className="text-[11px] sm:text-xs font-semibold text-foreground truncate">
-                      {s.label}
-                    </p>
-                    <p className="text-[9px] text-muted-foreground hidden sm:block">Specialist</p>
-                  </div>
+const SpecialistRing = ({ reveal = true, animateBars = true }: SpecialistRingProps) => {
+  const panel = (
+    <div className="relative mx-auto w-full max-w-4xl select-none" aria-hidden>
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-24 rounded-[100%] bg-primary/10 blur-3xl"
+        aria-hidden
+      />
+      <div className="relative flex flex-wrap items-stretch justify-center gap-2 sm:gap-3 px-1">
+        {specialists.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <div
+              key={s.label}
+              className={`rounded-xl border border-border bg-card/95 p-2.5 sm:p-3.5 ring-1 ${s.ring} w-[calc(50%-0.35rem)] sm:w-[118px] md:w-[132px] hero-pop-card`}
+              style={{ animationDelay: `${i * 70}ms` }}
+            >
+              <div className="flex items-center gap-2 mb-2.5">
+                <div
+                  className={`h-8 w-8 sm:h-9 sm:w-9 rounded-full ${s.accent} flex items-center justify-center shrink-0`}
+                >
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
                 </div>
-                <div className="h-1 rounded-full bg-muted overflow-hidden mb-2">
-                  <div
-                    className={`specialist-bar-fill h-full rounded-full ${s.bar}`}
-                    style={
-                      {
-                        ["--bar-target"]: `${s.target}%`,
-                        animationDelay: `${i * 0.35}s`,
-                      } as CSSProperties
-                    }
-                  />
+                <div className="min-w-0 text-left">
+                  <p className="text-[11px] sm:text-xs font-semibold text-foreground truncate">
+                    {s.label}
+                  </p>
+                  <p className="text-[9px] text-muted-foreground hidden sm:block">Specialist</p>
                 </div>
-                <p className="text-[9px] text-muted-foreground leading-snug hidden sm:block">
-                  Evaluating from shared evidence
-                </p>
               </div>
-            );
-          })}
-        </div>
+              <div className="h-1 rounded-full bg-muted overflow-hidden mb-2">
+                <div
+                  className={`h-full rounded-full ${s.bar} ${
+                    animateBars ? "specialist-bar-fill" : ""
+                  }`}
+                  style={
+                    {
+                      ["--bar-target"]: `${s.target}%`,
+                      width: animateBars ? undefined : `${s.target}%`,
+                      animationDelay: `${i * 0.35}s`,
+                    } as CSSProperties
+                  }
+                />
+              </div>
+              <p className="text-[9px] text-muted-foreground leading-snug hidden sm:block">
+                Evaluating from shared evidence
+              </p>
+            </div>
+          );
+        })}
       </div>
-    </ScrollReveal>
+    </div>
   );
+
+  if (!reveal) return panel;
+  return <ScrollReveal delay={120}>{panel}</ScrollReveal>;
 };
 
 export default SpecialistRing;
