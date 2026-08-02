@@ -16,7 +16,7 @@ const ThemeToggle = ({ className = "" }: { className?: string }) => {
       type="button"
       variant="ghost"
       size="icon"
-      className={`h-9 w-9 rounded-lg touch-manipulation ${className}`.trim()}
+      className={`h-11 w-11 rounded-lg touch-manipulation ${className}`.trim()}
       aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
       onClick={() => setTheme(isLight ? "dark" : "light")}
       disabled={!mounted}

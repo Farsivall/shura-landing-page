@@ -73,7 +73,7 @@ const ProblemSection = () => (
           <div className="space-y-4">
             {problemPersonas.map((p) => (
               <div key={p.name} className="flex items-center gap-4">
-                <span className="text-sm text-muted-foreground w-28 shrink-0">{p.name}</span>
+                <span className="text-sm text-muted-foreground w-20 sm:w-28 shrink-0">{p.name}</span>
                 <div className="flex-1 min-w-0">
                   <AnimatedBar percent={p.percent} barClassName={p.color} duration={1200} />
                 </div>
@@ -88,7 +88,7 @@ const ProblemSection = () => (
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
         {[
           { icon: Layers, text: "Fragmented evidence" },
           { icon: DollarSign, text: "No memory of past projects" },
@@ -165,7 +165,7 @@ const CostSection = () => (
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
         {costStats.map((stat) => (
           <div key={stat.label} className="p-5 rounded-xl border border-border bg-card text-center">
             <stat.icon className="h-5 w-5 text-muted-foreground mx-auto mb-2" />

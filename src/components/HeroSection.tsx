@@ -86,13 +86,13 @@ const HeroSection = () => {
 
               <Link
                 to="/portfolio"
-                className="hero-eval-stats liquid-glass liquid-glass-sm liquid-glass-sheen mx-auto mb-8 sm:mb-10 flex max-w-lg items-stretch justify-center px-2 py-4 sm:py-5 transition-colors hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="hero-eval-stats liquid-glass liquid-glass-sm liquid-glass-sheen mx-auto mb-8 sm:mb-10 flex max-w-lg items-stretch justify-center px-1.5 sm:px-2 py-4 sm:py-5 transition-colors hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="View analysed portfolio projects"
               >
                 {evaluationStats.map((stat, i) => (
                   <div
                     key={stat.label}
-                    className={`flex flex-1 flex-col items-center gap-1 px-3 sm:px-5 ${
+                    className={`flex flex-1 flex-col items-center gap-1 px-1.5 sm:px-5 min-w-0 ${
                       i > 0 ? "border-l border-border/60" : ""
                     }`}
                   >

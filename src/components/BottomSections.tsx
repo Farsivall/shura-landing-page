@@ -153,7 +153,7 @@ const CTASection = ({ onOpenSignup }: CTASectionProps) => {
               type="button"
               variant="hero"
               size="xl"
-              className="touch-manipulation min-h-[48px]"
+              className="touch-manipulation min-h-[48px] w-full sm:w-auto"
               onClick={onOpenSignup}
             >
               Sign up for the pilot <ArrowRight className="h-4 w-4" />

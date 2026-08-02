@@ -156,7 +156,7 @@ export default function CostScatterAnimated() {
       {/* Click-to-show loss callout */}
       {selected !== null && (
         <div
-          className="absolute right-2 top-2 rounded-lg border border-border bg-card px-3 py-2 shadow-lg text-left min-w-[140px]"
+          className="absolute right-2 top-2 rounded-lg border border-border bg-card px-3 py-2 shadow-lg text-left max-w-[min(180px,70%)] min-w-0"
           role="status"
         >
           <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">{metrics[selected].name}</p>

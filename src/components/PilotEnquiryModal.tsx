@@ -104,7 +104,7 @@ const PilotEnquiryModal = ({ open, onOpenChange, defaultProject = "" }: PilotEnq
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="portfolio-modal max-w-md gap-0 border-border/50 bg-card/90 p-0 overflow-hidden shadow-2xl shadow-black/50 backdrop-blur-2xl sm:rounded-2xl data-[state=open]:animate-none data-[state=closed]:animate-none">
-        <div className="relative px-6 py-8 sm:px-8 sm:py-10">
+        <div className="relative max-h-[90dvh] overflow-y-auto overscroll-contain px-6 py-8 sm:px-8 sm:py-10">
           <div
             className="pointer-events-none absolute inset-x-0 top-0 h-28"
             style={{

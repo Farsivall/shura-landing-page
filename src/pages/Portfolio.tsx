@@ -216,8 +216,8 @@ const PilotModal = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="portfolio-modal max-w-2xl gap-0 border-border/50 bg-card/80 p-0 overflow-hidden shadow-2xl shadow-black/50 backdrop-blur-2xl sm:rounded-2xl data-[state=open]:animate-none data-[state=closed]:animate-none">
-        <div className="max-h-[min(88vh,780px)] overflow-y-auto">
-          <div className="relative aspect-[16/9] overflow-hidden">
+        <div className="max-h-[85dvh] overflow-y-auto overscroll-contain">
+          <div className="relative aspect-[16/10] max-h-[30vh] sm:max-h-none sm:aspect-[16/9] overflow-hidden">
             <img
               src={pilot.image}
               alt={pilot.imageAlt}

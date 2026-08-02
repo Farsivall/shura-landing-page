@@ -43,7 +43,7 @@ const SpecialistRing = () => {
   const angleStep = 360 / count;
 
   return (
-    <div className="specialist-ring-scene relative mx-auto w-full max-w-4xl h-[260px] sm:h-[320px] md:h-[380px] select-none overflow-visible">
+    <div className="specialist-ring-scene relative mx-auto w-full max-w-4xl h-[220px] sm:h-[320px] md:h-[380px] select-none overflow-hidden">
       <div
         className="pointer-events-none absolute left-1/2 bottom-6 -translate-x-1/2 w-[55%] h-10 rounded-[100%] bg-primary/15 blur-2xl"
         aria-hidden
@@ -63,7 +63,7 @@ const SpecialistRing = () => {
                 style={{ ["--angle" as string]: `${i * angleStep}deg` }}
               >
                 <div
-                  className={`specialist-ring-card rounded-xl border border-border bg-card/95 backdrop-blur-sm p-2.5 sm:p-3.5 ring-1 ${s.ring} w-[96px] sm:w-[118px] md:w-[132px]`}
+                  className={`specialist-ring-card rounded-xl border border-border bg-card/95 backdrop-blur-sm p-2 sm:p-3.5 ring-1 ${s.ring} w-[84px] sm:w-[118px] md:w-[132px]`}
                 >
                   <div className="flex items-center gap-2 mb-2.5">
                     <div

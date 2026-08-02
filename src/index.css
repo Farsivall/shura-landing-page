@@ -302,13 +302,17 @@
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
+  max-width: 100%;
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
   border: 1px solid hsl(var(--border));
   background: hsl(var(--muted) / 0.5);
   font-size: 0.75rem;
   color: hsl(var(--muted-foreground));
+  text-align: center;
   transform: translateZ(80px);
   box-shadow: 0 10px 40px hsl(0 0% 0% / 0.25);
 }
@@ -492,13 +496,13 @@
 .specialist-ring-scene {
   perspective: 1200px;
   perspective-origin: 50% 42%;
-  overflow: visible;
+  overflow: hidden;
   transform-style: preserve-3d;
 }
 
 .specialist-ring-stage {
   transform-style: preserve-3d;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .specialist-ring-disc {
@@ -518,7 +522,7 @@
 }
 
 .specialist-ring {
-  --radius: 200px;
+  --radius: 140px;
   position: relative;
   width: 1px;
   height: 1px;

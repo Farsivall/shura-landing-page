@@ -58,7 +58,7 @@ const Navbar = () => {
           {/* Highlighted Portfolio */}
           <Link
             to="/portfolio"
-            className={`hidden sm:inline-flex items-center text-sm font-semibold px-3 py-1.5 rounded-lg border transition-colors touch-manipulation ${
+            className={`hidden md:inline-flex items-center text-sm font-semibold px-3 py-1.5 rounded-lg border transition-colors touch-manipulation min-h-[44px] ${
               onPortfolio
                 ? "border-primary/50 bg-primary/15 text-primary"
                 : "border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 hover:border-primary/50"
@@ -69,14 +69,14 @@ const Navbar = () => {
 
           <Link
             to="/portfolio#signup"
-            className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-colors duration-200 py-2 px-3.5 rounded-lg shadow-md shadow-primary/20"
+            className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-colors duration-200 py-2 px-3.5 rounded-lg shadow-md shadow-primary/20 min-h-[44px]"
           >
             Sign up for the pilot <ArrowRight className="h-3.5 w-3.5" />
           </Link>
 
           <Link
             to="/portfolio#signup"
-            className="md:hidden inline-flex items-center text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 py-2 px-3 rounded-lg min-h-[40px] touch-manipulation"
+            className="md:hidden inline-flex items-center text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 py-2 px-3 rounded-lg min-h-[44px] touch-manipulation"
           >
             Sign up
           </Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden h-10 w-10 rounded-lg touch-manipulation"
+                className="md:hidden h-11 w-11 rounded-lg touch-manipulation"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />

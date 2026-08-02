@@ -69,7 +69,7 @@ const IntroducingSection = () => (
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
           <SectionLabel>The solution</SectionLabel>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground mb-6 px-1">
             Reduce uncertainty before you commit
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-4">
@@ -226,13 +226,13 @@ const FeaturesSection = () => {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {outputFeatures.map((f) => (
             <button
               key={f.title}
               type="button"
               onClick={() => setActive(f)}
-              className="group min-w-0 rounded-xl bg-card/50 p-6 text-left transition-colors hover:bg-card/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring touch-manipulation"
+              className="group min-w-0 min-h-[44px] rounded-xl bg-card/50 p-5 sm:p-6 text-left transition-colors hover:bg-card/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring touch-manipulation"
             >
               <div className="flex items-start justify-between gap-3 mb-4">
                 <f.icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
