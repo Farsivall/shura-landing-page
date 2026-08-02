@@ -154,7 +154,7 @@ const BackgroundCard = ({
             )}
           </div>
           <p className="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground hidden sm:block">
-            Decision intelligence — evidence-backed
+            Decision intelligence, evidence-backed
           </p>
         </div>
       </div>

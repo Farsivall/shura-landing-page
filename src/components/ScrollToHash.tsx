@@ -12,6 +12,9 @@ const ScrollToHash = () => {
 
     if (hash) {
       const id = hash.replace("#", "");
+      // Modal triggers (handled on Portfolio) — don't scroll-hunt a missing id
+      if (id === "signup") return;
+
       const timer = window.setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 50);

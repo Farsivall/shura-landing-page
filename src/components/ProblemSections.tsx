@@ -18,11 +18,11 @@ const WhyNowSection = () => (
           A project arrives. Thousands of pages follow. Uncertainty remains.
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-          Engineering studies. Financial workbooks. Tax structures. Contracts. Offtake. Before capital, consulting, financing, or IC — one question matters: is this project worth pursuing?
+          Engineering studies. Financial workbooks. Tax structures. Contracts. Offtake. Before capital, consulting, financing, or IC, one question matters: is this project worth pursuing?
         </p>
       </div>
       <div className="flex justify-center mt-8 sm:mt-10 overflow-x-auto">
-        <div className="p-4 sm:p-8 rounded-2xl border border-border bg-card/50 min-w-0">
+        <div className="p-4 sm:p-8 rounded-2xl bg-card/40 min-w-0">
           <ComplexityGraphic />
         </div>
       </div>
@@ -41,31 +41,32 @@ const problemPersonas = [
 const ProblemSection = () => (
   <section id="problem" className="py-16 sm:py-24 md:py-32 relative z-10">
     <div className="container min-w-0">
-      <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-12">
-        <SectionLabel>The problem</SectionLabel>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-          Why this decision is so difficult today
-        </h2>
-        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-8 sm:mb-10">
-          Evidence is fragmented. Assumptions stay unvalidated. Risks hide between disciplines. Developers spend months — and six figures — just to decide whether to go further.
-        </p>
-      </div>
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12 sm:mb-16 items-start">
+        <div className="text-left">
+          <SectionLabel>The problem</SectionLabel>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
+            Why this decision is so difficult today
+          </h2>
+          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            Evidence is fragmented. Assumptions stay unvalidated. Risks hide between disciplines. Developers spend months, and six figures, just to decide whether to go further.
+          </p>
+        </div>
 
-      {/* Core pain: no institutional memory */}
-      <div className="max-w-3xl mx-auto mb-12 rounded-2xl border border-amber-500/25 bg-amber-500/[0.06] p-6 sm:p-8">
-        <p className="text-[11px] font-medium text-amber-400/90 uppercase tracking-wider mb-2">
-          The hidden cost
-        </p>
-        <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3">
-          Every new project starts from zero
-        </h3>
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          Advisers, chats, and spreadsheets don’t remember your last five deals. Context walks out of the room. The next evaluation re-learns your risks, structures, and preferences from scratch — so decisions get no smarter over time.
-        </p>
+        <div className="text-left md:pt-1">
+          <p className="text-xs font-medium text-primary tracking-widest uppercase mb-4">
+            The hidden cost
+          </p>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
+            Every new project starts from zero
+          </h3>
+          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            Advisers, chats, and spreadsheets don’t remember your last five deals. Context walks out of the room. The next evaluation re-learns your risks, structures, and preferences from scratch, so decisions get no smarter over time.
+          </p>
+        </div>
       </div>
 
       <div className="max-w-2xl mx-auto mb-12">
-        <div className="p-6 rounded-xl border border-border bg-card">
+        <div className="p-6 rounded-xl bg-card/40">
           <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">
             Perspectives that rarely meet
           </h3>
@@ -94,7 +95,7 @@ const ProblemSection = () => (
           { icon: Calendar, text: "Hidden cross-discipline risk" },
           { icon: Clock, text: "Months before clarity" },
         ].map((item) => (
-          <div key={item.text} className="flex flex-col items-center gap-3 p-6 rounded-xl border border-border bg-card">
+          <div key={item.text} className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card/40">
             <item.icon className="h-5 w-5 text-muted-foreground" />
             <span className="text-sm text-muted-foreground text-center">{item.text}</span>
           </div>
@@ -108,14 +109,14 @@ const costStats = [
   {
     icon: DollarSign,
     value: 37,
-    prefix: "$",
+    prefix: "£",
     suffix: "B",
     label: "Lost annually to unproductive meetings (US)",
   },
   {
     icon: DollarSign,
     value: 100,
-    prefix: "$",
+    prefix: "£",
     suffix: "K+",
     label: "Per feasibility or strategy engagement",
   },
@@ -142,7 +143,7 @@ const CostSection = () => (
           Capital waits. Options expire. Advisory spend mounts.
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-8 sm:mb-12">
-          Delaying the proceed / restructure / walk-away call is expensive — in meetings, retainers, and lost time.
+          Delaying the proceed / restructure / walk-away call is expensive: in meetings, retainers, and lost time.
         </p>
       </div>
 
@@ -159,7 +160,7 @@ const CostSection = () => (
             The loss.
           </p>
           <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
-            $37B in meeting waste. $100K+ per early evaluation. 60% of delays from slow decisions — all before a developer knows whether the project deserves further investment.
+            £37B in meeting waste. £100K+ per early evaluation. 60% of delays from slow decisions, all before a developer knows whether the project deserves further investment.
           </p>
         </div>
       </div>
@@ -188,7 +189,7 @@ const ToolsFailSection = () => (
           Not a chatbot. Not a document tool. Not another spreadsheet.
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-          Shura is the intelligence layer before investment — structured multidisciplinary evaluation with provenance. It complements consultants and advisors; it does not replace professional judgement.
+          Shura is the intelligence layer before investment: structured multidisciplinary evaluation with provenance. It complements consultants and advisors; it does not replace professional judgement.
         </p>
       </div>
       <div className="rounded-xl border border-border bg-card overflow-hidden max-w-3xl mx-auto mb-12">
@@ -203,10 +204,10 @@ const ToolsFailSection = () => (
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
         {[
-          { tool: "ChatGPT", issue: "No project memory — starts cold every conversation" },
-          { tool: "Consultants", issue: "Essential later — context rarely compounds across engagements" },
+          { tool: "ChatGPT", issue: "No project memory. Starts cold every conversation." },
+          { tool: "Consultants", issue: "Essential later. Context rarely compounds across engagements." },
           { tool: "Spreadsheets", issue: "Powerful numbers without a multidisciplinary evidence trail" },
-          { tool: "Static reports", issue: "A snapshot — not re-runnable when assumptions change" },
+          { tool: "Static reports", issue: "A snapshot, not re-runnable when assumptions change" },
         ].map((item) => (
           <div key={item.tool} className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card">
             <span className="text-sm font-medium text-foreground w-28 shrink-0">{item.tool}</span>

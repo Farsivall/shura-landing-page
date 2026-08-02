@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Presentation } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import GradientBlobs from "@/components/GradientBlobs";
@@ -12,7 +12,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Footer } from "@/components/BottomSections";
+import { CTASection, Footer } from "@/components/BottomSections";
+import { SectionLabel } from "@/components/ProblemSections";
+import { CountUp } from "@/components/CountUp";
+import PilotEnquiryModal from "@/components/PilotEnquiryModal";
+
+const portfolioStats = [
+  { end: 79.1, decimals: 1, suffix: " MW", label: "Total capacity" },
+  { end: 3, decimals: 0, suffix: "", label: "Projects" },
+  { end: 700, decimals: 0, suffix: "+", label: "Documents" },
+];
 
 /**
  * Three projects analysed with Shura.
@@ -23,66 +32,78 @@ const pilots = [
   {
     number: "01",
     sector: "Small hydro",
-    title: "Multi-site run-of-river programme",
+    title: "Multi-site small hydro programme",
     capacity: "29.1 MW",
-    stage: "Full diligence",
+    stage: "Ongoing",
     image: "/portfolio/small-hydro.png",
-    imageAlt: "Sample aerial view of a hydroelectric dam — placeholder imagery",
+    imageAlt: "Sample aerial view of a hydroelectric dam (placeholder imagery)",
     summary:
-      "Multi-site run-of-river programme with a full diligence data room — feasibility, hydrology, drawings, and a FiT-style financial workbook.",
+      "Multi-site small hydro programme with a full diligence data room: 700+ documents across feasibility, hydrology, drawings, and a FiT-style financial workbook.",
     challenge:
       "Evaluate a multi-site small hydro programme before further capital commitment, with evidence spread across technical, hydrology, and financial workstreams.",
     approach:
-      "Ingested a full diligence data room — feasibility studies, hydrology, engineering drawings, and a FiT-style financial workbook — and ran cross-discipline analysis through Shura.",
+      "Ingested a full diligence data room of 700+ documents (feasibility studies, hydrology, engineering drawings, and a FiT-style financial workbook) and ran cross-discipline analysis through Shura.",
     outcome:
-      "Produced an evidence-backed project assessment with provenance from the data room into a clear decision brief for the programme.",
+      "Ongoing. Actively working with the company on an evidence-backed assessment. Provided a pre-evaluation document, financial model, and technical due diligence with decision analysis; the financial model remains under active review as new diligence materials arrive.",
     disciplines: ["Engineering", "Finance", "Business Dev", "Legal", "Tax"],
     deckUrl: null as string | null,
-    deckLabel: "29.1 MW small hydro — slide deck",
+    deckLabel: "29.1 MW small hydro slide deck",
   },
   {
     number: "02",
     sector: "Hydro",
     title: "Single-scheme hydro project",
     capacity: "11 MW",
-    stage: "Preliminary assessment",
+    stage: "Ongoing",
     image: "/portfolio/hydro.png",
-    imageAlt: "Sample view of a hydroelectric dam in a forested valley — placeholder imagery",
+    imageAlt: "Sample view of a hydroelectric dam in a forested valley (placeholder imagery)",
     summary:
-      "Single-scheme hydro used for specialist evaluation and preliminary project assessment runs.",
+      "Smaller single-scheme hydro: specialist-panel evaluation and preliminary project assessment grounded in the uploaded evidence.",
     challenge:
-      "Run a focused preliminary assessment on a smaller single-scheme hydro asset to stress-test specialist evaluation workflows.",
+      "Pressure-test viability of a smaller single-scheme hydro before committing to a fuller advisory or investment process.",
     approach:
-      "Applied Shura specialist evaluation across engineering and commercial inputs for an early-stage project assessment, with a lighter data room than the multi-site programme.",
+      "Loaded the project corpus into Shura and ran specialist-panel evaluation with preliminary project assessment outputs grounded in the uploaded evidence.",
     outcome:
-      "Delivered a preliminary project assessment suitable for early go / no-go framing and specialist review.",
+      "Ongoing. Specialist scores and decision brief still being refined against further technical and commercial inputs.",
     disciplines: ["Engineering", "Finance", "Business Dev"],
     deckUrl: null as string | null,
-    deckLabel: "11 MW hydro — slide deck",
+    deckLabel: "11 MW hydro slide deck",
   },
   {
     number: "03",
     sector: "Solar PV",
     title: "Utility-scale PV farm",
     capacity: "39 MW",
-    stage: "Project analysis",
+    stage: "Ongoing",
     image: "/portfolio/solar-pv.png",
-    imageAlt: "Sample aerial view of a utility-scale solar PV farm — placeholder imagery",
+    imageAlt: "Sample aerial view of a utility-scale solar PV farm (placeholder imagery)",
     summary:
-      "Utility-scale solar PV farm analysed for development and investment readiness.",
+      "Utility-scale solar PV: validating returns and financing structure from an authoritative financial workbook before treating IRR/NPV as decision-ready.",
     challenge:
-      "Assess whether a 39 MW utility-scale solar PV farm warranted further development and capital commitment.",
+      "Validate project returns and financing structure from an authoritative financial workbook before treating IRR/NPV figures as decision-ready.",
     approach:
-      "Ran decision diligence across engineering, offtake / commercial, and financial evidence to evaluate project viability before capital was committed.",
+      "Mapped the financial workbook through Shura, stress-testing returns, financing assumptions, and provenance so IRR and NPV figures can be defended before capital commitment.",
     outcome:
-      "Produced a structured analysis of the solar PV farm with clear findings for the development decision path.",
-    disciplines: ["Engineering", "Finance", "Business Dev", "Tax"],
+      "Ongoing. Financial validation in progress; returns and financing structure under review against the source workbook.",
+    disciplines: ["Finance", "Engineering", "Business Dev", "Tax"],
     deckUrl: null as string | null,
-    deckLabel: "39 MW solar PV — slide deck",
+    deckLabel: "39 MW solar PV slide deck",
   },
 ];
 
 type Pilot = (typeof pilots)[number];
+
+const OngoingPill = ({ className = "" }: { className?: string }) => (
+  <span
+    className={`inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-md ${className}`.trim()}
+  >
+    <span className="relative flex h-2 w-2">
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+    </span>
+    Ongoing
+  </span>
+);
 
 const DeckPlaceholder = ({ pilot }: { pilot: Pilot }) => {
   const inner = (
@@ -143,6 +164,9 @@ const PilotCard = ({ pilot, onOpen }: { pilot: Pilot; onOpen: () => void }) => (
         loading="lazy"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
+      <div className="absolute top-3 right-3">
+        <OngoingPill />
+      </div>
       <div className="absolute bottom-3 left-3">
         <span className="inline-flex items-center rounded-md bg-background/85 px-2.5 py-1 text-sm font-semibold text-foreground backdrop-blur-md">
           {pilot.capacity}
@@ -152,11 +176,7 @@ const PilotCard = ({ pilot, onOpen }: { pilot: Pilot; onOpen: () => void }) => (
 
     <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
       <div className="flex-1 space-y-2">
-        <p className="text-sm text-muted-foreground">
-          {pilot.sector}
-          <span className="mx-2 text-border">·</span>
-          {pilot.stage}
-        </p>
+        <p className="text-sm text-muted-foreground">{pilot.sector}</p>
         <h2 className="text-xl font-semibold text-foreground tracking-tight leading-snug">
           {pilot.title}
         </h2>
@@ -184,10 +204,12 @@ const PilotModal = ({
   pilot,
   open,
   onOpenChange,
+  onEnquire,
 }: {
   pilot: Pilot | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onEnquire: () => void;
 }) => {
   if (!pilot) return null;
 
@@ -202,6 +224,9 @@ const PilotModal = ({
               className="portfolio-modal-image absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-card via-card/35 to-transparent" />
+            <div className="absolute top-4 left-5">
+              <OngoingPill />
+            </div>
             <div className="absolute bottom-4 left-5 right-14 flex items-end justify-between gap-3">
               <span className="rounded-md bg-background/85 px-2.5 py-1 text-sm font-semibold text-foreground backdrop-blur-md">
                 {pilot.capacity}
@@ -214,8 +239,6 @@ const PilotModal = ({
             <DialogHeader className="space-y-3 text-left">
               <DialogDescription className="text-sm text-muted-foreground">
                 {pilot.sector}
-                <span className="mx-2 text-border">·</span>
-                {pilot.stage}
               </DialogDescription>
               <DialogTitle className="text-2xl sm:text-[1.75rem] font-semibold tracking-tight leading-snug">
                 {pilot.title}
@@ -242,6 +265,18 @@ const PilotModal = ({
               <h3 className="text-base font-semibold text-foreground">Slide deck</h3>
               <DeckPlaceholder pilot={pilot} />
             </div>
+
+            <div className="border-t border-border pt-6">
+              <Button
+                variant="hero"
+                size="xl"
+                type="button"
+                className="w-full touch-manipulation min-h-[48px]"
+                onClick={onEnquire}
+              >
+                Sign up for the pilot <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>
@@ -250,7 +285,33 @@ const PilotModal = ({
 };
 
 const Portfolio = () => {
+  const { hash } = useLocation();
+  const navigate = useNavigate();
   const [active, setActive] = useState<Pilot | null>(null);
+  const [signupOpen, setSignupOpen] = useState(false);
+  const [signupProject, setSignupProject] = useState("");
+
+  const openSignup = (project = "") => {
+    setActive(null);
+    setSignupProject(project);
+    setSignupOpen(true);
+  };
+
+  // Nav / hero "Sign up for the pilot" → /portfolio#signup opens the modal
+  useEffect(() => {
+    if (hash === "#signup" || hash === "#cta") {
+      setActive(null);
+      setSignupProject("");
+      setSignupOpen(true);
+    }
+  }, [hash]);
+
+  const handleSignupOpenChange = (open: boolean) => {
+    setSignupOpen(open);
+    if (!open && (hash === "#signup" || hash === "#cta")) {
+      navigate("/portfolio", { replace: true });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
@@ -258,21 +319,43 @@ const Portfolio = () => {
       <Navbar />
 
       <div className="relative z-10">
-        <section className="pt-28 sm:pt-32 pb-10 sm:pb-14">
+        <section className="pt-28 sm:pt-32 pb-12 sm:pb-16">
           <div className="container max-w-6xl">
             <ScrollReveal>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground tracking-tight leading-tight mb-4 max-w-2xl">
-                Projects analysed
-              </h1>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-                Small hydro, hydro, and utility-scale solar — projects where Shura ran decision
-                diligence before capital was committed.
-              </p>
+              <div className="max-w-2xl mx-auto text-center">
+                <SectionLabel>Portfolio</SectionLabel>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8">
+                  Projects analysed
+                </h1>
+                <div className="flex flex-wrap items-start justify-center gap-8 sm:gap-12 mb-8 sm:mb-10">
+                  {portfolioStats.map((stat) => (
+                    <div key={stat.label} className="flex flex-col items-center gap-1">
+                      <CountUp
+                        end={stat.end}
+                        decimals={stat.decimals}
+                        suffix={stat.suffix}
+                        duration={1400}
+                        startOnView
+                        className="text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-tight"
+                      />
+                      <span className="text-xs sm:text-sm text-muted-foreground">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-snug mb-4">
+                  Not in months. Not in weeks.{" "}
+                  <span className="text-primary">In a few days.</span>
+                </p>
+                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                  Run decision diligence on your next energy project with Shura, and become
+                  one of our next pilot customers.
+                </p>
+              </div>
             </ScrollReveal>
           </div>
         </section>
 
-        <section className="pb-10 sm:pb-14">
+        <section className="pb-8 sm:pb-12">
           <div className="container max-w-6xl">
             <ScrollReveal>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
@@ -282,35 +365,32 @@ const Portfolio = () => {
               </div>
             </ScrollReveal>
 
-            <p className="pt-8 text-sm text-muted-foreground/80 leading-relaxed max-w-xl">
+            <p className="pt-8 text-sm text-muted-foreground/80 leading-relaxed max-w-xl mx-auto text-center">
               Client details withheld. Imagery is sample photography, not project sites.
             </p>
           </div>
         </section>
 
-        <section className="py-16 sm:py-24 border-t border-border">
-          <ScrollReveal>
-            <div className="container max-w-6xl text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-3">
-                Enquire for a fuller technical report
-              </h2>
-              <p className="text-muted-foreground text-base max-w-lg mx-auto mb-8 leading-relaxed">
-                These summaries are high-level. Request a fuller technical report on any of
-                the analysed projects — or ask us to run the same diligence on yours.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <Button variant="hero" size="xl" asChild className="touch-manipulation min-h-[48px]">
-                  <Link to="/#cta">
-                    Enquire for report <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="xl" asChild className="touch-manipulation min-h-[48px]">
-                  <Link to="/">Back to home</Link>
-                </Button>
+        <section className="pb-4 sm:pb-6">
+          <div className="container max-w-3xl">
+            <ScrollReveal>
+              <div className="text-center px-2">
+                <p className="text-base sm:text-lg text-foreground/90 leading-relaxed">
+                  We&apos;re currently selecting{" "}
+                  <span className="text-primary font-medium">the first few pilot partners</span>{" "}
+                  to evaluate Shura on real energy infrastructure projects. Partners receive early
+                  access to the platform, dedicated one-to-one support throughout the
+                  evaluation, and the opportunity to shape future product development through
+                  direct feedback.
+                </p>
               </div>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+          </div>
         </section>
+
+        <ScrollReveal>
+          <CTASection onOpenSignup={() => openSignup()} />
+        </ScrollReveal>
 
         <Footer />
       </div>
@@ -321,6 +401,15 @@ const Portfolio = () => {
         onOpenChange={(open) => {
           if (!open) setActive(null);
         }}
+        onEnquire={() =>
+          openSignup(active ? `${active.capacity} ${active.title}` : "")
+        }
+      />
+
+      <PilotEnquiryModal
+        open={signupOpen}
+        onOpenChange={handleSignupOpenChange}
+        defaultProject={signupProject}
       />
     </div>
   );

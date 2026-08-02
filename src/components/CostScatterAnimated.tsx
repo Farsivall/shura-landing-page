@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 
 // Sourced: meeting waste (MeetingToll/Yaware), strategy/feasibility cost (Futurists/OGSCapital/McKinsey), unproductive meetings (71% - Insights for Professionals), decision latency (AgileIG)
 const metrics = [
-  { name: "Meeting waste", value: "$37B", label: "Lost annually to unproductive meetings (US)", color: "hsl(var(--primary))" },
-  { name: "Strategy evaluation", value: "$100K+", label: "Per consulting engagement to test an idea", color: "hsl(262 83% 58%)" },
+  { name: "Meeting waste", value: "£37B", label: "Lost annually to unproductive meetings (US)", color: "hsl(var(--primary))" },
+  { name: "Strategy evaluation", value: "£100K+", label: "Per consulting engagement to test an idea", color: "hsl(262 83% 58%)" },
   { name: "Meetings unproductive", value: "71%", label: "Of meetings considered unproductive", color: "hsl(38 92% 50%)" },
   { name: "Decision latency", value: "60%", label: "Of project delays from slow decisions", color: "hsl(189 94% 43%)" },
 ];

@@ -1,9 +1,67 @@
 import { useState } from "react";
 import { SectionLabel } from "./ProblemSections";
-import { Sparkles, GitBranch, BarChart3, MessageSquare, FileText, ChevronDown, Shield, Brain, History, TrendingUp } from "lucide-react";
-import chatVideo from "@/assets/chat.mp4";
-import decisionTreeVideo from "@/assets/decisiontree.mp4";
-import evalVideo from "@/assets/eval.mp4";
+import {
+  Sparkles,
+  GitBranch,
+  BarChart3,
+  FileText,
+  Brain,
+  History,
+  TrendingUp,
+  Wrench,
+  MapPin,
+  Search,
+  Compass,
+  Play,
+} from "lucide-react";
+import LiveRecommendation from "@/components/gen/LiveRecommendation";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+
+type OutputFeature = {
+  icon: typeof FileText;
+  title: string;
+  desc: string;
+  video?: string | null;
+};
+
+const outputFeatures: OutputFeature[] = [
+  {
+    icon: FileText,
+    title: "Investment Evaluation",
+    desc: "A structured proceed / restructure / walk-away assessment grounded in project evidence.",
+  },
+  {
+    icon: BarChart3,
+    title: "Financial Model",
+    desc: "A defendable model built from authoritative sources, ready for investor and lender scrutiny.",
+  },
+  {
+    icon: Wrench,
+    title: "Engineering Assessment",
+    desc: "Technical viability, constraints, and risks scored against the evidence in the data room.",
+  },
+  {
+    icon: MapPin,
+    title: "Site Assessment",
+    desc: "Location, grid, and site-level factors that shape whether the project can be delivered.",
+  },
+  {
+    icon: Search,
+    title: "Evidence Intelligence",
+    desc: "Every claim traced to source documents, so you can interrogate the basis of the recommendation.",
+  },
+  {
+    icon: Compass,
+    title: "Decision Intelligence",
+    desc: "Trade-offs, assumptions, and decision paths made clear before capital commits.",
+  },
+];
 
 const IntroducingSection = () => (
   <section id="introducing" className="py-16 sm:py-24 md:py-32 relative z-10">
@@ -15,24 +73,27 @@ const IntroducingSection = () => (
             Reduce uncertainty before you commit
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-4">
-            Shura transforms complex project evidence into explainable, multidisciplinary intelligence — so energy developers can stress-test viability and understand trade-offs before capital locks in.
+            Shura transforms complex project evidence into explainable, multidisciplinary intelligence, so energy developers can stress-test viability and understand trade-offs before capital locks in.
           </p>
         </div>
         <div className="text-center">
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-            Evaluates engineering, financial and business-development viability from a single evidence base. Surfaces hidden risks. Produces a recommendation you can defend: proceed, restructure, or walk away. And it gets sharper the more you use it — because it retains your project context.
+            Evaluates engineering, financial and business-development viability from a single evidence base. Surfaces hidden risks. Produces a recommendation you can defend: proceed, restructure, or walk away. And it gets sharper the more you use it, because it retains your project context.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto mb-6">
             {[
               { title: "Proceed", desc: "Viability supports further investment" },
-              { title: "Restructure", desc: "Path exists — assumptions must change" },
+              { title: "Restructure", desc: "Path exists if assumptions change" },
               { title: "Walk away", desc: "Risk outweighs the opportunity" },
             ].map((item) => (
-              <div key={item.title} className="px-4 py-4 rounded-lg border border-border bg-card text-left">
+              <div key={item.title} className="px-4 py-4 rounded-lg bg-card/50 text-left">
                 <p className="text-sm font-semibold text-foreground mb-1">{item.title}</p>
                 <p className="text-xs text-muted-foreground">{item.desc}</p>
               </div>
             ))}
+          </div>
+          <div className="max-w-2xl mx-auto">
+            <LiveRecommendation />
           </div>
         </div>
       </div>
@@ -49,7 +110,7 @@ const LearningAdviserSection = () => (
           An adviser that learns from your projects
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-          Shura doesn’t forget. It carries forward your past context — structures you’ve used, risks you’ve seen, preferences your team has established — and gets better at helping you make the next commit decision.
+          Shura doesn’t forget. It carries forward your past context: structures you’ve used, risks you’ve seen, preferences your team has established. And it gets better at helping you make the next commit decision.
         </p>
       </div>
 
@@ -58,7 +119,7 @@ const LearningAdviserSection = () => (
           {
             icon: History,
             title: "Knows your past context",
-            desc: "Prior projects, assumptions, and diligence patterns stay available — not locked in someone’s inbox.",
+            desc: "Prior projects, assumptions, and diligence patterns stay available, not locked in someone’s inbox.",
           },
           {
             icon: Brain,
@@ -73,7 +134,7 @@ const LearningAdviserSection = () => (
         ].map((item) => (
           <div
             key={item.title}
-            className="rounded-xl border border-border bg-card p-6 text-left hover:border-primary/30 transition-colors"
+            className="rounded-xl bg-card/50 p-6 text-left"
           >
             <item.icon className="h-5 w-5 text-primary mb-4" />
             <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
@@ -82,7 +143,7 @@ const LearningAdviserSection = () => (
         ))}
       </div>
 
-      <div className="max-w-2xl mx-auto rounded-2xl border border-primary/25 bg-primary/5 px-6 py-5 text-center">
+      <div className="max-w-2xl mx-auto rounded-2xl bg-primary/5 px-6 py-5 text-center">
         <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">
           Not a chatbot that resets. Not an adviser that walks away with the brief.{" "}
           <span className="text-primary font-medium">
@@ -105,7 +166,7 @@ const HowItWorksSection = () => {
     {
       num: "02",
       title: "Evaluate across disciplines",
-      desc: "Engineering, finance, business development, tax, and legal — one shared evidence base.",
+      desc: "Engineering, finance, business development, tax, and legal: one shared evidence base.",
       icon: Sparkles,
     },
     {
@@ -116,7 +177,7 @@ const HowItWorksSection = () => {
     },
     {
       num: "04",
-      title: "Decide — and compound",
+      title: "Decide, and compound",
       desc: "Proceed, restructure, or walk away. Shura keeps the context so the next project starts smarter.",
       icon: GitBranch,
     },
@@ -133,7 +194,10 @@ const HowItWorksSection = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {steps.map((step) => (
-            <div key={step.num} className="relative p-4 sm:p-6 rounded-xl border border-border bg-card group hover:border-primary/30 transition-colors">
+            <div
+              key={step.num}
+              className="relative p-4 sm:p-6 rounded-xl bg-card/50 group"
+            >
               <span className="text-xs font-mono text-primary mb-4 block">{step.num}</span>
               <step.icon className="h-5 w-5 text-muted-foreground mb-3 group-hover:text-primary transition-colors" />
               <h3 className="text-sm font-semibold text-foreground mb-2">{step.title}</h3>
@@ -147,46 +211,7 @@ const HowItWorksSection = () => {
 };
 
 const FeaturesSection = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const features = [
-    {
-      icon: Sparkles,
-      title: "Multidisciplinary evaluation",
-      desc: "Evaluates engineering, financial and business-development viability from a single evidence base — not five disconnected opinions.",
-      video: evalVideo,
-    },
-    {
-      icon: BarChart3,
-      title: "Defendable financial model",
-      desc: "Produces a validated financial model you can take to investors — numbers from authoritative sources, not invented returns.",
-      video: decisionTreeVideo,
-    },
-    {
-      icon: MessageSquare,
-      title: "Explainable intelligence",
-      desc: "Interrogate the recommendation. Understand trade-offs. Trace every claim back to project evidence.",
-      video: chatVideo,
-    },
-    {
-      icon: Shield,
-      title: "Full provenance",
-      desc: "Every recommendation is fully traceable to source evidence.",
-      video: null,
-    },
-    {
-      icon: FileText,
-      title: "Investment-ready assessments",
-      desc: "Creates assessments that explain the recommendation — for IC, lenders, and internal sponsors.",
-      video: null,
-    },
-    {
-      icon: Brain,
-      title: "Context that compounds",
-      desc: "Learns from your projects so the next evaluation starts with your history — not a blank slate.",
-      video: null,
-    },
-  ];
+  const [active, setActive] = useState<OutputFeature | null>(null);
 
   return (
     <section id="features" className="py-16 sm:py-24 md:py-32 relative z-10">
@@ -197,73 +222,58 @@ const FeaturesSection = () => {
             What you receive
           </h2>
           <p className="text-muted-foreground mt-4 text-sm sm:text-base">
-            Outcomes that support the investment decision — not a pile of ungrounded text.
+            Outcomes that support the investment decision, not a pile of ungrounded text.
           </p>
         </div>
-        <div className="max-w-5xl mx-auto flex flex-col gap-5">
-          <div className="flex flex-col gap-5">
-            {features.slice(0, 3).map((f, i) => {
-              const isExpanded = expandedIndex === i;
-              return (
-                <div
-                  key={f.title}
-                  className={`rounded-xl border bg-card transition-all overflow-hidden w-full max-w-full cursor-pointer p-4 sm:p-6 md:p-8 touch-manipulation ${
-                    isExpanded ? "border-primary/40 ring-1 ring-primary/20" : "border-border hover:border-primary/30 md:min-h-0"
-                  }`}
-                  onClick={() => setExpandedIndex(isExpanded ? null : i)}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <f.icon className="h-6 w-6 text-muted-foreground mb-4 transition-colors" />
-                      <h3 className="text-base md:text-lg font-semibold text-foreground mb-2 leading-tight">{f.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-                    </div>
-                    <ChevronDown
-                      className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
-                    />
-                  </div>
-                  <div
-                    className={`grid transition-all duration-300 ease-out ${isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-                  >
-                    <div className="min-h-0 overflow-hidden">
-                      <div className="border-t border-border bg-muted/30 p-4 mt-4 flex justify-center">
-                        {f.video ? (
-                          <div className="rounded-lg overflow-hidden aspect-video w-full max-w-2xl mx-auto">
-                            <video
-                              src={f.video}
-                              className="w-full h-full object-cover"
-                              playsInline
-                              muted
-                              loop
-                              autoPlay
-                            />
-                          </div>
-                        ) : (
-                          <div className="aspect-video rounded-lg border border-dashed border-border flex items-center justify-center bg-card/50 w-full max-w-2xl mx-auto">
-                            <p className="text-xs text-muted-foreground">Preview coming soon</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex flex-col md:flex-row gap-4 mt-2">
-            {features.slice(3, 6).map((f) => (
-              <div
-                key={f.title}
-                className="flex-1 min-w-0 rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-all"
-              >
-                <f.icon className="h-5 w-5 text-muted-foreground mb-4" />
-                <h3 className="text-sm font-semibold text-foreground mb-2">{f.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
+
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {outputFeatures.map((f) => (
+            <button
+              key={f.title}
+              type="button"
+              onClick={() => setActive(f)}
+              className="group min-w-0 rounded-xl bg-card/50 p-6 text-left transition-colors hover:bg-card/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring touch-manipulation"
+            >
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <f.icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <Play className="h-3.5 w-3.5 text-muted-foreground/50 group-hover:text-primary/70 transition-colors" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{f.title}</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
+            </button>
+          ))}
         </div>
       </div>
+
+      <Dialog open={!!active} onOpenChange={(open) => !open && setActive(null)}>
+        <DialogContent className="max-w-2xl gap-0 overflow-hidden p-0 sm:rounded-2xl">
+          {active && (
+            <>
+              <DialogHeader className="px-6 pt-6 pb-3 text-left">
+                <DialogTitle>{active.title}</DialogTitle>
+                <DialogDescription>{active.desc}</DialogDescription>
+              </DialogHeader>
+              <div className="px-6 pb-6">
+                {active.video ? (
+                  <div className="overflow-hidden rounded-lg aspect-video">
+                    <video
+                      src={active.video}
+                      className="h-full w-full object-cover"
+                      playsInline
+                      controls
+                      autoPlay
+                    />
+                  </div>
+                ) : (
+                  <div className="flex aspect-video items-center justify-center rounded-lg bg-muted/40">
+                    <p className="text-sm text-muted-foreground">Preview coming soon</p>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

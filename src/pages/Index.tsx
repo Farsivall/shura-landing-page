@@ -5,7 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import HeroSection from "@/components/HeroSection";
 import { WhyNowSection, ProblemSection, CostSection, ToolsFailSection } from "@/components/ProblemSections";
 import { IntroducingSection, LearningAdviserSection, HowItWorksSection, FeaturesSection } from "@/components/ProductSections";
-import { WhoSection, VisionSection, CTASection, Footer } from "@/components/BottomSections";
+import { WhoSection, VisionSection, Footer } from "@/components/BottomSections";
 import StatsSection from "@/components/StatsSection";
 
 const Index = () => {
@@ -18,9 +18,6 @@ const Index = () => {
       <div className="relative z-10">
         <ScrollReveal>
           <HeroSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <CTASection />
         </ScrollReveal>
         <ScrollReveal>
           <WhyNowSection />

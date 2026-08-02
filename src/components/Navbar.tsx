@@ -29,13 +29,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-3 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 opacity-0 animate-nav-in">
-      <div
-        className="flex h-12 sm:h-14 items-center justify-between rounded-2xl border px-3 sm:px-5 shadow-lg shadow-black/5 backdrop-blur-xl md:px-8 w-full max-w-7xl min-w-0 md:min-w-[720px] gap-3"
-        style={{
-          background: "var(--glass-bg)",
-          borderColor: "var(--glass-border)",
-        }}
-      >
+      <div className="liquid-glass liquid-glass-sheen flex h-12 sm:h-14 items-center justify-between rounded-2xl px-3 sm:px-5 md:px-8 w-full max-w-7xl min-w-0 md:min-w-[720px] gap-3">
         <Link
           to="/"
           className="flex items-center gap-2 rounded-lg outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring min-h-[44px] min-w-[44px] md:min-w-0 md:min-h-0 flex-shrink-0"
@@ -46,12 +40,12 @@ const Navbar = () => {
           <span className="text-base sm:text-lg font-semibold text-foreground">Shura</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 min-w-0">
+        <div className="hidden md:flex flex-1 items-center justify-evenly min-w-0 mx-2 lg:mx-4">
           {sectionLinks.map((link) => (
             <a
               key={link.href}
               href={sectionHref(link.href)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 px-1 py-2 whitespace-nowrap"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 px-2 py-2 whitespace-nowrap text-center"
             >
               {link.label}
             </a>
@@ -74,14 +68,14 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/#cta"
+            to="/portfolio#signup"
             className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-colors duration-200 py-2 px-3.5 rounded-lg shadow-md shadow-primary/20"
           >
             Sign up for the pilot <ArrowRight className="h-3.5 w-3.5" />
           </Link>
 
           <Link
-            to="/#cta"
+            to="/portfolio#signup"
             className="md:hidden inline-flex items-center text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 py-2 px-3 rounded-lg min-h-[40px] touch-manipulation"
           >
             Sign up
@@ -125,7 +119,7 @@ const Navbar = () => {
                   </a>
                 ))}
                 <Link
-                  to="/#cta"
+                  to="/portfolio#signup"
                   onClick={() => setOpen(false)}
                   className="mt-4 flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors"
                 >

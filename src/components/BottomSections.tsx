@@ -1,17 +1,5 @@
-import { useState } from "react";
 import { SectionLabel } from "./ProblemSections";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { toast } from "@/components/ui/sonner";
-import { supabase } from "@/lib/supabase";
 import { ArrowRight, Target, Compass, TrendingUp, Users, Play } from "lucide-react";
 
 const ExampleSection = () => {
@@ -27,7 +15,7 @@ const ExampleSection = () => {
             Walkthrough coming soon.
           </p>
           <p className="text-sm text-muted-foreground/90 max-w-xl mx-auto">
-            From project evidence to proceed / restructure / walk away — with provenance throughout.
+            From project evidence to proceed / restructure / walk away, with provenance throughout.
           </p>
         </div>
         <div className="rounded-xl border border-border bg-card overflow-hidden aspect-video flex items-center justify-center border-dashed">
@@ -67,7 +55,7 @@ const WhoSection = () => {
     {
       icon: Users,
       title: "Advisors",
-      desc: "Arrive with a structured first-pass evaluation — Shura complements professional judgement.",
+      desc: "Arrive with a structured first-pass evaluation. Shura complements professional judgement.",
       accent: "cyan",
     },
   ];
@@ -132,103 +120,48 @@ const VisionSection = () => (
           The adviser that compounds with every project
         </h2>
         <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-          Shura is the intelligence layer before investment — and the memory that makes the next decision sharper. It complements consultants and lenders with a structured first-pass evaluation that retains your context, without replacing professional judgement.
+          Shura is the intelligence layer before investment, and the memory that makes the next decision sharper. It complements consultants and lenders with a structured first-pass evaluation that retains your context, without replacing professional judgement.
         </p>
       </div>
     </div>
   </section>
 );
 
-const WAITLIST_POSITIONS = [
-  "Energy Developer",
-  "CEO",
-  "Project Sponsor",
-  "Investor",
-  "Consultant",
-  "Other",
-] as const;
+type CTASectionProps = {
+  onOpenSignup?: () => void;
+};
 
-const CTASection = () => {
-  const [email, setEmail] = useState("");
-  const [position, setPosition] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) {
-      toast.error("Please enter your email.");
-      return;
-    }
-    if (!position) {
-      toast.error("Please select your position.");
-      return;
-    }
-    if (!supabase) {
-      toast.error("Pilot signup is not configured. Please try again later.");
-      return;
-    }
-    setLoading(true);
-    const { error } = await supabase.from("waitlist").insert({
-      email: email.trim().toLowerCase(),
-      position,
-    });
-    setLoading(false);
-    if (error) {
-      if (error.code === "23505") {
-        toast.success("You're already on the pilot list.");
-      } else {
-        toast.error(error.message || "Something went wrong. Please try again.");
-      }
-      return;
-    }
-    toast.success("You're on the pilot list. We'll be in touch.");
-    setEmail("");
-    setPosition("");
-  };
-
+const CTASection = ({ onOpenSignup }: CTASectionProps) => {
   return (
-    <section id="cta" className="py-16 sm:py-24 md:py-32 relative z-10">
+    <section id="cta" className="py-16 sm:py-24 md:py-28 relative z-10">
       <div className="container min-w-0">
-        <div className="max-w-2xl mx-auto p-6 sm:p-8 md:p-12 rounded-2xl border border-primary/20 bg-primary/5">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-            Commit capital with more certainty.
-          </h2>
-          <p className="text-muted-foreground mb-6 sm:mb-8 text-center text-sm sm:text-base">
-            An adviser that learns from your projects — turning complex evidence into explainable proceed / restructure / walk-away calls that get sharper over time.
-          </p>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-sm mx-auto">
-            <div className="space-y-2">
-              <Label htmlFor="waitlist-email">Email</Label>
-              <Input
-                id="waitlist-email"
-                type="email"
-                placeholder="you@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-                className="bg-background"
-                autoComplete="email"
-              />
+        <div className="liquid-glass liquid-glass-sheen relative max-w-3xl mx-auto overflow-hidden rounded-3xl">
+          <div className="relative px-6 py-10 sm:px-10 sm:py-14 md:px-14 md:py-16 text-center">
+            <div className="mx-auto mb-6 flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/30">
+              <span className="text-sm font-bold text-primary-foreground">S</span>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="waitlist-position">Position</Label>
-              <Select value={position} onValueChange={setPosition} disabled={loading}>
-                <SelectTrigger id="waitlist-position" className="bg-background">
-                  <SelectValue placeholder="Select your role" />
-                </SelectTrigger>
-                <SelectContent>
-                  {WAITLIST_POSITIONS.map((p) => (
-                    <SelectItem key={p} value={p}>
-                      {p}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <Button type="submit" variant="hero" size="xl" disabled={loading} className="mt-2 touch-manipulation min-h-[48px] w-full sm:w-auto">
-              {loading ? "Adding…" : "Sign up for the pilot"} <ArrowRight className="h-4 w-4" />
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4 max-w-xl mx-auto leading-tight">
+              Commit capital with more certainty.
+            </h2>
+            <p className="text-muted-foreground mb-8 sm:mb-10 text-sm sm:text-base leading-relaxed max-w-lg mx-auto">
+              An adviser that learns from your projects, turning complex evidence into
+              explainable proceed / restructure / walk-away calls that get sharper over time.
+            </p>
+
+            <Button
+              type="button"
+              variant="hero"
+              size="xl"
+              className="touch-manipulation min-h-[48px]"
+              onClick={onOpenSignup}
+            >
+              Sign up for the pilot <ArrowRight className="h-4 w-4" />
             </Button>
-          </form>
+            <p className="mt-4 text-xs text-muted-foreground">
+              We&apos;ll get back to you with all the details, documentation, and next steps.
+            </p>
+          </div>
         </div>
       </div>
     </section>
