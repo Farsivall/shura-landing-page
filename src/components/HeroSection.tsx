@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import HeroVisual from "./HeroVisual";
 
-
 const evaluationStats = [
   { value: "79.1 MW", label: "Total analysed" },
   { value: "3", label: "Projects" },
@@ -18,31 +17,43 @@ const HeroSection = () => {
     const stage = stageRef.current;
     if (!stage) return;
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    // Pointer tilt fights touch/trackpad scrolling — desktop mouse only.
+    const canTilt =
+      window.matchMedia("(pointer: fine) and (hover: hover)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!canTilt) return;
 
     let frame = 0;
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
+    let running = false;
 
-    const onMove = (e: PointerEvent) => {
-      const rect = stage.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      targetX = px;
-      targetY = py;
-    };
-
-    const onLeave = () => {
-      targetX = 0;
-      targetY = 0;
+    const stopTilt = () => {
+      running = false;
+      stage.classList.remove("hero-3d-tilting");
+      stage.style.removeProperty("--hero-tilt-x");
+      stage.style.removeProperty("--hero-tilt-y");
+      stage.style.removeProperty("--hero-shift-x");
+      stage.style.removeProperty("--hero-shift-y");
     };
 
     const tick = () => {
       currentX += (targetX - currentX) * 0.06;
       currentY += (targetY - currentY) * 0.06;
+      const idle =
+        Math.abs(currentX) < 0.001 &&
+        Math.abs(targetX) < 0.001 &&
+        Math.abs(currentY) < 0.001 &&
+        Math.abs(targetY) < 0.001;
+
+      if (idle) {
+        stopTilt();
+        frame = 0;
+        return;
+      }
+
       stage.style.setProperty("--hero-tilt-x", `${(-currentY * 10).toFixed(3)}deg`);
       stage.style.setProperty("--hero-tilt-y", `${(currentX * 14).toFixed(3)}deg`);
       stage.style.setProperty("--hero-shift-x", `${(currentX * 28).toFixed(2)}px`);
@@ -50,19 +61,42 @@ const HeroSection = () => {
       frame = requestAnimationFrame(tick);
     };
 
-    stage.addEventListener("pointermove", onMove);
+    const ensureTick = () => {
+      if (running) return;
+      running = true;
+      stage.classList.add("hero-3d-tilting");
+      frame = requestAnimationFrame(tick);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const rect = stage.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      targetX = px;
+      targetY = py;
+      ensureTick();
+    };
+
+    const onLeave = () => {
+      targetX = 0;
+      targetY = 0;
+      ensureTick();
+    };
+
+    stage.addEventListener("pointermove", onMove, { passive: true });
     stage.addEventListener("pointerleave", onLeave);
-    frame = requestAnimationFrame(tick);
 
     return () => {
-      cancelAnimationFrame(frame);
+      if (frame) cancelAnimationFrame(frame);
+      stopTilt();
       stage.removeEventListener("pointermove", onMove);
       stage.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 
   return (
-    <section className="hero-3d-section relative pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-44 md:pb-32 bg-grid overflow-x-clip overflow-y-visible">
+    <section className="hero-3d-section relative pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-44 md:pb-32 bg-grid overflow-x-clip">
       {/* Atmospheric depth planes */}
       <div className="hero-depth-plane hero-depth-plane-a" aria-hidden />
       <div className="hero-depth-plane hero-depth-plane-b" aria-hidden />

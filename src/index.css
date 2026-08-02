@@ -218,33 +218,48 @@
 }
 
 .hero-3d-stage {
-  perspective: 1400px;
-  perspective-origin: 50% 35%;
-  transform-style: preserve-3d;
+  /* Keep vertical scrolling free of 3D pointer capture */
+  touch-action: pan-y;
 }
 
 .hero-3d-world {
-  transform-style: preserve-3d;
-  transform:
-    rotateX(var(--hero-tilt-x))
-    rotateY(var(--hero-tilt-y))
-    translate3d(var(--hero-shift-x), var(--hero-shift-y), 0);
-  transition: transform 0.05s linear;
-  will-change: transform;
+  transform: none;
 }
 
-.hero-copy-layer {
-  transform: translateZ(60px);
-  transform-style: preserve-3d;
-}
+/* Desktop mouse tilt only — see HeroSection (pointer: fine) */
+@media (hover: hover) and (pointer: fine) {
+  .hero-3d-stage {
+    perspective: 1400px;
+    perspective-origin: 50% 35%;
+    transform-style: preserve-3d;
+  }
 
-.hero-visual-layer {
-  transform: translateZ(20px);
-  transform-style: preserve-3d;
-}
+  .hero-3d-world {
+    transform-style: preserve-3d;
+    transform:
+      rotateX(var(--hero-tilt-x))
+      rotateY(var(--hero-tilt-y))
+      translate3d(var(--hero-shift-x), var(--hero-shift-y), 0);
+    transition: transform 0.05s linear;
+  }
 
-.hero-cta-layer {
-  transform: translateZ(40px);
+  .hero-3d-stage.hero-3d-tilting .hero-3d-world {
+    will-change: transform;
+  }
+
+  .hero-copy-layer {
+    transform: translateZ(60px);
+    transform-style: preserve-3d;
+  }
+
+  .hero-visual-layer {
+    transform: translateZ(20px);
+    transform-style: preserve-3d;
+  }
+
+  .hero-cta-layer {
+    transform: translateZ(40px);
+  }
 }
 
 .hero-depth-plane {
@@ -313,8 +328,13 @@
   font-size: 0.75rem;
   color: hsl(var(--muted-foreground));
   text-align: center;
-  transform: translateZ(80px);
   box-shadow: 0 10px 40px hsl(0 0% 0% / 0.25);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-eyebrow {
+    transform: translateZ(80px);
+  }
 }
 
 .hero-eyebrow-dot {
@@ -326,17 +346,12 @@
   animation: pulse-slow 2.4s ease-in-out infinite;
 }
 
-.hero-title {
-  transform-style: preserve-3d;
-}
-
 .hero-title-line {
   display: inline-block;
   color: hsl(var(--foreground));
   text-shadow:
     0 1px 0 hsl(0 0% 100% / 0.04),
     0 18px 50px hsl(0 0% 0% / 0.45);
-  transform: translateZ(70px);
 }
 
 .hero-title-accent {
@@ -345,30 +360,50 @@
   text-shadow:
     0 0 40px hsl(160 84% 39% / 0.35),
     0 20px 60px hsl(160 84% 39% / 0.2);
-  transform: translateZ(90px);
-}
-
-.hero-body {
-  transform: translateZ(50px);
-}
-
-.hero-body-sub {
-  transform: translateZ(45px);
 }
 
 .hero-cta-3d {
   box-shadow:
     0 12px 40px hsl(160 84% 39% / 0.25),
     0 2px 0 hsl(0 0% 100% / 0.08) inset;
-  transform: translateZ(55px);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hero-cta-3d:hover {
-  transform: translateZ(70px) translateY(-2px);
+  transform: translateY(-2px);
   box-shadow:
     0 18px 50px hsl(160 84% 39% / 0.35),
     0 2px 0 hsl(0 0% 100% / 0.1) inset;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-title {
+    transform-style: preserve-3d;
+  }
+
+  .hero-title-line {
+    transform: translateZ(70px);
+  }
+
+  .hero-title-accent {
+    transform: translateZ(90px);
+  }
+
+  .hero-body {
+    transform: translateZ(50px);
+  }
+
+  .hero-body-sub {
+    transform: translateZ(45px);
+  }
+
+  .hero-cta-3d {
+    transform: translateZ(55px);
+  }
+
+  .hero-cta-3d:hover {
+    transform: translateZ(70px) translateY(-2px);
+  }
 }
 
 /* Decision funnel under the ring */
@@ -377,15 +412,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform-style: preserve-3d;
-  perspective: 1000px;
+  touch-action: pan-y;
 }
 
 .hero-funnel-beam {
   width: 2px;
   height: 2.25rem;
   background: linear-gradient(to bottom, hsl(var(--border)), hsl(160 84% 39% / 0.55));
-  transform: translateZ(10px);
   box-shadow: 0 0 18px hsl(160 84% 39% / 0.35);
 }
 
@@ -403,7 +436,6 @@
   color: hsl(var(--primary));
   font-size: 0.875rem;
   font-weight: 500;
-  transform: rotateX(12deg) translateZ(40px);
   box-shadow:
     0 16px 40px hsl(0 0% 0% / 0.35),
     0 0 30px hsl(160 84% 39% / 0.12);
@@ -425,8 +457,7 @@
   width: 100%;
   max-width: 42rem;
   margin-top: 0.25rem;
-  transform-style: preserve-3d;
-  perspective: 900px;
+  touch-action: pan-y;
 }
 
 @media (min-width: 768px) {
@@ -442,26 +473,51 @@
   border: 1px solid hsl(var(--border));
   background: hsl(var(--card) / 0.92);
   text-align: center;
-  transform-style: preserve-3d;
-  transform:
-    rotateY(calc((var(--path-i) - 1) * 9deg))
-    rotateX(14deg)
-    translateZ(calc(24px - var(--path-i) * 2px));
   box-shadow:
     0 18px 40px hsl(0 0% 0% / 0.35),
     0 1px 0 hsl(0 0% 100% / 0.04) inset;
   transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.hero-path-card:hover {
-  transform:
-    rotateY(calc((var(--path-i) - 1) * 6deg))
-    rotateX(8deg)
-    translateZ(48px)
-    translateY(-4px);
-  box-shadow:
-    0 24px 50px hsl(0 0% 0% / 0.45),
-    0 0 30px hsl(160 84% 39% / 0.12);
+@media (hover: hover) and (pointer: fine) {
+  .hero-funnel {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .hero-funnel-beam {
+    transform: translateZ(10px);
+  }
+
+  .hero-decision-node {
+    transform: rotateX(12deg) translateZ(40px);
+  }
+
+  .hero-path-stage {
+    transform-style: preserve-3d;
+    perspective: 900px;
+  }
+
+  .hero-path-card {
+    transform-style: preserve-3d;
+    transform:
+      rotateY(calc((var(--path-i) - 1) * 9deg))
+      rotateX(14deg)
+      translateZ(calc(24px - var(--path-i) * 2px));
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-path-card:hover {
+    transform:
+      rotateY(calc((var(--path-i) - 1) * 6deg))
+      rotateX(8deg)
+      translateZ(48px)
+      translateY(-4px);
+    box-shadow:
+      0 24px 50px hsl(0 0% 0% / 0.45),
+      0 0 30px hsl(160 84% 39% / 0.12);
+  }
 }
 
 .hero-path-card-go {
@@ -498,11 +554,15 @@
   perspective-origin: 50% 42%;
   overflow: hidden;
   transform-style: preserve-3d;
+  /* Decorative — never steal scroll / drag */
+  pointer-events: none;
+  touch-action: pan-y;
 }
 
 .specialist-ring-stage {
   transform-style: preserve-3d;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .specialist-ring-disc {

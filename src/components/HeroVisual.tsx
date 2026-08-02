@@ -9,11 +9,11 @@ const mapNodes = [
 
 const HeroVisual = () => {
   return (
-    <div className="relative max-w-5xl mx-auto overflow-visible">
+    <div className="relative max-w-5xl mx-auto overflow-hidden sm:overflow-visible">
       <SpecialistRing />
 
       {/* Flow: panel → knowledge map */}
-      <div className="hero-funnel mt-2">
+      <div className="hero-funnel mt-2 touch-pan-y">
         <div className="hero-funnel-beam" aria-hidden />
 
         <div className="hero-decision-node">

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Scale, TrendingUp, Code, Calculator, Briefcase } from "lucide-react";
 
 const specialists = [
@@ -39,11 +40,33 @@ const specialists = [
 ];
 
 const SpecialistRing = () => {
+  const sceneRef = useRef<HTMLDivElement>(null);
   const count = specialists.length;
   const angleStep = 360 / count;
 
+  // Pause the 3D spin while off-screen so page scroll stays smooth.
+  useEffect(() => {
+    const el = sceneRef.current;
+    if (!el) return;
+    const ring = el.querySelector<HTMLElement>(".specialist-ring");
+    if (!ring) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        ring.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+      },
+      { rootMargin: "80px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="specialist-ring-scene relative mx-auto w-full max-w-4xl h-[220px] sm:h-[320px] md:h-[380px] select-none overflow-hidden">
+    <div
+      ref={sceneRef}
+      className="specialist-ring-scene relative mx-auto w-full max-w-4xl h-[220px] sm:h-[320px] md:h-[380px] select-none overflow-hidden"
+      aria-hidden
+    >
       <div
         className="pointer-events-none absolute left-1/2 bottom-6 -translate-x-1/2 w-[55%] h-10 rounded-[100%] bg-primary/15 blur-2xl"
         aria-hidden
@@ -52,7 +75,7 @@ const SpecialistRing = () => {
       {/* Inner wireframe disc */}
       <div className="specialist-ring-disc" aria-hidden />
 
-      <div className="specialist-ring-stage absolute inset-0 flex items-center justify-center overflow-visible">
+      <div className="specialist-ring-stage absolute inset-0 flex items-center justify-center overflow-hidden">
         <div className="specialist-ring">
           {specialists.map((s, i) => {
             const Icon = s.icon;
