@@ -12,7 +12,7 @@ const analysisOutputs = [
 type Stage = 0 | 1 | 2;
 
 const STAGE_MS = 2200;
-const HOLD_MS = 1600;
+const HOLD_MS = 5000;
 
 const HeroVisual = () => {
   const [stage, setStage] = useState<Stage>(0);
