@@ -608,6 +608,37 @@ html.is-scrolling .liquid-glass-pill {
   transform: none;
 }
 
+/* Hero specialist bars — fill to target, hold, reset, loop */
+@keyframes specialist-bar-cycle {
+  0% {
+    width: 0%;
+    opacity: 0.85;
+  }
+  12% {
+    opacity: 1;
+  }
+  62% {
+    width: var(--bar-target, 75%);
+  }
+  78% {
+    width: var(--bar-target, 75%);
+  }
+  100% {
+    width: 0%;
+    opacity: 0.85;
+  }
+}
+
+.specialist-bar-fill {
+  width: 0%;
+  animation: specialist-bar-cycle 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: width;
+}
+
+html.is-scrolling .specialist-bar-fill {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
     opacity: 1;
@@ -615,6 +646,12 @@ html.is-scrolling .liquid-glass-pill {
     transform: none;
     will-change: auto;
     transition: none;
+  }
+
+  .specialist-bar-fill {
+    animation: none;
+    width: var(--bar-target, 75%);
+    opacity: 1;
   }
 }
 

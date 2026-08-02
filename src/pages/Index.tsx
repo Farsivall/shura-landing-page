@@ -15,7 +15,9 @@ const Index = () => {
       <BackgroundCards />
       <Navbar />
       <div className="relative z-10">
-        <HeroSection />
+        <ScrollReveal>
+          <HeroSection />
+        </ScrollReveal>
         <ScrollReveal className="scroll-section">
           <WhyNowSection />
         </ScrollReveal>
