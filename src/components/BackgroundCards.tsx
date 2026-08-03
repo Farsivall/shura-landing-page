@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 
 const cards = [
   {
@@ -7,7 +7,7 @@ const cards = [
     barPercent: 82,
     barColor: "bg-emerald-500",
     iconBg: "bg-emerald-600",
-    opacity: 0.18,
+    opacity: 0.55,
     dimensions: [
       { name: "Viability", pct: "30%" },
       { name: "Coverage", pct: "25%" },
@@ -20,7 +20,7 @@ const cards = [
     barPercent: 90,
     barColor: "bg-violet-500",
     iconBg: "bg-violet-600",
-    opacity: 0.12,
+    opacity: 0.45,
     dimensions: [
       { name: "Feasibility", pct: "25%" },
       { name: "Execution risk", pct: "25%" },
@@ -33,7 +33,7 @@ const cards = [
     barPercent: 80,
     barColor: "bg-amber-500",
     iconBg: "bg-amber-600",
-    opacity: 0.2,
+    opacity: 0.5,
     dimensions: [
       { name: "Market opportunity", pct: "25%" },
       { name: "Competitive position", pct: "20%" },
@@ -47,7 +47,7 @@ const cards = [
     barColor: "bg-teal-500",
     iconBg: "bg-teal-600",
     active: true,
-    opacity: 0.14,
+    opacity: 0.48,
     dimensions: [
       { name: "Tax efficiency", pct: "25%" },
       { name: "Structural optimization", pct: "25%" },
@@ -60,7 +60,7 @@ const cards = [
     barPercent: 78,
     barColor: "bg-blue-500",
     iconBg: "bg-blue-600",
-    opacity: 0.09,
+    opacity: 0.4,
     dimensions: [
       { name: "Regulatory exposure", pct: "30%" },
       { name: "Contract risk", pct: "25%" },
@@ -69,19 +69,16 @@ const cards = [
   },
 ];
 
-const CENTER_X = 50;
-const CENTER_Y = 50;
-const RADIUS = 28;
+/** Radius as % of the square orbit — leave room for card half-size + blur. */
+const CENTER = 50;
+const RADIUS = 44;
 const ANGLES = [0, 72, 144, 216, 288];
 
-const SLOT_STYLES: React.CSSProperties[] = ANGLES.map((deg) => {
+const SLOT_STYLES: CSSProperties[] = ANGLES.map((deg) => {
   const rad = (deg * Math.PI) / 180;
-  const left = CENTER_X + RADIUS * Math.cos(rad);
-  const top = CENTER_Y + RADIUS * Math.sin(rad);
   return {
-    left: `${left}%`,
-    top: `${top}%`,
-    transform: "translate(-50%, -50%)",
+    left: `${CENTER + RADIUS * Math.cos(rad)}%`,
+    top: `${CENTER + RADIUS * Math.sin(rad)}%`,
   };
 });
 
@@ -94,6 +91,7 @@ function shuffleSlots(): number[] {
   return a;
 }
 
+/** Blurred, slowly rotating specialist cards — kept inside the hero. */
 const BackgroundCards = () => {
   const [cardToSlot, setCardToSlot] = useState(() => [0, 1, 2, 3, 4]);
 
@@ -106,60 +104,60 @@ const BackgroundCards = () => {
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-cards-layer"
-      aria-hidden
-    >
-      <div className="absolute inset-0 bg-background/30" />
-      {cards.map((card, i) => (
-        <div
-          key={card.label}
-          className="absolute w-[120px] sm:w-[180px] md:w-[260px] max-w-[calc(100vw-2rem)]"
-          style={{
-            ...SLOT_STYLES[cardToSlot[i]],
-            transition: "left 1.6s cubic-bezier(0.4, 0, 0.2, 1), top 1.6s cubic-bezier(0.4, 0, 0.2, 1), transform 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          <BackgroundCard card={card} />
+    <div className="hero-bg-cards absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+      <div className="hero-bg-cards-stage">
+        <div className="hero-bg-cards-orbit">
+          {cards.map((card, i) => (
+            <div
+              key={card.label}
+              className="hero-bg-card-slot absolute w-[96px] sm:w-[140px] md:w-[180px]"
+              style={{
+                ...SLOT_STYLES[cardToSlot[i]],
+                transition:
+                  "left 1.6s cubic-bezier(0.4, 0, 0.2, 1), top 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
+            >
+              <BackgroundCard card={card} />
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/70 to-background" />
     </div>
   );
 };
 
-const BackgroundCard = ({
-  card,
-}: {
-  card: (typeof cards)[0];
-}) => {
+const BackgroundCard = ({ card }: { card: (typeof cards)[0] }) => {
   return (
     <div
-      className={`rounded-lg md:rounded-xl border border-border bg-card p-2 sm:p-3 md:p-4 transition-opacity duration-1000 ${
+      className={`rounded-lg md:rounded-xl border border-border/80 bg-card/90 p-2 sm:p-3 shadow-lg shadow-black/20 ${
         card.active ? "ring-1 ring-primary/30" : ""
       }`}
       style={{ opacity: card.opacity }}
     >
-      <div className="flex items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-3">
+      <div className="flex items-center gap-1.5 sm:gap-2.5 mb-1.5 sm:mb-2.5">
         <div
-          className={`h-5 w-5 sm:h-7 sm:w-7 md:h-9 md:w-9 rounded-full ${card.iconBg} flex items-center justify-center flex-shrink-0`}
+          className={`h-5 w-5 sm:h-7 sm:w-7 rounded-full ${card.iconBg} flex items-center justify-center flex-shrink-0`}
         >
-          <span className="text-white text-[8px] sm:text-[10px] md:text-xs font-semibold">{card.letter}</span>
+          <span className="text-white text-[8px] sm:text-[10px] font-semibold">{card.letter}</span>
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
-            <span className="text-[10px] sm:text-xs md:text-sm font-medium text-foreground truncate">{card.label}</span>
+            <span className="text-[10px] sm:text-xs font-medium text-foreground truncate">
+              {card.label}
+            </span>
             {card.active && (
-              <span className="rounded bg-cyan-500/80 px-1 py-0.5 text-[8px] sm:text-[10px] font-medium text-white">
+              <span className="rounded bg-primary/80 px-1 py-0.5 text-[8px] sm:text-[10px] font-medium text-white">
                 Active
               </span>
             )}
           </div>
-          <p className="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground hidden sm:block">
+          <p className="text-[8px] sm:text-[9px] text-muted-foreground hidden sm:block">
             Decision intelligence, evidence-backed
           </p>
         </div>
       </div>
-      <div className="h-1 sm:h-1.5 rounded-full bg-muted overflow-hidden mb-1.5 sm:mb-3">
+      <div className="h-1 sm:h-1.5 rounded-full bg-muted overflow-hidden mb-1.5 sm:mb-2.5">
         <div
           className={`h-full rounded-full ${card.barColor}`}
           style={{ width: `${card.barPercent}%` }}
@@ -169,15 +167,12 @@ const BackgroundCard = ({
         {card.dimensions.map((d) => (
           <li
             key={d.name}
-            className="flex justify-between text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground"
+            className="flex justify-between text-[8px] sm:text-[9px] text-muted-foreground"
           >
             <span className="truncate mr-1">{d.name}</span>
             <span>{d.pct}</span>
           </li>
         ))}
-        <li className="text-[8px] sm:text-[10px] text-muted-foreground/80 pt-0.5 hidden sm:block">
-          +2 more dimensions
-        </li>
       </ul>
     </div>
   );

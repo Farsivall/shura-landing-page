@@ -1,306 +1,156 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, Presentation } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronRight,
+  FileText,
+  Folder,
+  FolderOpen,
+  Presentation,
+  Network,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
-import GradientBlobs from "@/components/GradientBlobs";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { CTASection, Footer } from "@/components/BottomSections";
-import { SectionLabel } from "@/components/ProblemSections";
+import { Footer, PilotSection } from "@/components/landing/LandingSections";
 import { CountUp } from "@/components/CountUp";
 import PilotEnquiryModal from "@/components/PilotEnquiryModal";
+import SampleKnowledgeMap from "@/components/SampleKnowledgeMap";
 
 const portfolioStats = [
-  { end: 79.1, decimals: 1, suffix: " MW", label: "Total capacity" },
+  { end: 79.1, decimals: 1, suffix: " MW", label: "Capacity" },
   { end: 3, decimals: 0, suffix: "", label: "Projects" },
-  { end: 700, decimals: 0, suffix: "+", label: "Documents" },
+  { end: 800, decimals: 0, suffix: "+", label: "Documents" },
 ];
 
-/**
- * Three projects analysed with Shura.
- * Set `deckUrl` to a PDF / Google Slides / Drive link when ready.
- * `image` paths are sample placeholders in /public/portfolio.
- */
 const pilots = [
   {
     number: "01",
-    sector: "Small hydro",
+    sector: "Hydroelectric power station",
     title: "Multi-site small hydro programme",
     capacity: "29.1 MW",
-    stage: "Ongoing",
     image: "/portfolio/small-hydro.png",
-    imageAlt: "Sample aerial view of a hydroelectric dam (placeholder imagery)",
+    imageAlt: "Sample aerial view of a hydroelectric dam",
+    imagePosition: "center 45%",
     summary:
-      "Multi-site small hydro programme with a full diligence data room: 700+ documents across feasibility, hydrology, drawings, and a FiT-style financial workbook.",
+      "Sample hub-and-spoke map: 500 flat documents under one project hub, two proceed runs, five specialists, dense cite links, and a stack of derived diligence reports.",
     challenge:
       "Evaluate a multi-site small hydro programme before further capital commitment, with evidence spread across technical, hydrology, and financial workstreams.",
     approach:
-      "Ingested a full diligence data room of 700+ documents (feasibility studies, hydrology, engineering drawings, and a FiT-style financial workbook) and ran cross-discipline analysis through Shura.",
+      "Ingested the data room as a flat evidence cloud and ran cross-discipline analysis through Shura across engineering, finance, commercial, legal and tax.",
     outcome:
-      "Ongoing. Actively working with the company on an evidence-backed assessment. Provided a pre-evaluation document, financial model, and technical due diligence with decision analysis; the financial model remains under active review as new diligence materials arrive.",
-    disciplines: ["Engineering", "Finance", "Business Dev", "Legal", "Tax"],
-    deckUrl: null as string | null,
+      "Ongoing. Pre-evaluation, financial model and technical diligence delivered; model under active review as new materials arrive.",
+    disciplines: ["Engineering", "Finance", "Commercial", "Legal", "Tax"],
     deckLabel: "29.1 MW small hydro slide deck",
+    article: {
+      eyebrow: "Decision brief",
+      title: "One data room, one proceed call",
+      columns: [
+        {
+          heading: "The ask",
+          body: "Volume was not the problem. The question was which evidence actually moved proceed / restructure once every discipline read the same corpus.",
+        },
+        {
+          heading: "The read",
+          body: "Grid timing, hydrology and land gaps now sit beside the returns case. Pre-evaluation is open as new materials arrive.",
+        },
+      ],
+    },
   },
   {
     number: "02",
-    sector: "Hydro",
+    sector: "Hydroelectric power station",
     title: "Single-scheme hydro project",
     capacity: "11 MW",
-    stage: "Ongoing",
     image: "/portfolio/hydro.png",
-    imageAlt: "Sample view of a hydroelectric dam in a forested valley (placeholder imagery)",
+    imageAlt: "Sample view of a hydroelectric dam in a forested valley",
+    imagePosition: "center 35%",
     summary:
-      "Smaller single-scheme hydro: specialist-panel evaluation and preliminary project assessment grounded in the uploaded evidence.",
+      "Sample map with 200 flat documents under the project hub, two proceed runs, specialist scoring, and derived PPE / site-risk reports.",
     challenge:
-      "Pressure-test viability of a smaller single-scheme hydro before committing to a fuller advisory or investment process.",
+      "Pressure-test viability of a smaller single-scheme hydro before a fuller advisory or investment process.",
     approach:
-      "Loaded the project corpus into Shura and ran specialist-panel evaluation with preliminary project assessment outputs grounded in the uploaded evidence.",
+      "Loaded the project corpus into Shura and ran specialist-panel evaluation with preliminary assessment outputs.",
     outcome:
       "Ongoing. Specialist scores and decision brief still being refined against further technical and commercial inputs.",
-    disciplines: ["Engineering", "Finance", "Business Dev"],
-    deckUrl: null as string | null,
+    disciplines: ["Engineering", "Finance", "Commercial"],
     deckLabel: "11 MW hydro slide deck",
+    article: {
+      eyebrow: "Decision brief",
+      title: "A short viability pass before the process gets expensive",
+      columns: [
+        {
+          heading: "The ask",
+          body: "Capex, grid and offtake each had to stand alone. The brief was whether enough coherence existed to justify a fuller advisory process.",
+        },
+        {
+          heading: "The read",
+          body: "Engineering is middling, offtake is soft, and the open gates stay tied to one proceed node rather than separate slide decks.",
+        },
+      ],
+    },
   },
   {
     number: "03",
-    sector: "Solar PV",
+    sector: "Solar farm",
     title: "Utility-scale PV farm",
     capacity: "39 MW",
-    stage: "Ongoing",
     image: "/portfolio/solar-pv.png",
-    imageAlt: "Sample aerial view of a utility-scale solar PV farm (placeholder imagery)",
+    imageAlt: "Sample aerial view of a utility-scale solar PV farm",
+    imagePosition: "center 50%",
     summary:
-      "Utility-scale solar PV: validating returns and financing structure from an authoritative financial workbook before treating IRR/NPV as decision-ready.",
+      "Sample map with 100 flat documents, two proceed runs at the centre, finance and tax on the specialist ring, and derived diligence reports.",
     challenge:
-      "Validate project returns and financing structure from an authoritative financial workbook before treating IRR/NPV figures as decision-ready.",
+      "Validate project returns and financing structure before treating IRR/NPV figures as decision-ready.",
     approach:
-      "Mapped the financial workbook through Shura, stress-testing returns, financing assumptions, and provenance so IRR and NPV figures can be defended before capital commitment.",
+      "Mapped the financial workbook through Shura, stress-testing returns, financing assumptions and provenance.",
     outcome:
       "Ongoing. Financial validation in progress; returns and financing structure under review against the source workbook.",
-    disciplines: ["Finance", "Engineering", "Business Dev", "Tax"],
-    deckUrl: null as string | null,
+    disciplines: ["Finance", "Engineering", "Commercial", "Tax"],
     deckLabel: "39 MW solar PV slide deck",
+    article: {
+      eyebrow: "Decision brief",
+      title: "Authoritative workbook, returns still under review",
+      columns: [
+        {
+          heading: "The ask",
+          body: "The model was already the source of truth. The job was whether IRR and NPV could leave the workbook and enter a decision.",
+        },
+        {
+          heading: "The read",
+          body: "Sensitivities, lender terms and offtake still move the bridge. Figures stay labelled under review until that package converges.",
+        },
+      ],
+    },
   },
 ];
 
 type Pilot = (typeof pilots)[number];
+type FolderFile = "slides" | "summary" | "map";
 
-const OngoingPill = ({ className = "" }: { className?: string }) => (
-  <span
-    className={`inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-md ${className}`.trim()}
-  >
-    <span className="relative flex h-2 w-2">
-      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
-      <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-    </span>
-    Ongoing
-  </span>
-);
-
-const DeckPlaceholder = ({ pilot }: { pilot: Pilot }) => {
-  const inner = (
-    <>
-      <div className="absolute inset-0 bg-gradient-to-br from-muted/80 via-background to-muted/40" />
-      <div className="absolute inset-x-4 top-3 h-px bg-border/80" />
-      <div className="absolute left-4 top-5 space-y-1.5 w-[40%]">
-        <div className="h-1.5 w-3/4 rounded-sm bg-foreground/15" />
-        <div className="h-1.5 w-full rounded-sm bg-foreground/10" />
-        <div className="h-1.5 w-2/3 rounded-sm bg-foreground/10" />
-      </div>
-      <div className="absolute right-4 top-5 bottom-4 w-[36%] rounded-sm border border-border/60 bg-primary/5" />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-background/55 backdrop-blur-[1px] px-3 text-center">
-        <Presentation className="h-4 w-4 text-primary" />
-        <span className="text-sm font-medium text-foreground">{pilot.deckLabel}</span>
-        <span className="text-xs text-muted-foreground">
-          {pilot.deckUrl ? "Open slide deck" : "Link coming soon"}
-        </span>
-      </div>
-    </>
-  );
-
-  const className =
-    "relative block aspect-[16/9] w-full overflow-hidden rounded-lg border border-dashed border-border bg-muted/20 transition-colors";
-
-  if (pilot.deckUrl) {
-    return (
-      <a
-        href={pilot.deckUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`${className} hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
-      >
-        {inner}
-      </a>
-    );
-  }
-
-  return (
-    <div className={className} aria-label={`${pilot.deckLabel} placeholder`}>
-      {inner}
-    </div>
-  );
-};
-
-const PilotCard = ({ pilot, onOpen }: { pilot: Pilot; onOpen: () => void }) => (
-  <button
-    type="button"
-    onClick={onOpen}
-    className="group flex h-full w-full flex-col items-stretch overflow-hidden rounded-xl border text-left shadow-sm transition-all duration-300 hover:border-primary/35 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-    style={{ background: "var(--app-card)", borderColor: "var(--app-border)" }}
-  >
-    <div className="relative aspect-[16/10] overflow-hidden">
-      <img
-        src={pilot.image}
-        alt={pilot.imageAlt}
-        className="h-full w-full object-cover scale-105 blur-[2px] transition-all duration-500 ease-out group-hover:scale-100 group-hover:blur-0"
-        loading="lazy"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
-      <div className="absolute top-3 right-3">
-        <OngoingPill />
-      </div>
-      <div className="absolute bottom-3 left-3">
-        <span className="inline-flex items-center rounded-md bg-background/85 px-2.5 py-1 text-sm font-semibold text-foreground backdrop-blur-md">
-          {pilot.capacity}
-        </span>
-      </div>
-    </div>
-
-    <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-      <div className="flex-1 space-y-2">
-        <p className="text-sm text-muted-foreground">{pilot.sector}</p>
-        <h2 className="text-xl font-semibold text-foreground tracking-tight leading-snug">
-          {pilot.title}
-        </h2>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {pilot.summary}
-        </p>
-      </div>
-
-      <div className="mt-2 flex items-center gap-1.5 text-sm font-medium text-primary">
-        <span>View case</span>
-        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </div>
-    </div>
-  </button>
-);
-
-const DetailBlock = ({ title, body }: { title: string; body: string }) => (
-  <div className="space-y-2">
-    <h3 className="text-base font-semibold text-foreground">{title}</h3>
-    <p className="text-base text-muted-foreground leading-relaxed">{body}</p>
-  </div>
-);
-
-const PilotModal = ({
-  pilot,
-  open,
-  onOpenChange,
-  onEnquire,
-}: {
-  pilot: Pilot | null;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onEnquire: () => void;
-}) => {
-  if (!pilot) return null;
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="portfolio-modal max-w-2xl gap-0 border-border/50 bg-card/80 p-0 overflow-hidden shadow-2xl shadow-black/50 backdrop-blur-2xl sm:rounded-2xl data-[state=open]:animate-none data-[state=closed]:animate-none">
-        <div className="max-h-[85dvh] overflow-y-auto overscroll-contain">
-          <div className="relative aspect-[16/10] max-h-[30vh] sm:max-h-none sm:aspect-[16/9] overflow-hidden">
-            <img
-              src={pilot.image}
-              alt={pilot.imageAlt}
-              className="portfolio-modal-image absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/35 to-transparent" />
-            <div className="absolute top-4 left-5">
-              <OngoingPill />
-            </div>
-            <div className="absolute bottom-4 left-5 right-14 flex items-end justify-between gap-3">
-              <span className="rounded-md bg-background/85 px-2.5 py-1 text-sm font-semibold text-foreground backdrop-blur-md">
-                {pilot.capacity}
-              </span>
-              <span className="text-xs text-white/65">Sample image</span>
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-8 space-y-8">
-            <DialogHeader className="space-y-3 text-left">
-              <DialogDescription className="text-sm text-muted-foreground">
-                {pilot.sector}
-              </DialogDescription>
-              <DialogTitle className="text-2xl sm:text-[1.75rem] font-semibold tracking-tight leading-snug">
-                {pilot.title}
-              </DialogTitle>
-              <p className="text-base text-muted-foreground leading-relaxed pt-1">
-                {pilot.summary}
-              </p>
-            </DialogHeader>
-
-            <div className="space-y-6 border-t border-border pt-6">
-              <DetailBlock title="Challenge" body={pilot.challenge} />
-              <DetailBlock title="Approach" body={pilot.approach} />
-              <DetailBlock title="Outcome" body={pilot.outcome} />
-            </div>
-
-            <div className="space-y-2 border-t border-border pt-6">
-              <h3 className="text-base font-semibold text-foreground">Disciplines</h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                {pilot.disciplines.join(" · ")}
-              </p>
-            </div>
-
-            <div className="space-y-3 border-t border-border pt-6">
-              <h3 className="text-base font-semibold text-foreground">Slide deck</h3>
-              <DeckPlaceholder pilot={pilot} />
-            </div>
-
-            <div className="border-t border-border pt-6">
-              <Button
-                variant="hero"
-                size="xl"
-                type="button"
-                className="w-full touch-manipulation min-h-[48px]"
-                onClick={onEnquire}
-              >
-                Sign up for the pilot <ArrowRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-};
+const FILES: { id: FolderFile; label: string; icon: typeof FileText }[] = [
+  { id: "slides", label: "Slides document", icon: Presentation },
+  { id: "summary", label: "Project summary", icon: FileText },
+  { id: "map", label: "Knowledge map", icon: Network },
+];
 
 const Portfolio = () => {
   const { hash } = useLocation();
   const navigate = useNavigate();
-  const [active, setActive] = useState<Pilot | null>(null);
+  const [openFolder, setOpenFolder] = useState<string | null>(pilots[0]?.number ?? null);
+  const [activeFile, setActiveFile] = useState<FolderFile>("summary");
   const [signupOpen, setSignupOpen] = useState(false);
   const [signupProject, setSignupProject] = useState("");
 
+  const active = pilots.find((p) => p.number === openFolder) ?? null;
+
   const openSignup = (project = "") => {
-    setActive(null);
     setSignupProject(project);
     setSignupOpen(true);
   };
 
-  // Nav / hero "Sign up for the pilot" → /portfolio#signup opens the modal
   useEffect(() => {
     if (hash === "#signup" || hash === "#cta") {
-      setActive(null);
       setSignupProject("");
       setSignupOpen(true);
     }
@@ -313,98 +163,272 @@ const Portfolio = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-background relative">
-      <GradientBlobs />
-      <Navbar />
+  const toggleFolder = (number: string) => {
+    if (openFolder === number) {
+      setOpenFolder(null);
+      return;
+    }
+    setOpenFolder(number);
+    setActiveFile("summary");
+  };
 
-      <div className="relative z-10">
-        <section className="pt-28 sm:pt-32 pb-12 sm:pb-16">
-          <div className="container max-w-6xl">
+  return (
+    <div className="landing-shell min-h-screen">
+      <div className="landing-canvas page-enter">
+        <Navbar />
+
+        <section className="landing-band-dark pt-16 sm:pt-20 pb-14 sm:pb-16">
+          <div className="container">
             <ScrollReveal>
-              <div className="max-w-2xl mx-auto text-center">
-                <SectionLabel>Portfolio</SectionLabel>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8">
-                  Projects analysed
-                </h1>
-                <div className="flex flex-wrap items-start justify-center gap-8 sm:gap-12 mb-8 sm:mb-10">
-                  {portfolioStats.map((stat) => (
-                    <div key={stat.label} className="flex flex-col items-center gap-1">
-                      <CountUp
-                        end={stat.end}
-                        decimals={stat.decimals}
-                        suffix={stat.suffix}
-                        duration={1400}
-                        startOnView
-                        className="text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-tight"
+              <div className="cases-hero">
+                <div className="cases-hero-copy">
+                  <p className="landing-label">Case Studies</p>
+                  <h1 className="font-display text-3xl sm:text-4xl md:text-[2.75rem] font-semibold tracking-[-0.03em] text-foreground text-balance">
+                    Projects analysed.
+                  </h1>
+                  <p className="mt-5 text-base text-muted-foreground leading-relaxed max-w-xl">
+                    Open a project folder for slides, summary, decision brief and a sample interactive
+                    knowledge map. Client details withheld.
+                  </p>
+
+                  <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6">
+                    {portfolioStats.map((stat) => (
+                      <div key={stat.label} className="flex flex-col gap-1 min-w-[5rem]">
+                        <CountUp
+                          end={stat.end}
+                          decimals={stat.decimals}
+                          suffix={stat.suffix}
+                          duration={1400}
+                          startOnView
+                          className="font-display text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-[-0.03em]"
+                        />
+                        <span className="text-xs text-muted-foreground">{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="cases-hero-photos" aria-label="Energy systems analysed">
+                  {pilots.map((pilot, i) => (
+                    <figure
+                      key={pilot.number}
+                      className={`cases-hero-photo cases-hero-photo-${i + 1}`}
+                    >
+                      <img
+                        src={pilot.image}
+                        alt={pilot.imageAlt}
+                        style={{ objectPosition: pilot.imagePosition }}
+                        loading="eager"
                       />
-                      <span className="text-xs sm:text-sm text-muted-foreground">{stat.label}</span>
-                    </div>
+                      <figcaption>
+                        <span>{pilot.capacity}</span>
+                        <span>Sample image</span>
+                      </figcaption>
+                    </figure>
                   ))}
                 </div>
-                <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-snug mb-4">
-                  Not in months. Not in weeks.{" "}
-                  <span className="text-primary">In a few days.</span>
-                </p>
-                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                  Run decision diligence on your next energy project with Shura, and become
-                  one of our next pilot customers.
-                </p>
               </div>
             </ScrollReveal>
           </div>
         </section>
 
-        <section className="pb-8 sm:pb-12">
-          <div className="container max-w-6xl">
+        <section className="landing-band-dark border-t border-border pb-20 sm:pb-24">
+          <div className="container pt-10 sm:pt-12">
             <ScrollReveal>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-                {pilots.map((pilot) => (
-                  <PilotCard key={pilot.number} pilot={pilot} onOpen={() => setActive(pilot)} />
-                ))}
+              <div className="project-folders">
+                {pilots.map((pilot) => {
+                  const open = openFolder === pilot.number;
+                  return (
+                    <div
+                      key={pilot.number}
+                      className={`project-folder ${open ? "project-folder-open" : ""}`}
+                    >
+                      <button
+                        type="button"
+                        className="project-folder-head"
+                        onClick={() => toggleFolder(pilot.number)}
+                        aria-expanded={open}
+                      >
+                        <span className="project-folder-icon">
+                          {open ? (
+                            <FolderOpen className="h-4 w-4" />
+                          ) : (
+                            <Folder className="h-4 w-4" />
+                          )}
+                        </span>
+                        <span className="project-folder-num">{pilot.number}</span>
+                        <span className="project-folder-cap">{pilot.capacity}</span>
+                        <span className="project-folder-title">{pilot.title}</span>
+                        <span className="project-folder-sector">{pilot.sector}</span>
+                        <ChevronRight
+                          className={`project-folder-chevron h-4 w-4 ${open ? "rotate-90" : ""}`}
+                        />
+                      </button>
+
+                      {open && active && (
+                        <div className="project-folder-body">
+                          <aside className="project-folder-tree" aria-label="Project files">
+                            <p className="project-folder-tree-label">Contents</p>
+                            {FILES.map((file) => {
+                              const Icon = file.icon;
+                              const selected = activeFile === file.id;
+                              return (
+                                <button
+                                  key={file.id}
+                                  type="button"
+                                  className={`project-folder-file ${selected ? "is-active" : ""}`}
+                                  onClick={() => setActiveFile(file.id)}
+                                >
+                                  <Icon className="h-3.5 w-3.5" />
+                                  <span>{file.label}</span>
+                                </button>
+                              );
+                            })}
+                          </aside>
+
+                          <div className="project-folder-pane">
+                            {activeFile === "slides" && (
+                              <div className="project-file-view">
+                                <div className="project-slides-card">
+                                  <div className="project-slides-preview" aria-hidden>
+                                    <div className="project-slides-lines">
+                                      <span />
+                                      <span />
+                                      <span />
+                                    </div>
+                                    <div className="project-slides-panel" />
+                                  </div>
+                                  <div className="project-slides-meta">
+                                    <Presentation className="h-4 w-4 text-primary" />
+                                    <div>
+                                      <p className="font-medium text-foreground">{active.deckLabel}</p>
+                                      <p className="text-xs text-muted-foreground mt-1">
+                                        Slide deck link coming soon
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {activeFile === "summary" && (
+                              <div className="project-file-view">
+                                <div className="cases-gen-media">
+                                  <img
+                                    src={active.image}
+                                    alt={active.imageAlt}
+                                    className="cases-gen-image"
+                                    style={{ objectPosition: active.imagePosition }}
+                                    loading="lazy"
+                                  />
+                                  <div className="cases-gen-media-meta">
+                                    <span className="cases-gen-media-cap">{active.capacity}</span>
+                                    <span className="cases-gen-media-note">Sample image</span>
+                                  </div>
+                                </div>
+
+                                <div className="project-summary-body">
+                                  <div className="cases-gen-detail-head !px-0 !mt-0">
+                                    <div>
+                                      <p className="text-xs text-muted-foreground mb-2">
+                                        {active.sector} · {active.capacity}
+                                      </p>
+                                      <h2 className="font-display text-xl sm:text-2xl font-semibold tracking-[-0.03em] text-foreground">
+                                        {active.title}
+                                      </h2>
+                                      <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                                        {active.summary}
+                                      </p>
+                                    </div>
+                                    <Button
+                                      type="button"
+                                      variant="hero"
+                                      size="sm"
+                                      className="rounded-full shrink-0 h-10 px-4"
+                                      onClick={() =>
+                                        openSignup(`${active.capacity} ${active.title}`)
+                                      }
+                                    >
+                                      Apply for Pilot
+                                      <ArrowRight className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </div>
+
+                                  <div className="cases-gen-grid !px-0">
+                                    <div>
+                                      <h3>Challenge</h3>
+                                      <p>{active.challenge}</p>
+                                    </div>
+                                    <div>
+                                      <h3>Approach</h3>
+                                      <p>{active.approach}</p>
+                                    </div>
+                                    <div>
+                                      <h3>Outcome</h3>
+                                      <p>{active.outcome}</p>
+                                    </div>
+                                  </div>
+
+                                  <div className="cases-gen-disciplines !px-0">
+                                    {active.disciplines.map((d) => (
+                                      <span key={d}>{d}</span>
+                                    ))}
+                                  </div>
+
+                                  <article className="project-summary-article">
+                                    <header className="project-summary-article-header">
+                                      <p className="landing-label">{active.article.eyebrow}</p>
+                                      <h3 className="project-summary-article-title">
+                                        {active.article.title}
+                                      </h3>
+                                    </header>
+
+                                    <div className="project-summary-article-columns">
+                                      {active.article.columns.map((column) => (
+                                        <section key={column.heading}>
+                                          <h4>{column.heading}</h4>
+                                          <p>{column.body}</p>
+                                        </section>
+                                      ))}
+                                    </div>
+                                  </article>
+                                </div>
+                              </div>
+                            )}
+
+                            {activeFile === "map" && (
+                              <div className="project-file-view project-file-map">
+                                <SampleKnowledgeMap
+                                  projectId={active.number}
+                                  projectName={active.title}
+                                  capacity={active.capacity}
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </ScrollReveal>
 
-            <p className="pt-8 text-sm text-muted-foreground/80 leading-relaxed max-w-xl mx-auto text-center">
-              Client details withheld. Imagery is sample photography, not project sites.
+            <p className="pt-10 text-xs text-muted-foreground leading-relaxed">
+              Knowledge map uses sample data only - hub-and-spoke with a flat document cloud, not
+              client files. Not in months. Not in weeks. In a few days.
             </p>
           </div>
         </section>
 
-        <section className="pb-4 sm:pb-6">
-          <div className="container max-w-3xl">
-            <ScrollReveal>
-              <div className="text-center px-2">
-                <p className="text-base sm:text-lg text-foreground/90 leading-relaxed">
-                  We&apos;re currently selecting{" "}
-                  <span className="text-primary font-medium">the first few pilot partners</span>{" "}
-                  to evaluate Shura on real energy infrastructure projects. Partners receive early
-                  access to the platform, dedicated one-to-one support throughout the
-                  evaluation, and the opportunity to shape future product development through
-                  direct feedback.
-                </p>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        <ScrollReveal>
-          <CTASection onOpenSignup={() => openSignup()} />
+        <ScrollReveal delay={40}>
+          <PilotSection onOpenSignup={() => openSignup()} />
         </ScrollReveal>
 
-        <Footer />
+        <ScrollReveal>
+          <Footer />
+        </ScrollReveal>
       </div>
-
-      <PilotModal
-        pilot={active}
-        open={!!active}
-        onOpenChange={(open) => {
-          if (!open) setActive(null);
-        }}
-        onEnquire={() =>
-          openSignup(active ? `${active.capacity} ${active.title}` : "")
-        }
-      />
 
       <PilotEnquiryModal
         open={signupOpen}

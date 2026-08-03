@@ -8,18 +8,19 @@ export default {
     container: {
       center: true,
       padding: {
-        DEFAULT: "1rem",
-        sm: "1.25rem",
-        md: "1.5rem",
-        lg: "2rem",
+        DEFAULT: "0.75rem",
+        sm: "0.75rem",
+        md: "0.75rem",
+        lg: "0.75rem",
       },
       screens: {
-        "2xl": "1200px",
+        "2xl": "72rem",
       },
     },
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "system-ui", "sans-serif"],
+        sans: ["Poppins", "Inter", "system-ui", "sans-serif"],
+        display: ["Inter", "Poppins", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

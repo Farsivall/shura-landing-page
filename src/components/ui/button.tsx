@@ -9,14 +9,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] shadow-lg shadow-primary/20",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-border bg-transparent hover:bg-muted text-foreground",
-        secondary: "bg-muted border border-border text-foreground hover:bg-muted/80",
-        ghost: "text-muted-foreground hover:text-foreground hover:bg-muted",
-        link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] shadow-lg shadow-primary/25 text-base font-semibold",
-        "hero-secondary": "bg-muted border border-border text-foreground hover:bg-muted/80 hover:scale-[1.02] text-base font-medium",
+        outline: "border border-border bg-transparent hover:bg-muted/60 text-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "text-muted-foreground hover:text-foreground hover:bg-muted/50",
+        link: "text-foreground underline-offset-4 hover:underline",
+        hero: "rounded-full bg-[hsl(var(--landing-mint))] text-[hsl(var(--landing-mint-fg))] hover:brightness-105 text-sm font-medium tracking-wide shadow-none",
+        "hero-secondary": "rounded-full border border-foreground/25 bg-transparent text-foreground hover:bg-foreground/5 text-sm font-medium tracking-wide",
       },
       size: {
         default: "h-10 px-4 py-2",

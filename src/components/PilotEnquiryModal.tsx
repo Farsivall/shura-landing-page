@@ -103,23 +103,14 @@ const PilotEnquiryModal = ({ open, onOpenChange, defaultProject = "" }: PilotEnq
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="portfolio-modal max-w-md gap-0 border-border/50 bg-card/90 p-0 overflow-hidden shadow-2xl shadow-black/50 backdrop-blur-2xl sm:rounded-2xl data-[state=open]:animate-none data-[state=closed]:animate-none">
+      <DialogContent className="portfolio-modal max-w-md gap-0 border-border bg-card p-0 overflow-hidden sm:rounded-lg data-[state=open]:animate-none data-[state=closed]:animate-none">
         <div className="relative max-h-[90dvh] overflow-y-auto overscroll-contain px-6 py-8 sm:px-8 sm:py-10">
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-28"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 100% at 50% 0%, hsl(var(--primary) / 0.2), transparent 70%)",
-            }}
-          />
-
           <DialogHeader className="relative space-y-3 text-left mb-6">
-            <DialogTitle className="text-2xl font-semibold tracking-tight">
-              Sign up for the pilot
+            <DialogTitle className="font-display text-2xl font-semibold tracking-[-0.03em]">
+              Apply for Pilot Programme
             </DialogTitle>
             <DialogDescription className="text-sm text-muted-foreground leading-relaxed">
-              Tell us a bit about you and the project. We&apos;ll get back to you with all the
-              details, documentation, and next steps.
+              Tell us about you and the project. We will respond with documentation and next steps.
             </DialogDescription>
           </DialogHeader>
 

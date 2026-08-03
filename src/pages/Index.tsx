@@ -1,58 +1,84 @@
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import GradientBlobs from "@/components/GradientBlobs";
-import BackgroundCards from "@/components/BackgroundCards";
 import ScrollReveal from "@/components/ScrollReveal";
 import HeroSection from "@/components/HeroSection";
-import { WhyNowSection, ProblemSection, CostSection, ToolsFailSection } from "@/components/ProblemSections";
-import { IntroducingSection, LearningAdviserSection, HowItWorksSection, FeaturesSection } from "@/components/ProductSections";
-import { WhoSection, VisionSection, Footer } from "@/components/BottomSections";
-import StatsSection from "@/components/StatsSection";
+import PilotEnquiryModal from "@/components/PilotEnquiryModal";
+import {
+  ProblemSection,
+  SolutionSection,
+  WorkflowSection,
+  OutputsSection,
+  HowItWorksSection,
+  CaseStudiesSection,
+  TechnologySection,
+  CompanySection,
+  PilotSection,
+  FAQSection,
+  Footer,
+} from "@/components/landing/LandingSections";
 
 const Index = () => {
+  const { hash } = useLocation();
+  const navigate = useNavigate();
+  const [signupOpen, setSignupOpen] = useState(false);
+
+  useEffect(() => {
+    if (hash === "#signup" || hash === "#cta") {
+      setSignupOpen(true);
+    }
+  }, [hash]);
+
+  const handleSignupOpenChange = (open: boolean) => {
+    setSignupOpen(open);
+    if (!open && (hash === "#signup" || hash === "#cta")) {
+      navigate("/", { replace: true });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-background relative">
-      <GradientBlobs />
-      <BackgroundCards />
-      <Navbar />
-      <div className="relative z-10">
+    <div className="landing-shell min-h-screen">
+      <main className="landing-canvas page-enter">
+        <Navbar />
         <ScrollReveal>
-          <HeroSection />
+          <HeroSection onOpenSignup={() => setSignupOpen(true)} />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <WhyNowSection />
-        </ScrollReveal>
-        <ScrollReveal className="scroll-section">
+        <ScrollReveal delay={40}>
           <ProblemSection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <CostSection />
+        <ScrollReveal delay={60}>
+          <SolutionSection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <IntroducingSection />
+        <ScrollReveal delay={40}>
+          <WorkflowSection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <LearningAdviserSection />
+        <ScrollReveal delay={60}>
+          <OutputsSection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
+        <ScrollReveal delay={60}>
           <HowItWorksSection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <FeaturesSection />
+        <ScrollReveal delay={40}>
+          <CaseStudiesSection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <StatsSection />
+        <ScrollReveal delay={60}>
+          <TechnologySection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <WhoSection />
+        <ScrollReveal delay={40}>
+          <CompanySection />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <ToolsFailSection />
+        <ScrollReveal delay={60}>
+          <PilotSection onOpenSignup={() => setSignupOpen(true)} />
         </ScrollReveal>
-        <ScrollReveal className="scroll-section">
-          <VisionSection />
+        <ScrollReveal delay={40}>
+          <FAQSection />
         </ScrollReveal>
-        <Footer />
-      </div>
+        <ScrollReveal>
+          <Footer />
+        </ScrollReveal>
+      </main>
+
+      <PilotEnquiryModal open={signupOpen} onOpenChange={handleSignupOpenChange} />
     </div>
   );
 };

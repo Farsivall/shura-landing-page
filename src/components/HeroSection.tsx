@@ -1,76 +1,71 @@
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import HeroVisual from "./HeroVisual";
+import BackgroundCards from "@/components/BackgroundCards";
+import SpecialistCarousel from "@/components/SpecialistCarousel";
+import { CountUp } from "@/components/CountUp";
 
-const evaluationStats = [
-  { value: "79.1 MW", label: "Total analysed" },
-  { value: "3", label: "Projects" },
-  { value: "5", label: "Disciplines" },
-];
+type HeroSectionProps = {
+  onOpenSignup?: () => void;
+};
 
-const HeroSection = () => {
+const HERO_STATS = [
+  { end: 79.1, decimals: 1, suffix: " MW", label: "Capacity analysed" },
+  { end: 3, decimals: 0, suffix: "", label: "Projects analysed" },
+  { end: 800, decimals: 0, suffix: "+", label: "Documents mapped" },
+] as const;
+
+const HeroSection = ({ onOpenSignup }: HeroSectionProps) => {
   return (
-    <section className="hero-3d-section relative pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-44 md:pb-32 bg-grid overflow-x-clip">
-      <div className="hero-depth-plane hero-depth-plane-a" aria-hidden />
-      <div className="hero-depth-plane hero-depth-plane-b" aria-hidden />
-      <div className="hero-orbit-ring" aria-hidden />
-      <div className="hero-orbit-ring hero-orbit-ring-delayed" aria-hidden />
+    <section className="landing-band-dark landing-hero relative pb-12 sm:pb-16 md:pb-20 overflow-hidden">
+      <BackgroundCards />
 
-      <div className="container relative z-10 min-w-0">
-        <div className="max-w-3xl mx-auto text-center min-w-0">
-          <div className="hero-eyebrow mb-6 sm:mb-8">
-            <span className="hero-eyebrow-dot" />
-            Decision intelligence · Energy infrastructure
-          </div>
+      <div className="landing-hero-content relative z-10 pt-16 sm:pt-20 md:pt-28">
+        <div className="container pb-4">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="landing-label mb-8 sm:mb-10">Pilot programme open</p>
 
-          <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] mb-6 sm:mb-8 px-1">
-            <span className="hero-title-line">Know whether a project is worth pursuing</span>
-            <br />
-            <span className="hero-title-accent">before you commit millions.</span>
-          </h1>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-[3.25rem] lg:text-[3.85rem] font-semibold leading-[1.05] tracking-[-0.04em] text-foreground text-balance">
+              Decision Intelligence for Energy Infrastructure.
+            </h1>
 
-          <Link
-            to="/portfolio"
-            className="hero-eval-stats liquid-glass liquid-glass-sm liquid-glass-sheen mx-auto mb-8 sm:mb-10 flex max-w-lg items-stretch justify-center px-1.5 sm:px-2 py-4 sm:py-5 transition-colors hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            aria-label="View analysed portfolio projects"
-          >
-            {evaluationStats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className={`flex flex-1 flex-col items-center gap-1 px-1.5 sm:px-5 min-w-0 ${
-                  i > 0 ? "border-l border-border/60" : ""
-                }`}
+            <p className="mt-6 sm:mt-8 text-base sm:text-lg text-muted-foreground leading-[1.6] tracking-[-0.01em] max-w-2xl mx-auto">
+              Shura is decision intelligence for energy developers: an adviser that learns from your
+              projects, knows your past context, and gets better at helping you decide whether to
+              commit.
+            </p>
+
+            <div className="mt-10 sm:mt-12 flex justify-center">
+              <Button
+                type="button"
+                variant="hero"
+                size="lg"
+                className="min-h-[48px] rounded-full px-7 text-sm tracking-wide"
+                onClick={onOpenSignup}
               >
-                <span className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground tabular-nums tracking-tight">
-                  {stat.value}
-                </span>
-                <span className="text-[11px] sm:text-xs text-muted-foreground">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </Link>
+                Apply for Pilot Programme
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
 
-          <p className="hero-body text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-3 leading-relaxed text-balance px-1">
-            Shura is decision intelligence for energy developers: an adviser that learns from your projects, knows your past context, and gets better at helping you decide whether to commit.
-          </p>
-          <p className="hero-body-sub text-sm text-muted-foreground/90 max-w-xl mx-auto px-1">
-            Evidence-backed pre-evaluation. Full provenance. Context that compounds.
-          </p>
+            <div className="landing-hero-stats" aria-label="Portfolio analysed">
+              {HERO_STATS.map((stat) => (
+                <div key={stat.label} className="landing-hero-stat">
+                  <CountUp
+                    end={stat.end}
+                    decimals={stat.decimals}
+                    suffix={stat.suffix}
+                    duration={1400}
+                    startOnView
+                    className="landing-hero-stat-value"
+                  />
+                  <span className="landing-hero-stat-label">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="mt-14 sm:mt-20 min-w-0">
-          <HeroVisual />
-        </div>
-
-        <div className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button variant="hero" size="xl" asChild className="touch-manipulation w-full sm:w-auto min-h-[48px] hero-cta-3d">
-            <Link to="/portfolio#signup">
-              Sign up for the pilot <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
+        <SpecialistCarousel />
       </div>
     </section>
   );
