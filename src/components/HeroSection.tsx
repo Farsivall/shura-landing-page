@@ -31,8 +31,7 @@ const HeroSection = ({ onOpenSignup }: HeroSectionProps) => {
             <p className="mt-6 sm:mt-8 text-base sm:text-lg text-muted-foreground leading-[1.6] tracking-[-0.01em] max-w-2xl mx-auto">
               Shura is decision intelligence for energy developers: an adviser that learns from your
               projects, knows your past context, and gets better at helping you decide whether to
-              commit. We are currently working with energy developer companies on live hydro and
-              solar programmes.
+              commit.
             </p>
 
             <div className="mt-10 sm:mt-12 flex justify-center">
