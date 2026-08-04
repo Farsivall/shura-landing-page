@@ -8,7 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import KnowledgeMapPreview from "@/components/gen/KnowledgeMapPreview";
+import SampleKnowledgeMap from "@/components/SampleKnowledgeMap";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const Label = ({ children }: { children: ReactNode }) => (
   <p className="landing-label">{children}</p>
@@ -53,43 +54,118 @@ export const ProblemSection = () => (
         { title: "Fragmented evidence", body: "Diligence lives across folders, advisers and inboxes." },
         { title: "No institutional memory", body: "Each project restarts from zero. Prior context walks out." },
         { title: "Slow clarity", body: "Proceed, restructure or walk away arrives too late." },
-      ].map((item) => (
-        <div key={item.title} className="bg-card p-6 sm:p-8">
-          <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-        </div>
+      ].map((item, i) => (
+        <ScrollReveal key={item.title} variant="pop" delay={i * 80}>
+          <div className="bg-card p-6 sm:p-8 h-full">
+            <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+          </div>
+        </ScrollReveal>
       ))}
     </div>
   </Section>
 );
 
 /* ——— Solution ——— */
+const solutionDisciplines = [
+  {
+    label: "Engineering",
+    focus: "Technical viability & execution risk",
+    score: 72,
+    accent: "#7c3aed",
+  },
+  {
+    label: "Finance",
+    focus: "Returns, DSCR & capital structure",
+    score: 81,
+    accent: "#059669",
+  },
+  {
+    label: "Commercial",
+    focus: "Offtake, market & pricing",
+    score: 68,
+    accent: "#d97706",
+  },
+  {
+    label: "Legal",
+    focus: "Contracts, title & consent",
+    score: 74,
+    accent: "#2563eb",
+  },
+  {
+    label: "Tax",
+    focus: "Structure, reliefs & SPV path",
+    score: 79,
+    accent: "#0d9488",
+  },
+] as const;
+
 export const SolutionSection = () => (
   <Section id="solution" tone="dark">
-    <div className="max-w-3xl">
-      <Label>Solution</Label>
-      <h2 className="font-display font-semibold tracking-[-0.03em] text-3xl sm:text-4xl md:text-[2.75rem] leading-tight text-foreground text-balance">
-        Multidisciplinary intelligence before capital locks in.
-      </h2>
-      <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-        Shura turns project evidence into an explainable recommendation: proceed, restructure,
-        or walk away, with provenance across engineering, finance, environment, tax and legal.
-      </p>
-    </div>
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-10 lg:gap-14 items-start">
+      <div>
+        <Label>Solution</Label>
+        <h2 className="font-display font-semibold tracking-[-0.03em] text-3xl sm:text-4xl md:text-[2.75rem] leading-tight text-foreground text-balance">
+          Multidisciplinary intelligence before capital locks in.
+        </h2>
+        <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          From data room to decision-ready evaluation - fully traceable to source evidence.
+        </p>
 
-    <ul className="mt-14 max-w-2xl space-y-0 border border-border rounded-lg divide-y divide-border">
-      {[
-        "One evidence base across disciplines",
-        "Defendable financial model from authoritative sources",
-        "Recommendations you can take to IC and lenders",
-        "Context that compounds across projects",
-      ].map((line) => (
-        <li key={line} className="flex items-start gap-3 px-5 sm:px-6 py-4 text-sm text-foreground">
-          <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" strokeWidth={1.75} />
-          <span>{line}</span>
-        </li>
-      ))}
-    </ul>
+        <ul className="mt-10 max-w-2xl space-y-0 border border-border rounded-lg divide-y divide-border overflow-hidden">
+          {[
+            "Evaluate project viability across engineering, finance and environmental domains.",
+            "Validate the financial model against authoritative project evidence.",
+            "Identify critical risks before investment decisions are made.",
+            "Generate reports that stand up to investment committee and lender scrutiny.",
+          ].map((line, i) => (
+            <li key={line} className="bg-card">
+              <ScrollReveal variant="pop" delay={i * 70}>
+                <div className="flex items-start gap-3 px-5 sm:px-6 py-4 text-sm text-foreground">
+                  <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" strokeWidth={1.75} />
+                  <span>{line}</span>
+                </div>
+              </ScrollReveal>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="lg:-mt-1">
+        <p className="landing-label mb-4">Disciplines</p>
+        <div className="flex flex-col gap-3">
+          {solutionDisciplines.map((d, i) => (
+            <ScrollReveal key={d.label} variant="fromRight" delay={i * 90}>
+              <div
+                className="landing-panel flex items-center gap-4 p-4 sm:p-5"
+                style={{ boxShadow: `inset 3px 0 0 ${d.accent}` }}
+              >
+                <span
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-[11px] font-semibold text-white"
+                  style={{ backgroundColor: d.accent }}
+                  aria-hidden
+                >
+                  {d.label.slice(0, 1)}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="text-sm font-semibold text-foreground">{d.label}</h3>
+                    <span className="text-xs tabular-nums text-muted-foreground">{d.score}</span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-muted-foreground leading-snug">{d.focus}</p>
+                  <div className="mt-2.5 h-px bg-border overflow-hidden">
+                    <div
+                      className="h-full"
+                      style={{ width: `${d.score}%`, backgroundColor: d.accent, opacity: 0.7 }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </div>
   </Section>
 );
 
@@ -134,239 +210,187 @@ export const WorkflowSection = () => (
 
     <div className="mt-12 overflow-x-auto">
       <ol className="grid grid-cols-1 sm:grid-cols-5 gap-px bg-border rounded-lg overflow-hidden min-w-0 sm:min-w-[40rem]">
-        {workflowStages.map((step) => (
+        {workflowStages.map((step, i) => (
           <li
             key={step.n}
-            className={`bg-card p-4 sm:p-5 flex flex-col gap-2 ${
+            className={`bg-card ${
               step.highlight ? "ring-1 ring-inset ring-primary/40 bg-primary/[0.06]" : ""
             }`}
           >
-            <span className="text-[11px] font-medium text-muted-foreground tracking-widest tabular-nums">
-              {step.n}
-            </span>
-            <h3 className="text-sm font-semibold text-foreground leading-snug">{step.stage}</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed">{step.actor}</p>
-            <p
-              className={`text-xs font-medium ${
-                step.highlight ? "text-primary" : "text-muted-foreground/70"
-              }`}
-            >
-              {step.shura === "Here"
-                ? "Shura · Here"
-                : step.shura === "—"
-                  ? "—"
-                  : `Shura · ${step.shura}`}
-            </p>
+            <ScrollReveal variant="pop" delay={i * 70}>
+              <div className="p-4 sm:p-5 flex flex-col gap-2 h-full">
+                <span className="text-[11px] font-medium text-muted-foreground tracking-widest tabular-nums">
+                  {step.n}
+                </span>
+                <h3 className="text-sm font-semibold text-foreground leading-snug">{step.stage}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{step.actor}</p>
+                <p
+                  className={`text-xs font-medium ${
+                    step.highlight ? "text-primary" : "text-muted-foreground/70"
+                  }`}
+                >
+                  {step.shura === "Here"
+                    ? "Shura · Here"
+                    : step.shura === "—"
+                      ? "—"
+                      : `Shura · ${step.shura}`}
+                </p>
+              </div>
+            </ScrollReveal>
           </li>
         ))}
       </ol>
     </div>
 
-    <div className="mt-6 landing-panel p-6 sm:p-7 max-w-3xl border-l-2 border-l-primary">
-      <p className="text-xs font-medium text-primary tracking-widest uppercase mb-3">
-        Stage 3 · Why that saves money
-      </p>
-      <p className="text-sm sm:text-base text-foreground leading-relaxed">
-        One structured pass replaces months of reconstruction spend. Advisors and capital escalate
-        only when the evidence supports it - and weak cases get killed or restructured before the
-        expensive burn starts.
-      </p>
-    </div>
+    <ScrollReveal variant="pop" delay={120}>
+      <div className="mt-6 landing-panel p-6 sm:p-7 max-w-3xl border-l-2 border-l-primary">
+        <p className="text-xs font-medium text-primary tracking-widest uppercase mb-3">
+          Stage 3 · Why that saves money
+        </p>
+        <p className="text-sm sm:text-base text-foreground leading-relaxed">
+          One structured pass replaces months of reconstruction spend. Advisors and capital escalate
+          only when the evidence supports it - and weak cases get killed or restructured before the
+          expensive burn starts.
+        </p>
+      </div>
+    </ScrollReveal>
 
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
-      <div className="landing-panel p-5 sm:p-6">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Shura is for</h3>
-        <ul className="space-y-2.5">
-          {[
-            "A first structured pass across disciplines",
-            "Briefing IC, lenders or consultants with provenance attached",
-          ].map((line) => (
-            <li key={line} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
-              <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" strokeWidth={1.75} />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="landing-panel p-5 sm:p-6">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Shura is not</h3>
-        <ul className="space-y-2.5">
-          {[
-            "A substitute for licensed advice or lender diligence",
-            "A late-stage closing tool once capital terms are set",
-          ].map((line) => (
-            <li key={line} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
-              <span className="mt-2 h-1 w-1 rounded-full bg-muted-foreground/50 shrink-0" aria-hidden />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ScrollReveal variant="pop" delay={80}>
+        <div className="landing-panel p-5 sm:p-6 h-full">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Shura is for</h3>
+          <ul className="space-y-2.5">
+            {[
+              "A first structured pass across disciplines",
+              "Briefing IC, lenders or consultants with provenance attached",
+            ].map((line) => (
+              <li key={line} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
+                <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" strokeWidth={1.75} />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </ScrollReveal>
+      <ScrollReveal variant="pop" delay={160}>
+        <div className="landing-panel p-5 sm:p-6 h-full">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Shura is not</h3>
+          <ul className="space-y-2.5">
+            {[
+              "A substitute for licensed advice or lender diligence",
+              "A late-stage closing tool once capital terms are set",
+            ].map((line) => (
+              <li key={line} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
+                <span className="mt-2 h-1 w-1 rounded-full bg-muted-foreground/50 shrink-0" aria-hidden />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </ScrollReveal>
     </div>
   </Section>
 );
 
 /* ——— Outputs ——— */
-type OutputPreview = {
-  title: string;
-  body: string;
-  preview: ReactNode;
-};
-
-const PreviewShell = ({ children }: { children: ReactNode }) => (
-  <div className="landing-preview">
-    <div className="landing-preview-grid" aria-hidden />
-    <div className="absolute inset-0 p-5 sm:p-8 flex flex-col justify-center">{children}</div>
-  </div>
-);
-
-const outputs: OutputPreview[] = [
+const coreOutputs = [
   {
-    title: "Investment Evaluation",
-    body: "A structured proceed / restructure / walk-away assessment grounded in project evidence.",
-    preview: (
-      <PreviewShell>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-4">Recommendation</p>
-        <p className="font-display font-semibold tracking-[-0.03em] text-2xl sm:text-3xl text-foreground mb-6">Restructure</p>
-        <div className="space-y-2 max-w-sm">
-          {["Engineering risk elevated", "Tariff path requires revision", "Grid connection contingent"].map((line) => (
-            <div key={line} className="flex items-center gap-3 border-t border-border/80 pt-2">
-              <span className="h-px w-4 bg-muted-foreground/50" />
-              <span className="text-xs text-muted-foreground">{line}</span>
-            </div>
-          ))}
-        </div>
-      </PreviewShell>
-    ),
+    title: "Preliminary Project Evaluation (PPE)",
+    body: "Structured early evaluation form - project facts, scores, gaps, recommendation-ready brief.",
+  },
+  {
+    title: "Specialist Decision Analysis",
+    body: "Companion to PPE - how each specialist scored and why (panel rationale).",
+  },
+  {
+    title: "Desktop Site & Physical Risk Assessment",
+    body: "Site / flood / physical-risk read from photos, drawings and evidence.",
   },
   {
     title: "Financial Model",
-    body: "A defendable model built from authoritative sources, ready for investor scrutiny.",
-    preview: (
-      <PreviewShell>
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
-          {[
-            { k: "IRR", v: "11.4%" },
-            { k: "NPV", v: "£42m" },
-            { k: "DSCR", v: "1.28x" },
-          ].map((m) => (
-            <div key={m.k} className="border border-border rounded-md px-3 py-3">
-              <p className="text-[10px] text-muted-foreground mb-1">{m.k}</p>
-              <p className="font-display font-semibold tracking-[-0.03em] text-lg sm:text-xl text-foreground tabular-nums">{m.v}</p>
-            </div>
-          ))}
-        </div>
-        <div className="h-16 sm:h-20 border border-border rounded-md flex items-end gap-1 px-3 pb-2">
-          {[40, 55, 48, 62, 58, 70, 66, 78, 74, 82].map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 bg-primary/35 rounded-sm"
-              style={{ height: `${h}%` }}
-            />
-          ))}
-        </div>
-      </PreviewShell>
-    ),
+    body: "Full technical model documentation - assumptions, cashflows, metrics, provenance.",
   },
   {
-    title: "Engineering Assessment",
-    body: "Technical viability, constraints and risks scored against the data room.",
-    preview: (
-      <PreviewShell>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-5">Discipline scores</p>
-        {[
-          { k: "Civil & structural", v: 72 },
-          { k: "Electromechanical", v: 81 },
-          { k: "Hydrology", v: 64 },
-        ].map((row) => (
-          <div key={row.k} className="mb-4 last:mb-0">
-            <div className="flex justify-between text-xs mb-1.5">
-              <span className="text-muted-foreground">{row.k}</span>
-              <span className="text-foreground tabular-nums">{row.v}</span>
-            </div>
-            <div className="h-px bg-border overflow-hidden">
-              <div className="h-full bg-primary/70" style={{ width: `${row.v}%` }} />
-            </div>
-          </div>
-        ))}
-      </PreviewShell>
-    ),
+    title: "Financial Summary",
+    body: "Executive IC-style brief from the same model (IRR, NPV, DSCR, recommendation).",
+  },
+] as const;
+
+const alsoOutputs = [
+  {
+    title: "Investment Decision Report",
+    body: "Formal investment-decision framing.",
   },
   {
-    title: "Site Assessment",
-    body: "Location, grid and site-level factors that shape deliverability.",
-    preview: (
-      <PreviewShell>
-        <div className="border border-border rounded-md overflow-hidden">
-          <div className="aspect-[16/9] bg-muted/40 relative">
-            <div className="absolute inset-6 border border-dashed border-border/80 rounded-sm" />
-            <div className="absolute left-[28%] top-[34%] h-2 w-2 rounded-full bg-foreground/70" />
-            <div className="absolute left-[52%] top-[48%] h-2 w-2 rounded-full bg-foreground/40" />
-            <div className="absolute left-[40%] top-[58%] h-px w-16 bg-foreground/30 rotate-12 origin-left" />
-          </div>
-          <div className="grid grid-cols-3 divide-x divide-border border-t border-border">
-            {["Grid", "Access", "Env."].map((k) => (
-              <div key={k} className="px-3 py-2.5 text-center">
-                <p className="text-[10px] text-muted-foreground">{k}</p>
-                <p className="text-xs text-foreground mt-0.5">Review</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </PreviewShell>
-    ),
+    title: "Feasibility Assessment",
+    body: "Feasibility-oriented report.",
   },
   {
-    title: "Evidence Intelligence",
-    body: "Every claim traced to source documents. Interrogable, not asserted.",
-    preview: (
-      <PreviewShell>
-        <div className="space-y-3 max-w-md">
-          {[
-            { claim: "P50 generation 118 GWh", src: "Hydrology_Report_v3.pdf · p.24" },
-            { claim: "Capex £61.2m", src: "Financial_Model_Base.xlsx · Capex" },
-            { claim: "Grid offer Q3 2027", src: "DNO_Connection_Letter.pdf" },
-          ].map((row) => (
-            <div key={row.claim} className="border border-border rounded-md px-4 py-3">
-              <p className="text-sm text-foreground mb-1">{row.claim}</p>
-              <p className="text-[11px] text-muted-foreground font-mono">{row.src}</p>
-            </div>
-          ))}
-        </div>
-      </PreviewShell>
-    ),
+    title: "Project Readiness & Gap Assessment",
+    body: "Readiness / gap view.",
   },
-];
+  {
+    title: "Options & Scenario Assessment",
+    body: "Options / scenarios.",
+  },
+] as const;
 
 export const OutputsSection = () => (
   <Section id="outputs" tone="light">
-    <div className="max-w-3xl mb-14 sm:mb-16">
+    <div className="max-w-3xl mb-12 sm:mb-14">
       <Label>Outputs</Label>
       <h2 className="font-display font-semibold tracking-[-0.03em] text-3xl sm:text-4xl md:text-[2.75rem] leading-tight text-foreground text-balance">
         What you receive.
       </h2>
       <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-        Institutional deliverables. One message per output. Built for investment committees.
+        The core diligence pack most projects use first - plus further reports when the decision needs
+        them.
       </p>
     </div>
 
-    <div className="flex flex-col gap-20 sm:gap-28">
-      {outputs.map((item, i) => (
-        <article key={item.title} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-          <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-            <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-3">
-              {String(i + 1).padStart(2, "0")}
-            </p>
-            <h3 className="font-display font-semibold tracking-[-0.03em] text-2xl sm:text-3xl text-foreground mb-4">
-              {item.title}
-            </h3>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-md">
-              {item.body}
-            </p>
-          </div>
-          <div className={`lg:col-span-7 ${i % 2 === 1 ? "lg:order-1" : ""}`}>{item.preview}</div>
-        </article>
-      ))}
+    <div className="max-w-4xl">
+      <ScrollReveal>
+        <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">
+          Core diligence pack
+        </p>
+      </ScrollReveal>
+
+      <ul className="border border-border rounded-lg divide-y divide-border overflow-hidden mb-14 sm:mb-16">
+        {coreOutputs.map((item, i) => (
+          <li key={item.title} className="bg-card">
+            <ScrollReveal variant="pop" delay={i * 60}>
+              <div className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-6 px-5 sm:px-6 py-5 sm:py-6">
+                <span className="text-sm font-medium text-muted-foreground tabular-nums pt-0.5">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1.5">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">{item.body}</p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </li>
+        ))}
+      </ul>
+
+      <ScrollReveal>
+        <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">
+          Also available
+        </p>
+      </ScrollReveal>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        {alsoOutputs.map((item, i) => (
+          <ScrollReveal key={item.title} variant="pop" delay={i * 70}>
+            <div className="landing-panel p-5 sm:p-6 h-full">
+              <h3 className="text-sm font-semibold text-foreground mb-1.5">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
     </div>
   </Section>
 );
@@ -403,16 +427,17 @@ export const HowItWorksSection = () => (
           title: "Decide, and retain context",
           body: "Proceed, restructure or walk away. The next project starts smarter.",
         },
-      ].map((step) => (
-        <li
-          key={step.n}
-          className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-8 py-8 border-b border-border"
-        >
-          <span className="text-sm font-medium text-muted-foreground tabular-nums pt-1">{step.n}</span>
-          <div>
-            <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">{step.body}</p>
-          </div>
+      ].map((step, i) => (
+        <li key={step.n} className="border-b border-border">
+          <ScrollReveal variant="pop" delay={i * 80}>
+            <div className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-8 py-8">
+              <span className="text-sm font-medium text-muted-foreground tabular-nums pt-1">{step.n}</span>
+              <div>
+                <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">{step.body}</p>
+              </div>
+            </div>
+          </ScrollReveal>
         </li>
       ))}
     </ol>
@@ -428,29 +453,46 @@ export const CaseStudiesSection = () => (
         Projects analysed.
       </h2>
       <p className="mt-6 text-base text-muted-foreground leading-relaxed max-w-2xl">
-        Hydro and solar programmes evaluated through Shura. Multidisciplinary diligence in days,
-        not months.
+        Projects from energy developer companies Shura is currently working with. Hydro and solar
+        programmes evaluated in days, not months. Client details withheld.
       </p>
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {[
-        { capacity: "29.1 MW", title: "Multi-site small hydro", sector: "Hydroelectric power station" },
-        { capacity: "11 MW", title: "Single-scheme hydro", sector: "Hydroelectric power station" },
-        { capacity: "39 MW", title: "Utility-scale solar PV", sector: "Solar farm" },
-      ].map((p) => (
-        <Link
-          key={p.title}
-          to="/portfolio"
-          className="landing-panel group p-6 sm:p-7 transition-colors hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          <p className="text-xs text-muted-foreground mb-6">{p.sector}</p>
-          <p className="font-display font-semibold tracking-[-0.03em] text-2xl text-foreground mb-2">{p.capacity}</p>
-          <p className="text-sm text-muted-foreground mb-8">{p.title}</p>
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground group-hover:gap-1.5 transition-all">
-            View case <ArrowUpRight className="h-3.5 w-3.5" />
-          </span>
-        </Link>
+        {
+          capacity: "29.1 MW",
+          title: "Multi-site small hydro",
+          sector: "Hydroelectric power station",
+          angle: "Flood and site evidence read with the financial case.",
+        },
+        {
+          capacity: "11 MW",
+          title: "Single-scheme hydro",
+          sector: "Hydroelectric power station",
+          angle: "An early screen before full diligence spends lock in.",
+        },
+        {
+          capacity: "39 MW",
+          title: "Utility-scale solar PV",
+          sector: "Solar farm",
+          angle: "Returns made inspectable while the workbook stays source of truth.",
+        },
+      ].map((p, i) => (
+        <ScrollReveal key={p.title} variant="pop" delay={i * 90}>
+          <Link
+            to="/portfolio"
+            className="landing-panel group p-6 sm:p-7 h-full block transition-colors hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <p className="text-xs text-muted-foreground mb-6">{p.sector}</p>
+            <p className="font-display font-semibold tracking-[-0.03em] text-2xl text-foreground mb-2">{p.capacity}</p>
+            <p className="text-sm text-muted-foreground mb-3">{p.title}</p>
+            <p className="text-xs text-muted-foreground leading-relaxed mb-8">{p.angle}</p>
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground group-hover:gap-1.5 transition-all">
+              View case <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </Link>
+        </ScrollReveal>
       ))}
     </div>
   </Section>
@@ -473,15 +515,23 @@ export const TechnologySection = () => (
     </div>
 
     <div className="mt-12 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-10 items-start max-w-5xl">
-      <div>
-        <p className="landing-label mb-2">Knowledge map</p>
-        <h3 className="text-base font-semibold text-foreground mb-1">Hub-and-spoke, not a folder tree</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-1 max-w-xl">
-          Every file hangs directly off the project. Decisions cite the evidence cloud; a specialist
-          ring scores those decisions; reports derive from the same spine.
-        </p>
-        <KnowledgeMapPreview />
-      </div>
+      <ScrollReveal variant="pop">
+        <div>
+          <p className="landing-label mb-2">Knowledge map</p>
+          <h3 className="text-base font-semibold text-foreground mb-1">Hub-and-spoke, not a folder tree</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3 max-w-xl">
+            Every file hangs directly off the project. Decisions cite the evidence cloud; a specialist
+            ring scores those decisions; reports derive from the same spine.
+          </p>
+          <div className="landing-sample-km">
+            <SampleKnowledgeMap
+              projectId="02"
+              projectName="Sample hydro programme"
+              capacity="11 MW"
+            />
+          </div>
+        </div>
+      </ScrollReveal>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
         {[
@@ -501,11 +551,13 @@ export const TechnologySection = () => (
             title: "Compounding memory",
             body: "Prior project context retained so the next evaluation starts ahead.",
           },
-        ].map((item) => (
-          <div key={item.title} className="landing-panel p-6">
-            <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-          </div>
+        ].map((item, i) => (
+          <ScrollReveal key={item.title} variant="pop" delay={80 + i * 70}>
+            <div className="landing-panel p-6 h-full">
+              <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+            </div>
+          </ScrollReveal>
         ))}
       </div>
     </div>
@@ -522,7 +574,8 @@ export const CompanySection = () => (
       </h2>
       <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
         Shura serves energy developers, sponsors, investors and advisers who need a clear answer
-        before capital and advisory spend lock in.
+        before capital and advisory spend lock in. We are currently working with energy developer
+        companies on live project evaluations.
       </p>
     </div>
   </Section>
@@ -541,8 +594,9 @@ export const PilotSection = ({ onOpenSignup }: PilotSectionProps) => (
         Evaluate Shura on a real project.
       </h2>
       <p className="mt-6 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
-        We are selecting the first few pilot partners. Partners receive early access, dedicated
-        support throughout the evaluation, and a direct path to shape the product.
+        We are selecting the next pilot partners alongside energy developer companies already
+        evaluating live projects with Shura. Partners receive early access, dedicated support, and a
+        direct path to shape the product.
       </p>
       <div className="mt-10">
         <Button

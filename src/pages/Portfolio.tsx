@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  ArrowRight,
   ChevronRight,
   FileText,
   Folder,
@@ -11,7 +10,6 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ScrollReveal from "@/components/ScrollReveal";
-import { Button } from "@/components/ui/button";
 import { Footer, PilotSection } from "@/components/landing/LandingSections";
 import { CountUp } from "@/components/CountUp";
 import PilotEnquiryModal from "@/components/PilotEnquiryModal";
@@ -33,27 +31,21 @@ const pilots = [
     imageAlt: "Sample aerial view of a hydroelectric dam",
     imagePosition: "center 45%",
     summary:
-      "Sample hub-and-spoke map: 500 flat documents under one project hub, two proceed runs, five specialists, dense cite links, and a stack of derived diligence reports.",
+      "Multi-site run-of-river style programme (~29.1 MW) across related rivers. Large mixed data room with feasibility, hydrology, contracts, finance and site photography - mapped as one hub with a flat evidence cloud.",
     challenge:
-      "Evaluate a multi-site small hydro programme before further capital commitment, with evidence spread across technical, hydrology, and financial workstreams.",
+      "Decide proceed / restructure before further capital, with evidence split across technical, hydrology, contracts and finance - including flood and physical exposure at critical works.",
     approach:
-      "Ingested the data room as a flat evidence cloud and ran cross-discipline analysis through Shura across engineering, finance, commercial, legal and tax.",
+      "Ingested the corpus through Shura as a flat evidence cloud and ran multidisciplinary evaluation across engineering, finance, commercial, legal and tax, with desktop site and physical risk read beside the financial case.",
     outcome:
-      "Ongoing. Pre-evaluation, financial model and technical diligence delivered; model under active review as new materials arrive.",
+      "Ongoing. Pre-evaluation, specialist analysis and site-risk outputs delivered; financial model under review as new materials arrive.",
     disciplines: ["Engineering", "Finance", "Commercial", "Legal", "Tax"],
     deckLabel: "29.1 MW small hydro slide deck",
     article: {
-      eyebrow: "Decision brief",
-      title: "One data room, one proceed call",
-      columns: [
-        {
-          heading: "The ask",
-          body: "Volume was not the problem. The question was which evidence actually moved proceed / restructure once every discipline read the same corpus.",
-        },
-        {
-          heading: "The read",
-          body: "Grid timing, hydrology and land gaps now sit beside the returns case. Pre-evaluation is open as new materials arrive.",
-        },
+      title: "When flood evidence has to sit beside the financial case",
+      paragraphs: [
+        "A multi-site run-of-river programme of about 29.1 MW, with schemes on related rivers under one sponsor. The data room was large and mixed: feasibility and multi-river studies, hydrology, engineering drawings, contracts and permits, a financial workbook, and a substantial set of site photographs.",
+        "The binding question was not only whether the model worked. Site evidence included inundation and physical exposure at critical works. Desktop site and physical risk assessment became part of the evaluation - flood, access and damage read with contracts and returns, not left in a folder no one opens.",
+        "Shura mapped the corpus as one project hub with a flat evidence cloud, two proceed runs, five specialists, and stacked pre-evaluation, specialist and site-risk outputs. The work is ongoing as the financial model continues under review.",
       ],
     },
   },
@@ -66,27 +58,21 @@ const pilots = [
     imageAlt: "Sample view of a hydroelectric dam in a forested valley",
     imagePosition: "center 35%",
     summary:
-      "Sample map with 200 flat documents under the project hub, two proceed runs, specialist scoring, and derived PPE / site-risk reports.",
+      "Standalone ~11 MW hydro with a lighter corpus. Used for an early viability screen before a full advisory process.",
     challenge:
-      "Pressure-test viability of a smaller single-scheme hydro before a fuller advisory or investment process.",
+      "Pressure-test whether engineering, capex, grid and offtake hang together enough to justify spending more on diligence - before consultants and IC get expensive.",
     approach:
-      "Loaded the project corpus into Shura and ran specialist-panel evaluation with preliminary assessment outputs.",
+      "Loaded the smaller project corpus into Shura and ran a short specialist-panel pass across engineering, finance and commercial.",
     outcome:
-      "Ongoing. Specialist scores and decision brief still being refined against further technical and commercial inputs.",
+      "Ongoing. Specialist scores and decision brief still refining as further technical and commercial inputs arrive.",
     disciplines: ["Engineering", "Finance", "Commercial"],
     deckLabel: "11 MW hydro slide deck",
     article: {
-      eyebrow: "Decision brief",
-      title: "A short viability pass before the process gets expensive",
-      columns: [
-        {
-          heading: "The ask",
-          body: "Capex, grid and offtake each had to stand alone. The brief was whether enough coherence existed to justify a fuller advisory process.",
-        },
-        {
-          heading: "The read",
-          body: "Engineering is middling, offtake is soft, and the open gates stay tied to one proceed node rather than separate slide decks.",
-        },
+      title: "A short screen before diligence gets expensive",
+      paragraphs: [
+        "A standalone hydro scheme of about 11 MW, with a lighter corpus than a multi-site programme. The brief was an early viability pass: whether engineering, capex, grid and offtake hang together enough to justify a fuller advisory process.",
+        "This was not a flood-heavy data room. The pressure was coherence - a specialist-panel view across engineering, finance and commercial before consultants and investment committee spend lock in.",
+        "Shura ran that early screen and left a preliminary assessment on the proceed call. Scores and brief are still being refined as further inputs arrive.",
       ],
     },
   },
@@ -99,27 +85,21 @@ const pilots = [
     imageAlt: "Sample aerial view of a utility-scale solar PV farm",
     imagePosition: "center 50%",
     summary:
-      "Sample map with 100 flat documents, two proceed runs at the centre, finance and tax on the specialist ring, and derived diligence reports.",
+      "Utility-scale PV (~39 MW) where the project-finance workbook is the centre of gravity. Focus on returns integrity, financing structure and provenance.",
     challenge:
-      "Validate project returns and financing structure before treating IRR/NPV figures as decision-ready.",
+      "Validate whether IRR, NPV and coverage can leave the spreadsheet and enter a defendable decision - before IC treats model outputs as settled.",
     approach:
-      "Mapped the financial workbook through Shura, stress-testing returns, financing assumptions and provenance.",
+      "Mapped the authoritative financial workbook through Shura, stress-testing returns, debt/equity assumptions and provenance across finance, engineering, commercial and tax.",
     outcome:
       "Ongoing. Financial validation in progress; returns and financing structure under review against the source workbook.",
     disciplines: ["Finance", "Engineering", "Commercial", "Tax"],
     deckLabel: "39 MW solar PV slide deck",
     article: {
-      eyebrow: "Decision brief",
-      title: "Authoritative workbook, returns still under review",
-      columns: [
-        {
-          heading: "The ask",
-          body: "The model was already the source of truth. The job was whether IRR and NPV could leave the workbook and enter a decision.",
-        },
-        {
-          heading: "The read",
-          body: "Sensitivities, lender terms and offtake still move the bridge. Figures stay labelled under review until that package converges.",
-        },
+      title: "When the workbook is already the source of truth",
+      paragraphs: [
+        "A utility-scale solar project of about 39 MW, where the project-finance workbook sat at the centre of gravity: tariff, performance, degradation, debt and equity.",
+        "Engineering and commercial still mattered, but the binding question was financial. Could IRR, NPV and coverage leave the spreadsheet and enter a defendable capital decision - before an investment committee treated the figures as settled?",
+        "Shura mapped the authoritative workbook for returns integrity, financing structure and provenance. Validation continues against the source model.",
       ],
     },
   },
@@ -179,41 +159,48 @@ const Portfolio = () => {
 
         <section className="landing-band-dark pt-16 sm:pt-20 pb-14 sm:pb-16">
           <div className="container">
-            <ScrollReveal>
-              <div className="cases-hero">
+            <div className="cases-hero">
+              <ScrollReveal>
                 <div className="cases-hero-copy">
                   <p className="landing-label">Case Studies</p>
                   <h1 className="font-display text-3xl sm:text-4xl md:text-[2.75rem] font-semibold tracking-[-0.03em] text-foreground text-balance">
                     Projects analysed.
                   </h1>
                   <p className="mt-5 text-base text-muted-foreground leading-relaxed max-w-xl">
-                    Open a project folder for slides, summary, decision brief and a sample interactive
+                    Drawn from programmes Shura is currently working on with energy developer
+                    companies. Open a project folder for slides, summary and a sample interactive
                     knowledge map. Client details withheld.
                   </p>
 
                   <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6">
-                    {portfolioStats.map((stat) => (
-                      <div key={stat.label} className="flex flex-col gap-1 min-w-[5rem]">
-                        <CountUp
-                          end={stat.end}
-                          decimals={stat.decimals}
-                          suffix={stat.suffix}
-                          duration={1400}
-                          startOnView
-                          className="font-display text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-[-0.03em]"
-                        />
-                        <span className="text-xs text-muted-foreground">{stat.label}</span>
-                      </div>
+                    {portfolioStats.map((stat, i) => (
+                      <ScrollReveal key={stat.label} variant="pop" delay={i * 80}>
+                        <div className="flex flex-col gap-1 min-w-[5rem]">
+                          <CountUp
+                            end={stat.end}
+                            decimals={stat.decimals}
+                            suffix={stat.suffix}
+                            duration={1400}
+                            startOnView
+                            className="font-display text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-[-0.03em]"
+                          />
+                          <span className="text-xs text-muted-foreground">{stat.label}</span>
+                        </div>
+                      </ScrollReveal>
                     ))}
                   </div>
                 </div>
+              </ScrollReveal>
 
-                <div className="cases-hero-photos" aria-label="Energy systems analysed">
-                  {pilots.map((pilot, i) => (
-                    <figure
-                      key={pilot.number}
-                      className={`cases-hero-photo cases-hero-photo-${i + 1}`}
-                    >
+              <div className="cases-hero-photos" aria-label="Energy systems analysed">
+                {pilots.map((pilot, i) => (
+                  <ScrollReveal
+                    key={pilot.number}
+                    variant="pop"
+                    delay={100 + i * 90}
+                    className={`cases-hero-photo-wrap cases-hero-photo-${i + 1}`}
+                  >
+                    <figure className="cases-hero-photo">
                       <img
                         src={pilot.image}
                         alt={pilot.imageAlt}
@@ -225,22 +212,21 @@ const Portfolio = () => {
                         <span>Sample image</span>
                       </figcaption>
                     </figure>
-                  ))}
-                </div>
+                  </ScrollReveal>
+                ))}
               </div>
-            </ScrollReveal>
+            </div>
           </div>
         </section>
 
         <section className="landing-band-dark border-t border-border pb-20 sm:pb-24">
           <div className="container pt-10 sm:pt-12">
-            <ScrollReveal>
-              <div className="project-folders">
-                {pilots.map((pilot) => {
+            <div className="project-folders">
+              {pilots.map((pilot, i) => {
                   const open = openFolder === pilot.number;
                   return (
+                    <ScrollReveal key={pilot.number} variant="pop" delay={i * 90}>
                     <div
-                      key={pilot.number}
                       className={`project-folder ${open ? "project-folder-open" : ""}`}
                     >
                       <button
@@ -340,18 +326,6 @@ const Portfolio = () => {
                                         {active.summary}
                                       </p>
                                     </div>
-                                    <Button
-                                      type="button"
-                                      variant="hero"
-                                      size="sm"
-                                      className="rounded-full shrink-0 h-10 px-4"
-                                      onClick={() =>
-                                        openSignup(`${active.capacity} ${active.title}`)
-                                      }
-                                    >
-                                      Apply for Pilot
-                                      <ArrowRight className="h-3.5 w-3.5" />
-                                    </Button>
                                   </div>
 
                                   <div className="cases-gen-grid !px-0">
@@ -377,18 +351,15 @@ const Portfolio = () => {
 
                                   <article className="project-summary-article">
                                     <header className="project-summary-article-header">
-                                      <p className="landing-label">{active.article.eyebrow}</p>
+                                      <p className="landing-label">Summary</p>
                                       <h3 className="project-summary-article-title">
                                         {active.article.title}
                                       </h3>
                                     </header>
 
-                                    <div className="project-summary-article-columns">
-                                      {active.article.columns.map((column) => (
-                                        <section key={column.heading}>
-                                          <h4>{column.heading}</h4>
-                                          <p>{column.body}</p>
-                                        </section>
+                                    <div className="project-summary-article-body">
+                                      {active.article.paragraphs.map((paragraph) => (
+                                        <p key={paragraph.slice(0, 48)}>{paragraph}</p>
                                       ))}
                                     </div>
                                   </article>
@@ -409,10 +380,10 @@ const Portfolio = () => {
                         </div>
                       )}
                     </div>
+                    </ScrollReveal>
                   );
                 })}
               </div>
-            </ScrollReveal>
 
             <p className="pt-10 text-xs text-muted-foreground leading-relaxed">
               Knowledge map uses sample data only - hub-and-spoke with a flat document cloud, not

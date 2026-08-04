@@ -71,28 +71,31 @@ type StoredAnswer = SampleAskResult & { id: string; query: string };
 const SAMPLE_ASKS: Record<string, SampleAskPrompt[]> = {
   "01": [
     {
-      text: "What constrains grid connection timing?",
+      text: "How does flood and site risk affect proceed?",
       result: {
-        confidence: "high",
+        confidence: "medium",
         bullets: [
-          "DNO offer is contingent into Q3 2027, with reinforcement still open.",
-          "Grid impact study flags constraint hours that affect capture price.",
-          "Both proceed runs cite the same grid evidence chain.",
+          "Site photographs and hydrology show inundation and physical exposure at critical works.",
+          "Desktop site and physical risk reports hang off both proceed runs.",
+          "Technical and finance have to weigh that evidence with contracts and the model - not as a footnote.",
         ],
         answer:
-          "Grid timing is the binding near-term constraint. The DNO letter and grid impact study are cited heavily from the proceed decisions; until reinforcement clarity improves, capital commitment stays contingent.",
+          "Physical site risk is part of the proceed call, not a side note. Inundation and damage context at intake and access sits beside hydrology, contracts and the financial workbook; site-risk reports keep that chain visible on both evaluation runs.",
         focus_ids: [
           "dec-proceed-a",
           "dec-proceed-b",
-          "doc-dno",
-          "doc-grid-study",
+          "doc-photo",
+          "doc-hydro",
+          "doc-topo",
           "sp-tech",
-          "rep-ppe-2",
-          "doc-market",
+          "rep-site-1",
+          "rep-site-2",
+          "doc-fit",
         ],
         documents: [
-          { id: "doc-dno", label: "DNO_Connection_Letter.pdf" },
-          { id: "doc-grid-study", label: "Grid_Impact_Study.pdf" },
+          { id: "doc-photo", label: "Site_Photos_Q2.zip" },
+          { id: "doc-hydro", label: "Hydrology_Report_v3.pdf" },
+          { id: "doc-topo", label: "Topographic_Survey.dwg" },
         ],
       },
     },

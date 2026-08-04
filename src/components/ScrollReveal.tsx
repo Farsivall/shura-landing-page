@@ -5,9 +5,16 @@ type ScrollRevealProps = {
   className?: string;
   /** Stagger delay in ms once visible */
   delay?: number;
+  /** rise = blur + slide up (default); pop = scale + short rise; fromRight = slide in from right */
+  variant?: "rise" | "pop" | "fromRight";
 };
 
-const ScrollReveal = ({ children, className = "", delay = 0 }: ScrollRevealProps) => {
+const ScrollReveal = ({
+  children,
+  className = "",
+  delay = 0,
+  variant = "rise",
+}: ScrollRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -42,12 +49,17 @@ const ScrollReveal = ({ children, className = "", delay = 0 }: ScrollRevealProps
 
     const onEnd = (e: TransitionEvent) => {
       if (e.target !== el) return;
-      if (e.propertyName !== "opacity" && e.propertyName !== "filter") return;
+      if (
+        e.propertyName !== "opacity" &&
+        e.propertyName !== "filter" &&
+        e.propertyName !== "transform"
+      ) {
+        return;
+      }
       el.classList.add("scroll-reveal-done");
     };
 
     el.addEventListener("transitionend", onEnd);
-    // Fallback if transitionend is skipped
     const fallback = window.setTimeout(() => el.classList.add("scroll-reveal-done"), 1100);
     return () => {
       el.removeEventListener("transitionend", onEnd);
@@ -55,10 +67,17 @@ const ScrollReveal = ({ children, className = "", delay = 0 }: ScrollRevealProps
     };
   }, [visible]);
 
+  const variantClass =
+    variant === "pop"
+      ? "scroll-reveal-pop"
+      : variant === "fromRight"
+        ? "scroll-reveal-from-right"
+        : "scroll-reveal-rise";
+
   return (
     <div
       ref={ref}
-      className={`scroll-reveal ${visible ? "scroll-reveal-visible" : ""} ${className}`.trim()}
+      className={`scroll-reveal ${variantClass} ${visible ? "scroll-reveal-visible" : ""} ${className}`.trim()}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
