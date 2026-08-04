@@ -41,7 +41,7 @@ const Index = () => {
       <main className="landing-canvas page-enter">
         <Navbar />
         <ScrollReveal>
-          <HeroSection onOpenSignup={() => setSignupOpen(true)} />
+          <HeroSection />
         </ScrollReveal>
         <ScrollReveal>
           <ProblemSection />

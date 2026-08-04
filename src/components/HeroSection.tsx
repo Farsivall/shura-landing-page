@@ -1,12 +1,9 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import BackgroundCards from "@/components/BackgroundCards";
 import SpecialistCarousel from "@/components/SpecialistCarousel";
 import { CountUp } from "@/components/CountUp";
-
-type HeroSectionProps = {
-  onOpenSignup?: () => void;
-};
 
 const HERO_STATS = [
   { end: 79.1, decimals: 1, suffix: " MW", label: "Capacity analysed" },
@@ -14,7 +11,7 @@ const HERO_STATS = [
   { end: 800, decimals: 0, suffix: "+", label: "Documents mapped" },
 ] as const;
 
-const HeroSection = ({ onOpenSignup }: HeroSectionProps) => {
+const HeroSection = () => {
   return (
     <section className="landing-band-dark landing-hero relative pb-12 sm:pb-16 md:pb-20 overflow-hidden">
       <BackgroundCards />
@@ -36,14 +33,15 @@ const HeroSection = ({ onOpenSignup }: HeroSectionProps) => {
 
             <div className="mt-10 sm:mt-12 flex justify-center">
               <Button
-                type="button"
+                asChild
                 variant="hero"
                 size="lg"
                 className="min-h-[48px] rounded-full px-7 text-sm tracking-wide"
-                onClick={onOpenSignup}
               >
-                Apply for Pilot Programme
-                <ArrowRight className="h-4 w-4" />
+                <Link to="/portfolio">
+                  Case Studies
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
 
