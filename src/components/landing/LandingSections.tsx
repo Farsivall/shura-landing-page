@@ -9,7 +9,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import SampleKnowledgeMap from "@/components/SampleKnowledgeMap";
-import ScrollReveal from "@/components/ScrollReveal";
 
 const Label = ({ children }: { children: ReactNode }) => (
   <p className="landing-label">{children}</p>
@@ -54,13 +53,11 @@ export const ProblemSection = () => (
         { title: "Fragmented evidence", body: "Diligence lives across folders, advisers and inboxes." },
         { title: "No institutional memory", body: "Each project restarts from zero. Prior context walks out." },
         { title: "Slow clarity", body: "Proceed, restructure or walk away arrives too late." },
-      ].map((item, i) => (
-        <ScrollReveal key={item.title} variant="pop" delay={i * 80}>
-          <div className="bg-card p-6 sm:p-8 h-full">
-            <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-          </div>
-        </ScrollReveal>
+      ].map((item) => (
+        <div key={item.title} className="bg-card p-6 sm:p-8 h-full">
+          <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+        </div>
       ))}
     </div>
   </Section>
@@ -118,14 +115,12 @@ export const SolutionSection = () => (
             "Validate the financial model against authoritative project evidence.",
             "Identify critical risks before investment decisions are made.",
             "Generate reports that stand up to investment committee and lender scrutiny.",
-          ].map((line, i) => (
+          ].map((line) => (
             <li key={line} className="bg-card">
-              <ScrollReveal variant="pop" delay={i * 70}>
-                <div className="flex items-start gap-3 px-5 sm:px-6 py-4 text-sm text-foreground">
-                  <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" strokeWidth={1.75} />
-                  <span>{line}</span>
-                </div>
-              </ScrollReveal>
+              <div className="flex items-start gap-3 px-5 sm:px-6 py-4 text-sm text-foreground">
+                <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" strokeWidth={1.75} />
+                <span>{line}</span>
+              </div>
             </li>
           ))}
         </ul>
@@ -134,12 +129,12 @@ export const SolutionSection = () => (
       <div className="lg:-mt-1">
         <p className="landing-label mb-4">Disciplines</p>
         <div className="flex flex-col gap-3">
-          {solutionDisciplines.map((d, i) => (
-            <ScrollReveal key={d.label} variant="fromRight" delay={i * 90}>
-              <div
-                className="landing-panel flex items-center gap-4 p-4 sm:p-5"
-                style={{ boxShadow: `inset 3px 0 0 ${d.accent}` }}
-              >
+          {solutionDisciplines.map((d) => (
+            <div
+              key={d.label}
+              className="landing-panel flex items-center gap-4 p-4 sm:p-5"
+              style={{ boxShadow: `inset 3px 0 0 ${d.accent}` }}
+            >
                 <span
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-[11px] font-semibold text-white"
                   style={{ backgroundColor: d.accent }}
@@ -161,7 +156,6 @@ export const SolutionSection = () => (
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
           ))}
         </div>
       </div>
@@ -217,8 +211,7 @@ export const WorkflowSection = () => (
               step.highlight ? "ring-1 ring-inset ring-primary/40 bg-primary/[0.06]" : ""
             }`}
           >
-            <ScrollReveal variant="pop" delay={i * 70}>
-              <div className="p-4 sm:p-5 flex flex-col gap-2 h-full">
+            <div className="p-4 sm:p-5 flex flex-col gap-2 h-full">
                 <span className="text-[11px] font-medium text-muted-foreground tracking-widest tabular-nums">
                   {step.n}
                 </span>
@@ -236,14 +229,12 @@ export const WorkflowSection = () => (
                       : `Shura · ${step.shura}`}
                 </p>
               </div>
-            </ScrollReveal>
           </li>
         ))}
       </ol>
     </div>
 
-    <ScrollReveal variant="pop" delay={120}>
-      <div className="mt-6 landing-panel p-6 sm:p-7 max-w-3xl border-l-2 border-l-primary">
+    <div className="mt-6 landing-panel p-6 sm:p-7 max-w-3xl border-l-2 border-l-primary">
         <p className="text-xs font-medium text-primary tracking-widest uppercase mb-3">
           Stage 3 · Why that saves money
         </p>
@@ -253,11 +244,9 @@ export const WorkflowSection = () => (
           expensive burn starts.
         </p>
       </div>
-    </ScrollReveal>
 
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
-      <ScrollReveal variant="pop" delay={80}>
-        <div className="landing-panel p-5 sm:p-6 h-full">
+      <div className="landing-panel p-5 sm:p-6 h-full">
           <h3 className="text-sm font-semibold text-foreground mb-3">Shura is for</h3>
           <ul className="space-y-2.5">
             {[
@@ -271,9 +260,7 @@ export const WorkflowSection = () => (
             ))}
           </ul>
         </div>
-      </ScrollReveal>
-      <ScrollReveal variant="pop" delay={160}>
-        <div className="landing-panel p-5 sm:p-6 h-full">
+      <div className="landing-panel p-5 sm:p-6 h-full">
           <h3 className="text-sm font-semibold text-foreground mb-3">Shura is not</h3>
           <ul className="space-y-2.5">
             {[
@@ -287,7 +274,6 @@ export const WorkflowSection = () => (
             ))}
           </ul>
         </div>
-      </ScrollReveal>
     </div>
   </Section>
 );
@@ -349,17 +335,14 @@ export const OutputsSection = () => (
     </div>
 
     <div className="max-w-4xl">
-      <ScrollReveal>
-        <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">
+      <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">
           Core diligence pack
         </p>
-      </ScrollReveal>
 
       <ul className="border border-border rounded-lg divide-y divide-border overflow-hidden mb-14 sm:mb-16">
         {coreOutputs.map((item, i) => (
           <li key={item.title} className="bg-card">
-            <ScrollReveal variant="pop" delay={i * 60}>
-              <div className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-6 px-5 sm:px-6 py-5 sm:py-6">
+            <div className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-6 px-5 sm:px-6 py-5 sm:py-6">
                 <span className="text-sm font-medium text-muted-foreground tabular-nums pt-0.5">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -370,25 +353,20 @@ export const OutputsSection = () => (
                   <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">{item.body}</p>
                 </div>
               </div>
-            </ScrollReveal>
           </li>
         ))}
       </ul>
 
-      <ScrollReveal>
-        <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">
+      <p className="text-xs font-medium text-muted-foreground tracking-widest uppercase mb-4">
           Also available
         </p>
-      </ScrollReveal>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-        {alsoOutputs.map((item, i) => (
-          <ScrollReveal key={item.title} variant="pop" delay={i * 70}>
-            <div className="landing-panel p-5 sm:p-6 h-full">
-              <h3 className="text-sm font-semibold text-foreground mb-1.5">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-            </div>
-          </ScrollReveal>
+        {alsoOutputs.map((item) => (
+          <div key={item.title} className="landing-panel p-5 sm:p-6 h-full">
+            <h3 className="text-sm font-semibold text-foreground mb-1.5">{item.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+          </div>
         ))}
       </div>
     </div>
@@ -429,15 +407,13 @@ export const HowItWorksSection = () => (
         },
       ].map((step, i) => (
         <li key={step.n} className="border-b border-border">
-          <ScrollReveal variant="pop" delay={i * 80}>
-            <div className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-8 py-8">
+          <div className="grid grid-cols-[3rem_1fr] sm:grid-cols-[4rem_1fr] gap-4 sm:gap-8 py-8">
               <span className="text-sm font-medium text-muted-foreground tabular-nums pt-1">{step.n}</span>
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">{step.body}</p>
               </div>
             </div>
-          </ScrollReveal>
         </li>
       ))}
     </ol>
@@ -478,21 +454,20 @@ export const CaseStudiesSection = () => (
           sector: "Solar farm",
           angle: "Returns made inspectable while the workbook stays source of truth.",
         },
-      ].map((p, i) => (
-        <ScrollReveal key={p.title} variant="pop" delay={i * 90}>
-          <Link
-            to="/portfolio"
-            className="landing-panel group p-6 sm:p-7 h-full block transition-colors hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <p className="text-xs text-muted-foreground mb-6">{p.sector}</p>
-            <p className="font-display font-semibold tracking-[-0.03em] text-2xl text-foreground mb-2">{p.capacity}</p>
-            <p className="text-sm text-muted-foreground mb-3">{p.title}</p>
-            <p className="text-xs text-muted-foreground leading-relaxed mb-8">{p.angle}</p>
-            <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground group-hover:gap-1.5 transition-all">
-              View case <ArrowUpRight className="h-3.5 w-3.5" />
-            </span>
-          </Link>
-        </ScrollReveal>
+      ].map((p) => (
+        <Link
+          key={p.title}
+          to="/portfolio"
+          className="landing-panel group p-6 sm:p-7 h-full block transition-colors hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <p className="text-xs text-muted-foreground mb-6">{p.sector}</p>
+          <p className="font-display font-semibold tracking-[-0.03em] text-2xl text-foreground mb-2">{p.capacity}</p>
+          <p className="text-sm text-muted-foreground mb-3">{p.title}</p>
+          <p className="text-xs text-muted-foreground leading-relaxed mb-8">{p.angle}</p>
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground group-hover:gap-1.5 transition-all">
+            View case <ArrowUpRight className="h-3.5 w-3.5" />
+          </span>
+        </Link>
       ))}
     </div>
   </Section>
@@ -515,8 +490,7 @@ export const TechnologySection = () => (
     </div>
 
     <div className="mt-12 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-10 items-start max-w-5xl">
-      <ScrollReveal variant="pop">
-        <div>
+      <div>
           <p className="landing-label mb-2">Knowledge map</p>
           <h3 className="text-base font-semibold text-foreground mb-1">Hub-and-spoke, not a folder tree</h3>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3 max-w-xl">
@@ -531,7 +505,6 @@ export const TechnologySection = () => (
             />
           </div>
         </div>
-      </ScrollReveal>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
         {[
@@ -551,13 +524,11 @@ export const TechnologySection = () => (
             title: "Compounding memory",
             body: "Prior project context retained so the next evaluation starts ahead.",
           },
-        ].map((item, i) => (
-          <ScrollReveal key={item.title} variant="pop" delay={80 + i * 70}>
-            <div className="landing-panel p-6 h-full">
-              <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
-            </div>
-          </ScrollReveal>
+        ].map((item) => (
+          <div key={item.title} className="landing-panel p-6 h-full">
+            <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+          </div>
         ))}
       </div>
     </div>

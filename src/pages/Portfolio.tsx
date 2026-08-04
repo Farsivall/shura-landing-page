@@ -157,10 +157,10 @@ const Portfolio = () => {
       <div className="landing-canvas page-enter">
         <Navbar />
 
-        <section className="landing-band-dark pt-16 sm:pt-20 pb-14 sm:pb-16">
-          <div className="container">
-            <div className="cases-hero">
-              <ScrollReveal>
+        <ScrollReveal>
+          <section className="landing-band-dark pt-16 sm:pt-20 pb-14 sm:pb-16">
+            <div className="container">
+              <div className="cases-hero">
                 <div className="cases-hero-copy">
                   <p className="landing-label">Case Studies</p>
                   <h1 className="font-display text-3xl sm:text-4xl md:text-[2.75rem] font-semibold tracking-[-0.03em] text-foreground text-balance">
@@ -173,34 +173,28 @@ const Portfolio = () => {
                   </p>
 
                   <div className="mt-10 flex flex-wrap gap-x-10 gap-y-6">
-                    {portfolioStats.map((stat, i) => (
-                      <ScrollReveal key={stat.label} variant="pop" delay={i * 80}>
-                        <div className="flex flex-col gap-1 min-w-[5rem]">
-                          <CountUp
-                            end={stat.end}
-                            decimals={stat.decimals}
-                            suffix={stat.suffix}
-                            duration={1400}
-                            startOnView
-                            className="font-display text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-[-0.03em]"
-                          />
-                          <span className="text-xs text-muted-foreground">{stat.label}</span>
-                        </div>
-                      </ScrollReveal>
+                    {portfolioStats.map((stat) => (
+                      <div key={stat.label} className="flex flex-col gap-1 min-w-[5rem]">
+                        <CountUp
+                          end={stat.end}
+                          decimals={stat.decimals}
+                          suffix={stat.suffix}
+                          duration={1400}
+                          startOnView
+                          className="font-display text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-[-0.03em]"
+                        />
+                        <span className="text-xs text-muted-foreground">{stat.label}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
-              </ScrollReveal>
 
-              <div className="cases-hero-photos" aria-label="Energy systems analysed">
-                {pilots.map((pilot, i) => (
-                  <ScrollReveal
-                    key={pilot.number}
-                    variant="pop"
-                    delay={100 + i * 90}
-                    className={`cases-hero-photo-wrap cases-hero-photo-${i + 1}`}
-                  >
-                    <figure className="cases-hero-photo">
+                <div className="cases-hero-photos" aria-label="Energy systems analysed">
+                  {pilots.map((pilot, i) => (
+                    <figure
+                      key={pilot.number}
+                      className={`cases-hero-photo cases-hero-photo-${i + 1}`}
+                    >
                       <img
                         src={pilot.image}
                         alt={pilot.imageAlt}
@@ -212,21 +206,22 @@ const Portfolio = () => {
                         <span>Sample image</span>
                       </figcaption>
                     </figure>
-                  </ScrollReveal>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </ScrollReveal>
 
         <section className="landing-band-dark border-t border-border pb-20 sm:pb-24">
           <div className="container pt-10 sm:pt-12">
-            <div className="project-folders">
-              {pilots.map((pilot, i) => {
+            <ScrollReveal>
+              <div className="project-folders">
+              {pilots.map((pilot) => {
                   const open = openFolder === pilot.number;
                   return (
-                    <ScrollReveal key={pilot.number} variant="pop" delay={i * 90}>
                     <div
+                      key={pilot.number}
                       className={`project-folder ${open ? "project-folder-open" : ""}`}
                     >
                       <button
@@ -380,10 +375,10 @@ const Portfolio = () => {
                         </div>
                       )}
                     </div>
-                    </ScrollReveal>
                   );
                 })}
               </div>
+            </ScrollReveal>
 
             <p className="pt-10 text-xs text-muted-foreground leading-relaxed">
               Knowledge map uses sample data only - hub-and-spoke with a flat document cloud, not
@@ -392,7 +387,7 @@ const Portfolio = () => {
           </div>
         </section>
 
-        <ScrollReveal delay={40}>
+        <ScrollReveal>
           <PilotSection onOpenSignup={() => openSignup()} />
         </ScrollReveal>
 

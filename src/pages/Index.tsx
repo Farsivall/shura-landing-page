@@ -43,34 +43,34 @@ const Index = () => {
         <ScrollReveal>
           <HeroSection onOpenSignup={() => setSignupOpen(true)} />
         </ScrollReveal>
-        <ScrollReveal delay={40}>
+        <ScrollReveal>
           <ProblemSection />
         </ScrollReveal>
-        <ScrollReveal delay={60}>
+        <ScrollReveal>
           <SolutionSection />
         </ScrollReveal>
-        <ScrollReveal delay={40}>
+        <ScrollReveal>
           <WorkflowSection />
         </ScrollReveal>
-        <ScrollReveal delay={60}>
+        <ScrollReveal>
           <OutputsSection />
         </ScrollReveal>
-        <ScrollReveal delay={60}>
+        <ScrollReveal>
           <HowItWorksSection />
         </ScrollReveal>
-        <ScrollReveal delay={40}>
+        <ScrollReveal>
           <CaseStudiesSection />
         </ScrollReveal>
-        <ScrollReveal delay={60}>
+        <ScrollReveal>
           <TechnologySection />
         </ScrollReveal>
-        <ScrollReveal delay={40}>
+        <ScrollReveal>
           <CompanySection />
         </ScrollReveal>
-        <ScrollReveal delay={60}>
+        <ScrollReveal>
           <PilotSection onOpenSignup={() => setSignupOpen(true)} />
         </ScrollReveal>
-        <ScrollReveal delay={40}>
+        <ScrollReveal>
           <FAQSection />
         </ScrollReveal>
         <ScrollReveal>

@@ -91,7 +91,7 @@ const HeroVisual = () => {
           </span>
         </div>
         <div className={`hero-stage-body ${specialistsActive ? "hero-stage-body-in" : ""}`}>
-          <SpecialistRing reveal={false} animateBars={specialistsActive} />
+          <SpecialistRing animateBars={specialistsActive} />
         </div>
       </div>
 

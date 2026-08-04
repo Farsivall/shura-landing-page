@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import { Scale, TrendingUp, Code, Calculator, Briefcase } from "lucide-react";
-import ScrollReveal from "./ScrollReveal";
 
 const specialists = [
   {
@@ -46,15 +45,13 @@ const specialists = [
 ];
 
 type SpecialistRingProps = {
-  /** Wrap in ScrollReveal (default true for standalone use). */
-  reveal?: boolean;
   /** Run looping progress bars. */
   animateBars?: boolean;
 };
 
 /** Static specialist panel with looping fill bars — no 3D spin. */
-const SpecialistRing = ({ reveal = true, animateBars = true }: SpecialistRingProps) => {
-  const panel = (
+const SpecialistRing = ({ animateBars = true }: SpecialistRingProps) => {
+  return (
     <div className="relative mx-auto w-full max-w-4xl select-none" aria-hidden>
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-24 rounded-[100%] bg-primary/10 blur-3xl"
@@ -105,9 +102,6 @@ const SpecialistRing = ({ reveal = true, animateBars = true }: SpecialistRingPro
       </div>
     </div>
   );
-
-  if (!reveal) return panel;
-  return <ScrollReveal delay={120}>{panel}</ScrollReveal>;
 };
 
 export default SpecialistRing;
